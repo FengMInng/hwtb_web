@@ -7,13 +7,13 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <meta name="author" content="Mfeng" />
-<link rel="icon" href="{% static 'favicon.ico'%}" type="image/x-icon" />
-<link rel="shortcut icon" href="{% static 'favicon.ico'%}"type="image/x-icon" />
+<link rel="icon" href="{% static 'main/favicon.ico'%}" type="image/x-icon" />
+<link rel="shortcut icon" href="{% static 'main/favicon.ico'%}"type="image/x-icon" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"> <!--适应小屏幕-->
 <meta content="no" http-equiv="imagetoolbar">
 
-<script type="text/javascript" src="{% static 'skin/js/jquery-1.8.3.min.js' %}"></script>
-<script src="{ static 'skin/js/jquery.SuperSlide.2.1.1.js' %}" type="text/javascript" ></script>
+<script type="text/javascript" src="{% static 'main/skin/js/jquery-1.8.3.min.js' %}"></script>
+<script src="{% static 'main/skin/js/jquery.SuperSlide.2.1.1.js' %}" type="text/javascript" ></script>
 <script type="text/javascript">
 window.onerror=function(){return true;};
 window.onload=function()
@@ -23,29 +23,15 @@ document.links$[ii].onfocus=function(){this.blur()}
 }
 </script>
 <!--浏览器图标-->
-<link rel="stylesheet" href="{% static 'skin/css/style-reset.css' %}" type="text/css" />
-<link rel="stylesheet" href="{% static 'skin/css/style_pc.css' %}" />
-{% if pc_style_color is None or pc_style_color=='1' %}
-<link href="{% static 'skin/css/pc1.css' %}" rel="stylesheet" /> 
-{% elif pc_style_color=='2' %}
-<link href="{% static 'skin/css/pc2.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='3' %}
-<link href="{% static 'skin/css/pc3.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='4' %}
-<link href="{% static 'skin/css/pc4.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='5' %}
-<link href="{% static 'skin/css/pc5.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='6' %}
-<link href="{% static 'skin/css/pc6.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='7' %}
-<link href="{% static 'skin/css/pc7.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='8' %}
-<link href="{% static 'skin/css/pc8.css' %}" rel="stylesheet" /> 
-{%  elif pc_style_color=='9' %}
-<link href="{% static 'skin/css/pc9.css' %}" rel="stylesheet" /> 
+<link rel="stylesheet" href="{% static 'main/skin/css/style-reset.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'main/skin/css/style_pc.css' %}" />
+{% if pc_style_color < 1 or pc_style_color >9%}
+<link href="{% static 'main/skin/css/pc1.css' %}" rel="stylesheet" /> 
+{% else %}
+<link href="{% static 'main/skin/css/pc{{pc_style_color}}.css' %}" rel="stylesheet" /> 
 {% endif %} 
 </head>
-{% if shield_right_key=='1'}
+{% ifequal shield_right_key 1}
 <body oncontextmenu="return false" onselectstart="return false">
 <noscript><iframe src="/*.html>"></iframe></noscript>
 <script>
@@ -59,15 +45,15 @@ document.oncontextmenu=stop;
 {/if}
 <!--[if (gte IE 9)|!(IE)]><!-->
 <!--搜索框/语言切换-->
-<script src="{% static 'skin/js/jquery.reveal.js' %}" type="text/javascript" ></script>
+<script src="{% static 'main/skin/js/jquery.reveal.js' %}" type="text/javascript" ></script>
 <a class="btn-lang big-link" data-reveal-id="mylang" data-animation="fade"></a>
 <a class="btn-search big-link" data-reveal-id="myModal" data-animation="fade"></a>
 <div id="mylang" class="reveal-modal">
 <a class="close-reveal-modal">&#215;</a>
 <div class="blank30"></div>
 <a id="StranLink" name="StranLink">繁體</a>
-{loop getwebsite() $d}
-<a href="{$d['url']}">{$d[name]}</a>
+<!-- {loop getwebsite() $d} -->
+<a href="">{}</a>
 {/loop}
 </div>
 
@@ -84,34 +70,26 @@ document.oncontextmenu=stop;
 
 <!-- 网站导航 -->
 <div class="nav box">
-<div class="logo"><a title="{get(sitename)}" href="{$base_url}/"><img src="{get('site_logo')}" alt="{get(sitename)}" width="{get(logo_width)}" /></a></div>
+<div class="logo">
+	<a title="{{sitename}}" href="/">
+		<img src="{% static 'main/log.png' %}" alt="{{sitename}}" width="{{logo_width}}" />
+	</a>
+</div>
 <ul id="nav"> 
-<li class="one{if $topid==0} on{/if}"><a href="{$base_url}/">{lang(homepage)}</a></li>
-{loop categories_nav() $t}
-<li class="one{if isset($topid) && $topid==$t[catid]} on{/if}"><a href="{$t[url]}" target="{if config::get('nav_blank')==1} _blank{/if}">{$t[catname]}</a>
-{if count(categories($t[catid]))}<ul>
+<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="/">首页</a></li>
+<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="#">产品中心</a>
+<UL>
 <div class="blank10"></div>
-{loop categories($t[catid]) $t1}
-<li><a href="{$t1[url]}">{$t1[catname]}</a>
-{if count(categories($t1[catid]))}<ul>{loop categories($t1[catid]) $t2}
-<li><a href="{$t2[url]}">{$t2[catname]}</a>
-{if count(categories($t2[catid]))}<ul>{loop categories($t2[catid]) $t3}
-<li><a href="{$t3[url]}">{$t3[catname]}</a>
-{if count(categories($t3[catid]))}<ul>{loop categories($t3[catid]) $t4}
-<li><a href="{$t4[url]}">{$t4[catname]}</a>
-{if count(categories($t4[catid]))}<ul>{loop categories($t4[catid]) $t5}
-<li><a href="{$t5[url]}">{$t5[catname]}</a></li> 
-{/loop}</ul>{/if}
+{% for category in categories %}
+<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="" >{{ category['name']}}</a>
+	<ul>
+		{% for product in category.products %}
+		{% endfor %}
+	</ul
 </li> 
-{/loop}</ul>{/if}
-</li>
-{/loop}</ul>{/if}
-</li>
-{/loop}</ul>{/if}
-</li> 
-{/loop}</ul>{/if}
-</li>{/loop}
+{% endfor %}
 </ul>
+</li>
 </div>
 <!-- 导航结束 -->
 
@@ -125,9 +103,6 @@ document.oncontextmenu=stop;
 <div class="clearall"></div>
 
 
-{template 'system/slide.html'}
-
-
 <!--/w_set-->
 
 <div class="clearall"></div>
@@ -136,21 +111,16 @@ document.oncontextmenu=stop;
 <div class="footer_url">
 <section class="wow fadeInUp" data-wow-delay="0.6s">
 <div class="w_set">
-{tag_页底栏目一}
-
-{tag_页底栏目二}
 
 
 <dl>
 <dt>{lang(special)}</dt>
 <dd>
-{loop special::listdata(8) $special}
-<a href="{$special[url]}" title="{$special[title]}">{lang(contentspecial)}</a>
+{% for special $specials}
+<a href="{{special['url']}}" title="{{special['title']}}">{{special['contentspecial']}}</a>
 {/loop}
 </dd>
 </dl>
-
-
 
 
 <div class="w_470  l_r" style="float:right;"> 
