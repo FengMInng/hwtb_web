@@ -1,0 +1,377 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block title %}北京华威天宝科技有限公司{% endblock %}</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="Mfeng" />
+<link rel="icon" href="{% static 'favicon.ico'%}" type="image/x-icon" />
+<link rel="shortcut icon" href="{% static 'favicon.ico'%}"type="image/x-icon" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"> <!--适应小屏幕-->
+<meta content="no" http-equiv="imagetoolbar">
+
+<script type="text/javascript" src="{% static 'skin/js/jquery-1.8.3.min.js' %}"></script>
+<script src="{ static 'skin/js/jquery.SuperSlide.2.1.1.js' %}" type="text/javascript" ></script>
+<script type="text/javascript">
+window.onerror=function(){return true;};
+window.onload=function()
+{
+for(var ii=0; ii<document.links.length; ii++)
+document.links$[ii].onfocus=function(){this.blur()}
+}
+</script>
+<!--浏览器图标-->
+<link rel="stylesheet" href="{% static 'skin/css/style-reset.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'skin/css/style_pc.css' %}" />
+{% if pc_style_color is None or pc_style_color=='1' %}
+<link href="{% static 'skin/css/pc1.css' %}" rel="stylesheet" /> 
+{% elif pc_style_color=='2' %}
+<link href="{% static 'skin/css/pc2.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='3' %}
+<link href="{% static 'skin/css/pc3.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='4' %}
+<link href="{% static 'skin/css/pc4.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='5' %}
+<link href="{% static 'skin/css/pc5.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='6' %}
+<link href="{% static 'skin/css/pc6.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='7' %}
+<link href="{% static 'skin/css/pc7.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='8' %}
+<link href="{% static 'skin/css/pc8.css' %}" rel="stylesheet" /> 
+{%  elif pc_style_color=='9' %}
+<link href="{% static 'skin/css/pc9.css' %}" rel="stylesheet" /> 
+{% endif %} 
+</head>
+{% if shield_right_key=='1'}
+<body oncontextmenu="return false" onselectstart="return false">
+<noscript><iframe src="/*.html>"></iframe></noscript>
+<script>
+function stop(){
+return false;
+}
+document.oncontextmenu=stop;
+</script>
+{% else %}
+<body>
+{/if}
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--搜索框/语言切换-->
+<script src="{% static 'skin/js/jquery.reveal.js' %}" type="text/javascript" ></script>
+<a class="btn-lang big-link" data-reveal-id="mylang" data-animation="fade"></a>
+<a class="btn-search big-link" data-reveal-id="myModal" data-animation="fade"></a>
+<div id="mylang" class="reveal-modal">
+<a class="close-reveal-modal">&#215;</a>
+<div class="blank30"></div>
+<a id="StranLink" name="StranLink">繁體</a>
+{loop getwebsite() $d}
+<a href="{$d['url']}">{$d[name]}</a>
+{/loop}
+</div>
+
+<div id="myModal" class="reveal-modal">
+<form name='search' action="main/search" onsubmit="search_check();" method="post">
+<input type="text" name="keyword" value="" placeholder="{lang(pleaceinputtext)}" class="top_text" />
+<input name='submit' type="submit" value=" {lang('search')} " align="middle" class="top_btn" />
+</form>
+<a class="close-reveal-modal">&#215;</a>
+</div>
+<!--搜索框/语言切换结束-->
+<![endif]-->
+<div class="header">
+
+<!-- 网站导航 -->
+<div class="nav box">
+<div class="logo"><a title="{get(sitename)}" href="{$base_url}/"><img src="{get('site_logo')}" alt="{get(sitename)}" width="{get(logo_width)}" /></a></div>
+<ul id="nav"> 
+<li class="one{if $topid==0} on{/if}"><a href="{$base_url}/">{lang(homepage)}</a></li>
+{loop categories_nav() $t}
+<li class="one{if isset($topid) && $topid==$t[catid]} on{/if}"><a href="{$t[url]}" target="{if config::get('nav_blank')==1} _blank{/if}">{$t[catname]}</a>
+{if count(categories($t[catid]))}<ul>
+<div class="blank10"></div>
+{loop categories($t[catid]) $t1}
+<li><a href="{$t1[url]}">{$t1[catname]}</a>
+{if count(categories($t1[catid]))}<ul>{loop categories($t1[catid]) $t2}
+<li><a href="{$t2[url]}">{$t2[catname]}</a>
+{if count(categories($t2[catid]))}<ul>{loop categories($t2[catid]) $t3}
+<li><a href="{$t3[url]}">{$t3[catname]}</a>
+{if count(categories($t3[catid]))}<ul>{loop categories($t3[catid]) $t4}
+<li><a href="{$t4[url]}">{$t4[catname]}</a>
+{if count(categories($t4[catid]))}<ul>{loop categories($t4[catid]) $t5}
+<li><a href="{$t5[url]}">{$t5[catname]}</a></li> 
+{/loop}</ul>{/if}
+</li> 
+{/loop}</ul>{/if}
+</li>
+{/loop}</ul>{/if}
+</li>
+{/loop}</ul>{/if}
+</li> 
+{/loop}</ul>{/if}
+</li>{/loop}
+</ul>
+</div>
+<!-- 导航结束 -->
+
+
+</div>
+
+
+<!--/顶部菜单伸缩-->
+
+
+<div class="clearall"></div>
+
+
+{template 'system/slide.html'}
+
+
+<!--/w_set-->
+
+<div class="clearall"></div>
+{% block content %}{% endblock %}
+<!-- 页底 -->
+<div class="footer_url">
+<section class="wow fadeInUp" data-wow-delay="0.6s">
+<div class="w_set">
+{tag_页底栏目一}
+
+{tag_页底栏目二}
+
+
+<dl>
+<dt>{lang(special)}</dt>
+<dd>
+{loop special::listdata(8) $special}
+<a href="{$special[url]}" title="{$special[title]}">{lang(contentspecial)}</a>
+{/loop}
+</dd>
+</dl>
+
+
+
+
+<div class="w_470  l_r" style="float:right;"> 
+<div class="blank10"></div>
+<h3 class="t_3"><a rel="nofollow" title="{lang(feedback)}" href="{url('guestbook')}" target="_blank">{lang(contactus)}</a>&nbsp;&nbsp;<span>Contact</span></h3>
+<div class="blank10"></div>
+<style type="text/css">
+.iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+.iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<div style="width:450px;height:300px;max-width:100%;margin:0 auto;" id="dituContent"></div>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
+    
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point({config::get('ditu_center_left')},{config::get('ditu_center_right')});//定义一个中心点坐标
+        map.centerAndZoom(point,{config::get('ditu_level')});//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT,type:BMAP_NAVIGATION_CONTROL_SMALL});
+	map.addControl(ctrl_nav);
+                }
+    
+    //标注点数组
+    var markerArr = [{title:"{config::get('ditu_title')}",content:"{config::get('ditu_content')}",point:"{config::get('ditu_maker_left')}|{config::get('ditu_maker_right')}",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+			map.openInfoWindow(iw, map.getCenter());  
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+			
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("{$base_url}/images/map/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+    
+    initMap();//创建和初始化地图
+</script>
+
+
+</div>
+<div class="blank30"></div>
+<div class="clearall"></div>
+</div>
+</section>
+</div>
+<!--/footer_url-->
+
+
+
+
+
+
+
+
+
+<div class="foot">
+<section class="wow fadeIn" data-wow-delay="0.6s">
+<div class="box">
+
+
+<dl class="foot_left">
+<dd>
+<!--  网站页底关于我们等说明 --><a href="{$base_url}/sitemap.html" target="_blank">{lang(sitemap)}</a>
+</dd>
+<dd class="blank20"></dd>
+<dd>
+<form name='search' action="main/search" onsubmit="search_check();" method="post">
+<input type="text" name="keyword" value="{lang(pleaceinputtext)}" onfocus="if(this.value=='{lang(pleaceinputtext)}') {this.value=''}" onblur="if(this.value=='') this.value='{lang(pleaceinputtext)}'" class="s_text" />
+<input name='submit' type="submit" value="" align="middle" class="s_btn" />
+</form>
+</dd>
+<dd class="blank20"></dd>
+<dd>
+<form name='search' action="main/ecodingsearch" onsubmit="search_check();" method="post">
+<input type="text" name="keyword" value="" onfocus="" onblur="if(this.value=='') this.value='{lang(enter)}{lang(ecoding)}'" class="s_text" />
+<input name='submit' type="submit" value="" align="middle" class="s_btn" />
+</form>
+</dd>
+<dd class="blank20"></dd>
+<dd>
+<input type="text" id="oid" name="oid" value="{lang(orderquery)}" onfocus="if(this.value=='{lang(orderquery)}') {this.value=''}" onblur="if(this.value=='') this.value='{lang(orderquery)}'" class="s_text" />
+<input name='submit' type="submit" value="" onclick="javascript:window.location.href='main/orders?&oid='+document.getElementById('oid').value;" align="middle" class="s_btn" />
+</dd>
+
+
+<dd class="blank20"></dd>
+<form name="listform" id="listform"  action="main/email" method="post">
+<dd>
+<input type="text" name="email" id="email" value=" {lang(mailsubscription)} "  onfocus="if(this.value==' {lang(mailsubscription)} ') {this.value=''}" onblur="checkEmail(this)" class="s_text" /> 
+<input type="submit" align="absmiple" name='submit' value=" " class="s_btn" />
+</dd>
+</form>
+</dl>
+
+<dl class="foot_qr_codes">
+{if config::get('qrcodes')=='1'}<dd><img width="150" src="{url('tool/qrcode')}" /></dd>
+<dd>
+{lang(scanning)}{lang(access)}{lang(sitewap)}</dd>{/if}
+</dl>
+
+<dl class="copyrights">
+<dd>{get(site_right)} <a title="{get('sitename')}" href="{$base_url}/">{get('sitename')}</a></dd>
+<dd>{getcnzzcount()}&nbsp;&nbsp;Powered by <a href="http://www.cmseasy.cn" title="CmsEasy企业网站系统" target="_blank">CmsEasy</a></dd>
+<dd><a rel="nofollow" href="http://www.miibeian.gov.cn/" rel="nofollow" target="_blank">{get('site_icp')}</a></dd>
+<dd>{if config::get('site_login')=='1'}{login_js()}&nbsp;&nbsp;{/if}{if config::get('opguestadd')=='1'}<a rel="nofollow" href="{$base_url}/?g=1">{lang(opguestadd)}</a>{/if}</dd>
+</dl>
+
+<div class="blank30"></div>
+
+{if config::get('hotsearch')=='1'}{lang(hotkeys)}： {gethotsearch(10)}{/if}
+<div class="clear"></div>
+</div>
+</section>
+</div>
+<!--/footer-->
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!-- 在线客服 -->
+{template 'system/servers.html'}
+<link rel="stylesheet" href="{% static 'skin/js/html5/animate.min.css' %}">
+<script src="{% static 'skin/js/html5/wow.min.js' %}"></script>
+<script src="{% static 'skin/js/html5/custom.js' %}"></script>
+<![endif]-->
+<!-- 短信 -->
+{template 'system/sms.html'}
+
+<script type="text/javascript" src="{$base_url}/js/common.js"></script>
+<!-- 载入效果 -->
+
+{if get('share')=='1'}
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right&uid=620555" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+		var bds_config = {"bdTop":150};
+		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+{/if}
+
+
+
+{if config::get('site_push')=='1'}
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+{/if}
+
+</body>
+</html>

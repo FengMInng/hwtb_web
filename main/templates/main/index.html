@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>bjhwtb</title>
-<script language="javascript" type="text/javascript"> 
-</script>
-</head>
-<body>
-欢迎光临北京华伟天宝，网站正在建设中，将为阁下转到京东旗舰店。
+{% extends "main/base.html" %}
+{% block content %}
+欢迎光临北京华威天宝，网站正在建设中，将为阁下转到京东旗舰店。
 
 <span id="totalSecond">5</span>
 <script language="javascript" type="text/javascript"> 
@@ -21,7 +14,7 @@ setInterval("redirect()", 1000);
 
 function redirect() { 
 	if (second < 0) { 
-	    location.href = 'http://officehw.jd.com'; 
+	    //location.href = 'http://officehw.jd.com'; 
 	} else { 
 	    if (navigator.appName.indexOf("Explorer") > -1) { 
 	        document.getElementById('totalSecond').innerText = second--; 
@@ -32,5 +25,4 @@ function redirect() {
 } 
 
 </script>
-</body>
-</html>
+{% endblock %}
