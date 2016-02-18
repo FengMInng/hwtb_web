@@ -114,7 +114,7 @@ document.oncontextmenu=stop;
 
 
 <dl>
-<dt>{lang(special)}</dt>
+<dt></dt>
 <dd>
 {% for special $specials}
 <a href="{{special['url']}}" title="{{special['title']}}">{{special['contentspecial']}}</a>
@@ -219,7 +219,7 @@ document.oncontextmenu=stop;
     }
     //创建一个Icon
     function createIcon(json){
-        var icon = new BMap.Icon("{$base_url}/images/map/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        var icon = new BMap.Icon("{% static 'main/images/map/us_mk_icon.png' %}", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
         return icon;
     }
     
@@ -250,7 +250,7 @@ document.oncontextmenu=stop;
 
 <dl class="foot_left">
 <dd>
-<!--  网站页底关于我们等说明 --><a href="{$base_url}/sitemap.html" target="_blank">{lang(sitemap)}</a>
+<!--  网站页底关于我们等说明 --><a href="{$base_url}/sitemap.html" target="_blank">sitemap</a>
 </dd>
 <dd class="blank20"></dd>
 <dd>
@@ -283,21 +283,20 @@ document.oncontextmenu=stop;
 </dl>
 
 <dl class="foot_qr_codes">
-{if config::get('qrcodes')=='1'}<dd><img width="150" src="{url('tool/qrcode')}" /></dd>
+<dd><img width="150" src="{% static 'main/tool/qrcode' %}" /></dd>
 <dd>
-{lang(scanning)}{lang(access)}{lang(sitewap)}</dd>{/if}
+</dd>
 </dl>
 
 <dl class="copyrights">
-<dd>{get(site_right)} <a title="{get('sitename')}" href="{$base_url}/">{get('sitename')}</a></dd>
-<dd>{getcnzzcount()}&nbsp;&nbsp;Powered by <a href="http://www.cmseasy.cn" title="CmsEasy企业网站系统" target="_blank">CmsEasy</a></dd>
-<dd><a rel="nofollow" href="http://www.miibeian.gov.cn/" rel="nofollow" target="_blank">{get('site_icp')}</a></dd>
-<dd>{if config::get('site_login')=='1'}{login_js()}&nbsp;&nbsp;{/if}{if config::get('opguestadd')=='1'}<a rel="nofollow" href="{$base_url}/?g=1">{lang(opguestadd)}</a>{/if}</dd>
+<dd> <a title="sitename" href="#"></a></dd>
+<dd></dd>
+<dd></dd>
+<dd></dd>
 </dl>
 
 <div class="blank30"></div>
 
-{if config::get('hotsearch')=='1'}{lang(hotkeys)}： {gethotsearch(10)}{/if}
 <div class="clear"></div>
 </div>
 </section>
@@ -308,18 +307,17 @@ document.oncontextmenu=stop;
 
 <!--[if (gte IE 9)|!(IE)]><!-->
 <!-- 在线客服 -->
-{template 'system/servers.html'}
-<link rel="stylesheet" href="{% static 'skin/js/html5/animate.min.css' %}">
-<script src="{% static 'skin/js/html5/wow.min.js' %}"></script>
-<script src="{% static 'skin/js/html5/custom.js' %}"></script>
+<!-- template 'system/servers.html' -->
+<link rel="stylesheet" href="{% static 'main/skin/js/html5/animate.min.css' %}">
+<script src="{% static 'main/skin/js/html5/wow.min.js' %}"></script>
+<script src="{% static 'main/skin/js/html5/custom.js' %}"></script>
 <![endif]-->
 <!-- 短信 -->
-{template 'system/sms.html'}
 
-<script type="text/javascript" src="{$base_url}/js/common.js"></script>
+<script type="text/javascript" src="{% static 'main/js/common.js' %}" ></script>
 <!-- 载入效果 -->
 
-{if get('share')=='1'}
+{if 1}
 <!-- Baidu Button BEGIN -->
 <script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right&uid=620555" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
@@ -332,16 +330,6 @@ document.oncontextmenu=stop;
 
 
 
-{if config::get('site_push')=='1'}
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-{/if}
 
 </body>
 </html>
