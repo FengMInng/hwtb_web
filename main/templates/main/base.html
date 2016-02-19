@@ -25,13 +25,9 @@ document.links$[ii].onfocus=function(){this.blur()}
 <!--浏览器图标-->
 <link rel="stylesheet" href="{% static 'main/skin/css/style-reset.css' %}" type="text/css" />
 <link rel="stylesheet" href="{% static 'main/skin/css/style_pc.css' %}" />
-{% if pc_style_color < 1 or pc_style_color >9%}
-<link href="{% static 'main/skin/css/pc1.css' %}" rel="stylesheet" /> 
-{% else %}
 <link href="{% static 'main/skin/css/pc{{pc_style_color}}.css' %}" rel="stylesheet" /> 
-{% endif %} 
 </head>
-{% ifequal shield_right_key 1}
+{% ifequal shield_right_key 1 %}
 <body oncontextmenu="return false" onselectstart="return false">
 <noscript><iframe src="/*.html>"></iframe></noscript>
 <script>
@@ -42,7 +38,7 @@ document.oncontextmenu=stop;
 </script>
 {% else %}
 <body>
-{/if}
+{% endifequal %}
 <!--[if (gte IE 9)|!(IE)]><!-->
 <!--搜索框/语言切换-->
 <script src="{% static 'main/skin/js/jquery.reveal.js' %}" type="text/javascript" ></script>
@@ -72,23 +68,40 @@ document.oncontextmenu=stop;
 <div class="nav box">
 <div class="logo">
 	<a title="{{sitename}}" href="/">
-		<img src="{% static 'main/log.png' %}" alt="{{sitename}}" width="{{logo_width}}" />
+		<img src="{% static 'main/logo.png' %}" alt="{{sitename}}" width="{{logo_width}}" />
 	</a>
 </div>
 <ul id="nav"> 
-<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="/">首页</a></li>
-<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="#">产品中心</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/">首页</a></li>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="#">产品中心</a>
 <UL>
 <div class="blank10"></div>
-{% for category in categories %}
-<li class="one{% ifequal topid 0 %} on{% endif %}"><a href="" >{{ category['name']}}</a>
+{% for catalog in catalogs %}
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >{{ catalog.name }}</a>
 	<ul>
 		{% for product in category.products %}
 		{% endfor %}
-	</ul
+	</ul>
 </li> 
 {% endfor %}
 </ul>
+</li>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="#">解决方案</a>
+<UL>
+<div class="blank10"></div>
+{% for solution in solutions %}
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >{{ solution.name }}</a>
+</li> 
+{% endfor %}
+</ul>
+</li>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >关于我们</a>
+	<ul>
+	<li><a href="" >公司介绍</a></li>
+	<li><a href="" >企业文化</a></li>
+	<li><a href="" >人才招聘</a></li>
+	<li><a href="" >联系我们</a></li>
+	</ul>
 </li>
 </div>
 <!-- 导航结束 -->
@@ -116,9 +129,9 @@ document.oncontextmenu=stop;
 <dl>
 <dt>{lang(special)}</dt>
 <dd>
-{% for special $specials}
-<a href="{{special['url']}}" title="{{special['title']}}">{{special['contentspecial']}}</a>
-{/loop}
+{% for special in specials %}
+<a href="{{special.url}}" title="{{special.title}}">{{special.contentspecial}}</a>
+{% endfor %}
 </dd>
 </dl>
 
@@ -250,7 +263,8 @@ document.oncontextmenu=stop;
 
 <dl class="foot_left">
 <dd>
-<!--  网站页底关于我们等说明 --><a href="{$base_url}/sitemap.html" target="_blank">{lang(sitemap)}</a>
+<!--  网站页底关于我们等说明 -->
+<a href="{$base_url}/sitemap.html" target="_blank">{lang(sitemap)}</a>
 </dd>
 <dd class="blank20"></dd>
 <dd>
@@ -308,7 +322,7 @@ document.oncontextmenu=stop;
 
 <!--[if (gte IE 9)|!(IE)]><!-->
 <!-- 在线客服 -->
-{template 'system/servers.html'}
+{% include servers_template %}
 <link rel="stylesheet" href="{% static 'skin/js/html5/animate.min.css' %}">
 <script src="{% static 'skin/js/html5/wow.min.js' %}"></script>
 <script src="{% static 'skin/js/html5/custom.js' %}"></script>
@@ -319,7 +333,6 @@ document.oncontextmenu=stop;
 <script type="text/javascript" src="{$base_url}/js/common.js"></script>
 <!-- 载入效果 -->
 
-{if get('share')=='1'}
 <!-- Baidu Button BEGIN -->
 <script type="text/javascript" id="bdshare_js" data="type=slide&img=6&pos=right&uid=620555" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
@@ -328,7 +341,6 @@ document.oncontextmenu=stop;
 		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
 </script>
 <!-- Baidu Button END -->
-{/if}
 
 
 

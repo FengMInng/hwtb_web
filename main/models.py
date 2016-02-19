@@ -13,9 +13,9 @@ class ProductCatalog(models.Model):
     # product descriptor
     descriptor = models.CharField(max_length=500)
     # create date and time
-    create_date = models.DateTimeField()
+    #create_date = models.DateTimeField()
     #create user
-    create_user = models.CharField(max_length=100)
+    #create_user = models.CharField(max_length=100)
     
     #validate date
     show_from = models.DateField()
@@ -32,9 +32,13 @@ class Product(models.Model):
     '''
     this model is for product
     '''
+    #show name
+    name = models.CharField(max_length=100)
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
-    #show name
-    name = models.CharField(max_length=100)
     descriptor = models.CharField(max_length=500)
+    
+    def __unicode__(self):
+        return self.name
+    

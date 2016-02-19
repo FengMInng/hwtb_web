@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
 TIME_ZONE = 'UTC'
 
@@ -128,3 +128,53 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
+#log
+'''
+LOGGING ={
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+                'format': '%(levelname)s %(asctime)s %(message)s'
+                },
+    },
+    'filters': {
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter':'standard',
+        },
+        'admin_handler': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename':'/var/log/web.admin',
+            'formatter':'standard',
+        },
+        'main_handler': {
+            'level':'DEBUG',
+                   'class':'logging.handlers.RotatingFileHandler',
+            'filename':'/var/log/web.main',
+            'formatter':'standard',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'admin':{
+            'handlers': ['admin_handler'],
+            'level': 'INFO',
+            'propagate': False
+        },
+        'main':{
+            'handlers': ['main_handler'],
+            'level': 'INFO',
+            'propagate': False
+        },
+    }
+}
+'''
