@@ -1,3 +1,196 @@
 {% extends "main/base.html" %}
+{% load staticfiles %}
 {% block content %}
+<div class="blank30"></div>
+
+<section class="wow fadeInUp " data-wow-delay="0.6s">
+
+
+<div class="h_300">
+<!-- cp_info -->
+<script src="{% static 'main/skin/js/m_img_hover.js' %}" type="text/javascript" ></script><!-- 图片悬浮 -->
+<div class="picScroll">
+<ul class="list_cp" id="img_sf">
+</ul>
+<a class="prev" href="javascript:void(0)"></a>
+<a class="next" href="javascript:void(0)"></a>
+<!-- list_cp -->
+</div>
+<script type="text/javascript">
+jQuery(".picScroll").slide({ mainCell:"ul", effect:"leftLoop", vis:4, scroll:4,  autoPage:true, switchLoad:"_src" });
+</script>
+</div>
+<!-- w_set -->
+</div>
+</section>
+
+<section class="wow fadeInUp " data-wow-delay="0.6s">
+<div class="bg_1 pa5 mb30">
+
+
+
+<div class="w_set">
+<script type="text/javascript">
+function tab_m(obj,name)
+{
+var p = obj.parentNode.getElementsByTagName("li");
+var p1 = document.getElementById(name).getElementsByTagName("div");
+for(i=0;i<p1.length;i++)
+{
+if(obj==p[i])
+{
+p[i].className = "s";
+p1[i].className = "dis";
+}
+else
+{
+p[i].className = "#";
+p1[i].className = "undis";
+}
+}
+}
+</script>
+
+
+
+
+
+
+
+<ul class="list_1">
+</ul>
+<!-- list_1 -->
+
+<div class="blank30"></div>
+</div>
+<!-- w_set -->
+</div>
+</div>
+</section>
+
+
+
+<div class="w_set pa20">
+
+<div class="i_about">
+<section class=" wow fadeIn" data-wow-delay="0.6s">
+	</section>
+	<div class="i_about_text_pic">
+	<section class="wow fadeInLeft" data-wow-delay="1.0s">
+		</section>
+		<section class="wow bounceIn" data-wow-delay="1.6s">
+		</section>
+		<section class="wow fadeInRight" data-wow-delay="1.0s">
+		</section>
+	</div>
+</div>
+
+</div>
+
+
+<div class="blank30"></div>
+
+<div class="w_set pa20" style="z-index:9999999; position:relative; ">
+
+<section class="wow fadeInLeft" data-wow-delay="0.6s">
+<div class="w_230">
+<dl class="ico_tel">
+<dt>联系电话</dt>
+<dd>{{online_servers.tel}}</dd>
+</dl>
+
+<dl class="ico_qq">
+<dt>在线客服</dt>
+<dd>
+{% for qq in online_servers.qqlist %}
+<a rel="nofollow" href="http://wpa.qq.com/msgrd?v=3&uin={{qq.number}}&site=qq&menu=yes" target="_blank">{{qq.name}}</a>
+{% endfor %}
+</dd>
+</dl>
+<dl class="ico_add">
+<div class="blank20"></div>
+<dt>地址</dt>
+<dd>
+{{online_servers.address}}
+</dd>
+</dl>
+<dl class="ico_weixin">
+<dt>关注官方微信</dt>
+<dd>
+<br>
+<br>
+<img src="{{online_servers.weixin_pic}}" width="170" onerror='this.src="{{online_servers.onerror_pic}}"' />
+</dd>
+</dl>
+
+</div>
+<!-- w_230 -->
+</section>
+
+
+
+<section class="wow fadeInDown" data-wow-duration="1s" data-wow-delay="900ms">
+<div class="w_230" style="margin-left:30px;">
+<h3 class="t_3"></h3>
+
+<ul class="list_2">
+</ul>
+
+
+<div class="blank30"></div>
+<div class="vote">
+{ballot(1)}
+</div>
+</div>
+<!-- w_230 -->
+</section>
+
+
+
+
+
+<section class="wow fadeInRight" data-wow-delay="0.6s">
+<div class="w_470">
+<h3 class="t_3"><a rel="nofollow" title="{lang(feedback)}" href="{url('guestbook')}" target="_blank">{lang(foot_guestbook_hello)}</a></h3>
+<div class="blank10"></div>
+{callGuestbook()}
+</div>
+<!-- w_470 -->
+</section>
+
+</div>
+<!-- w_set -->
+
+
+
+
+
+
+<section class="wow bounceIn">
+<div class="t_1">
+<div>
+<h3>友情链接</h3>
+<p>links</p>
+</div>
+</div>
+</section>
+
+
+<section class=" wow fadeIn" data-wow-delay="0.6s">
+<dl class="w_set">
+<dd class="f_link">
+{% for flink in friendlink %}
+<a href="{{flink.url}}" title="{{flink.name}}"><img src="{{flink.logo}}"  width="88" height="31" /></a>
+{% endfor %}
+</dd>
+<dd class="f_link">
+{% for flink in friendlink %}
+<a href="{{flink.url}}" target="_blank">{{flink.name}}</a>
+{% endfor %}
+</dd>
+</dl>
+<!-- w_set -->
+</section>
+
+
 {% endblock %}

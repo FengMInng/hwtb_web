@@ -3,15 +3,42 @@ Created on Feb 19, 2016
 
 @author: mfeng
 '''
+SITE_URL='www.bjhwtb.com'
+
+# product catalog
+
 
 # pc style color
-PC_STYLE_COLOR=2
+PC_STYLE_COLOR=6
 
+class QQ:
+    def __init__(self, number, name):
+        self.number = number
+        self.name = name
 #online servers
-serverlistp='left'
-SERVERS_TEMPLATE='main/servers_metro_color.html'
-#online servers QQ Number
-SERVERS_QQ1=94096251
-SERVERS_QQ1_NAME='ming'
-SERVERS_QQ2=87125162
-SERVERS_QQ2_NAME='feng'
+class Online_servers:
+    def __init__(self):
+        self.serverlistp='left'
+        self.template = 'main/servers_metro_color.html'
+        self.qqlist = [QQ(94096251, 'ming'),QQ(87125162, 'feng')]
+        self.tel = '010-1234567'
+        if self.serverlistp =='right':
+            self.servers_serverlistpcss='left'
+            self.servers_float = 'right:0;'
+            self.servers_float1 = 'left:-160px;'
+        elif self.serverlistp =='left':
+            self.servers_serverlistpcss='right'
+            self.servers_float = 'left:0;'
+            self.servers_float1 = 'right:-160px;'
+        else:
+            self._serverlistpcss ='left'
+
+#map position
+class BMap:
+    def __init__(self):
+        self.ditu_center_left = 116.4
+        self.ditu_center_right = 40
+        self.ditu_level = 12
+        self.ditu_maker_left = 116
+        self.ditu_maker_right = 40
+        

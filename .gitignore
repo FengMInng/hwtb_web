@@ -1,2 +1,5 @@
 *.pyc
 migrations/*
+static
+main/migrations
+polls/migrations

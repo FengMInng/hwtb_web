@@ -25,7 +25,7 @@ document.links$[ii].onfocus=function(){this.blur()}
 <!--浏览器图标-->
 <link rel="stylesheet" href="{% static 'main/skin/css/style-reset.css' %}" type="text/css" />
 <link rel="stylesheet" href="{% static 'main/skin/css/style_pc.css' %}" />
-<link href="{% static 'main/skin/css/pc{{pc_style_color}}.css' %}" rel="stylesheet" /> 
+<link href="static/main/skin/css/pc{{pc_style_color}}.css" rel="stylesheet" /> 
 </head>
 {% ifequal shield_right_key 1 %}
 <body oncontextmenu="return false" onselectstart="return false">
@@ -68,7 +68,7 @@ document.oncontextmenu=stop;
 <div class="nav box">
 <div class="logo">
 	<a title="{{sitename}}" href="/">
-		<img src="{% static 'main/logo_bc_white.jpg' %}" alt="{{sitename}}" width="260" />
+		<img src="{% static 'main/logo.jpg' %}" alt="{{sitename}}" width="260" />
 	</a>
 </div>
 <ul id="nav"> 
@@ -79,7 +79,10 @@ document.oncontextmenu=stop;
 {% for catalog in catalogs %}
 <li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >{{ catalog.name }}</a>
 	<ul>
-		{% for product in category.products %}
+		{% for product in products %}
+		{% ifequal product.catalog_id catalog.id %}
+		<li><a href="">{{product.name}}</li>
+		{% endifequal %}
 		{% endfor %}
 	</ul>
 </li> 

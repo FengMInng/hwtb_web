@@ -20,7 +20,7 @@
 /* 导航 */
 #nav li.on,#nav li.one:hover,#nav li.one a:hover {
   color:white;
-  background: #2065C4 url(../images/base/nav_hover_bg.gif) center bottom no-repeat;
+  background: #2065C4 url({% static 'main/images/base/nav_hover_bg.gif' %}) center bottom no-repeat;
 }
 /* 导航子栏目列表背景 */
 #nav li ul {
@@ -65,7 +65,7 @@
 /* --------------- 首页第二行 --------------- */
 /* 首页第二行标题 */
 .t_2{
-	background: url(../images/base/color1/t_2.gif) repeat-x top center;
+	background: url({% static 'main/images/base/color1/t_2.gif' %}) repeat-x top center;
 }
 /* 首页第二行背景 */
 .bg_1{
@@ -102,7 +102,7 @@
 /* 首页第二行当前li */
 .tabnav li.s{
 	border: none;
-	background: #FFF url(../images/base/color1/tabnav.gif) no-repeat left center ;
+	background: #FFF url({% static 'main/images/base/color1/tabnav.gif' %}) no-repeat left center ;
 }
 /* 首页第二行当前li 所属栏目*/
 .tabnav li.s strong{
@@ -201,15 +201,15 @@ a.table_more{
 
 /* --------------- 联系我们图标 --------------- */
 .ico_tel dt{
-	background: url(../images/base/color1/ico_tel.gif) no-repeat left top; 
+	background: url({% static 'main/images/base/color1/ico_tel.gif' %}) no-repeat left top; 
 }
 .ico_qq dt{
-	background: url(../images/base/color1/ico_qq.gif) no-repeat left top;
+	background: url({% static 'main/images/base/color1/ico_qq.gif' %}) no-repeat left top;
 }
 .ico_weixin dt{
-	background: url(../images/base/color1/ico_add.gif) no-repeat left top;
+	background: url({% static 'main/images/base/color1/ico_add.gif' %}) no-repeat left top;
 }
 .ico_add dt{
-	background: url(../images/base/color1/ico_add.gif) no-repeat left top;
+	background: url({% static 'main/images/base/color1/ico_add.gif' %}) no-repeat left top;
 }
 

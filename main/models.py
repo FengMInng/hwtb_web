@@ -39,6 +39,8 @@ class Product(models.Model):
     
     descriptor = models.CharField(max_length=500)
     
+    price = models.FloatField(default=0.00)
+    
     def __unicode__(self):
         return self.name
     

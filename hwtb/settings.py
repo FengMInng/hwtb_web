@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'hwtb',
 	'USER': 'hwtb',
 	'PASSWORD': 'biscuits@1',
-	'HOST': '192.168.195.128',
+	'HOST': '127.0.0.1',
 	'PORT': '3306',
     }
 }
