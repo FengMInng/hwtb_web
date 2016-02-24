@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*- 
 from django.shortcuts import render
+from django.utils import timezone
 
 from config import Online_servers,PC_STYLE_COLOR, BMap
 from models import ProductCatalog, Product
@@ -15,10 +17,16 @@ def get_base_content():
         
     return web_content
 def index(request):
-    catalogs = ProductCatalog.objects.order_by('show_from')
+    catalogs = ProductCatalog.objects.filter(
+                show_from__lte = timezone.now(),
+                show_end__gte = timezone.now()
+                ).order_by('show_from')
     web_content = get_base_content()
     web_content['catalogs']=catalogs
     products = Product.objects.order_by('catalog')
     web_content['products']=products
     
     return render(request, 'main/index.html', web_content)
+
+def catalog(request):
+    web_content = get_base_content()

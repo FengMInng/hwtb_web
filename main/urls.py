@@ -12,4 +12,5 @@ app_name='main'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^catagory/', views.catalog, name='catalog')
 ]
