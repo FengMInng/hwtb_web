@@ -18,9 +18,9 @@ def get_base_content():
     return web_content
 def index(request):
     catalogs = ProductCatalog.objects.filter(
-                show_from__lte = timezone.now(),
+                show_start__lte = timezone.now(),
                 show_end__gte = timezone.now()
-                ).order_by('show_from')
+                ).order_by('show_start')
     web_content = get_base_content()
     web_content['catalogs']=catalogs
     products = Product.objects.order_by('catalog')
