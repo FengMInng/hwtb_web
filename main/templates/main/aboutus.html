@@ -1,0 +1,172 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div>
+<br>
+</div>
+
+<section class="wow bounceIn animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: bounceIn;">
+	<div class="t_1">
+		<div>
+			<p></p>
+			<h3><a href="/products" title="产品中心">公司介绍</a></h3>
+		</div>
+	</div>
+</section>
+<section class="wow fadeInUp  animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+	<div class="h_300">
+		<!-- cp_info -->
+		<script src="{% static 'main/skin/js/m_img_hover.js' %}" type="text/javascript"></script><!-- 图片悬浮 -->
+		<div class="picScroll">
+		<div class="tempWrap" style="overflow:hidden; position:relative; width:984px">
+			<ul class="list_cp" id="img_sf" style="width: 3444px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -246px;">
+			{% for promotion in promotions %}
+			<li class="clone" style="float: left; width: 240px;">
+				<div class="list_cp_img">
+					<img alt="{{promotion.title}}" src="{{promotion.image}}">
+					<a style="color:;" title="{{promotion.title}}" target="_blank" href="{{promotion.url}}" class="list_cp_info">
+						<h3><font style="color:;">{{promotion.title}}</font></h3>
+						<p>{{promotion.discription}}</p>
+					</a>
+				</div>
+			</li>
+			{% endfor %}
+			</ul>
+		</div>
+		<a class="prev" href="javascript:void(0)"></a>
+		<a class="next" href="javascript:void(0)"></a>
+		<!-- list_cp -->
+		</div>
+		<script type="text/javascript">
+		jQuery(".picScroll").slide({ mainCell:"ul", effect:"leftLoop", vis:4, scroll:4,  autoPage:true, switchLoad:"_src" });
+		</script>
+	</div>
+	<!-- w_set -->
+</section>
+
+<section class="wow fadeInUp  animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+	<div class="bg_1 pa5 mb30">
+		<section class="wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
+			<div class="t_2">
+				<div>
+					<h3><a href="/main/news" title="企业新闻">企业新闻</a></h3>
+					<p>news</p>
+					<nav class="url_1">
+						<a href="/main/dynamics" title="公司动态">公司动态</a>
+						<a href="/main/honor" title="行业新闻">行业新闻</a>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<div class="w_set">
+			<script type="text/javascript">
+			function tab_m(obj,name)
+			{
+				var p = obj.parentNode.getElementsByTagName("li");
+				var p1 = document.getElementById(name).getElementsByTagName("div");
+				for(i=0;i<p1.length;i++)
+				{
+					if(obj==p[i])
+					{
+						p[i].className = "s";
+						p1[i].className = "dis";
+					}
+					else
+					{
+						p[i].className = "#";
+						p1[i].className = "undis";
+					}
+				}
+			}
+			</script>
+	
+			<ul class="tabnav">
+			{% for news in news_summurys %}
+				<li class="#" onmouseover="tab_m(this,'tabbox')" onclick="('tab',1)">
+					<strong>{{news.tpye}}</strong>
+					<span>{{news.pub_date}}</span>
+					<a style="color:;" href="/dynamics/show_9.html" class="hover" title="{{news.title}}">
+						<font style="color:;">{{news.title}}</font>
+					</a>
+					<p>{{news.content}}</p>
+				</li>
+			{% endfor %}
+			</ul>
+			<!-- tabnav -->
+	
+	
+			<div class="tabbox" id="tabbox">
+			{% for news in news_summurys %}
+				<div class="undis" onclick="('tab',3)">
+					<a style="color:;" href="{{news.url}}">
+						<img src="{{news.image}}" width="485" height="290">
+					</a>
+				</div>
+			{% endfor %}
+			</div>
+			<!--/tabbox-->
+			<ul class="list_1">
+			{% for news in news_summurys_list %}
+				<li>
+					<a style="color:;" href="{{news.url}}" title="{{news.title}}" target="_blank">
+						<font style="color:;">{{news.title}}</font>
+					</a>
+				</li>
+			{% endfor %}
+			</ul>
+			<!-- list_1 -->
+	
+			<div class="blank30"></div>
+		</div>
+		<!-- w_set -->
+	</div>
+</section>
+
+<div class="w_set pa20">
+	<div class="i_about">
+		<section class=" wow fadeIn" data-wow-delay="0.6s">
+		</section>
+		<div class="i_about_text_pic">
+			<section class="wow fadeInLeft" data-wow-delay="1.0s">
+			</section>
+			<section class="wow bounceIn" data-wow-delay="1.6s">
+			</section>
+			<section class="wow fadeInRight" data-wow-delay="1.0s">
+			</section>
+		</div>
+	</div>
+</div>
+
+<div class="blank30"></div>
+
+<div class="w_set pa20" style="z-index:9999999; position:relative; ">
+</div>
+<!-- w_set -->
+
+<section class="wow bounceIn">
+	<div class="t_1">
+		<div>
+			<h3>友情链接</h3>
+			<p>links</p>
+		</div>
+	</div>
+</section>
+
+<section class=" wow fadeIn" data-wow-delay="0.6s">
+	<dl class="w_set">
+	<dd class="f_link">
+		{% for flink in friendlink %}
+		<a href="{{flink.url}}" title="{{flink.name}}"><img src="{{flink.logo}}"  width="88" height="31" /></a>
+		{% endfor %}
+	</dd>
+	<dd class="f_link">
+		{% for flink in friendlink %}
+		<a href="{{flink.url}}" target="_blank">{{flink.name}}</a>
+		{% endfor %}
+	</dd>
+	</dl>
+	<!-- w_set -->
+</section>
+
+{% endblock %}
