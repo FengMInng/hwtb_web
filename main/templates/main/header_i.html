@@ -73,7 +73,7 @@ document.oncontextmenu=stop;
 </div>
 <ul id="nav"> 
 <li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/">首页</a></li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="#">产品中心</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/catalogs">产品中心</a>
 <UL>
 <div class="blank10"></div>
 {% for catalog in catalogs %}
@@ -81,7 +81,7 @@ document.oncontextmenu=stop;
 	<ul>
 		{% for product in products %}
 		{% ifequal product.catalog_id catalog.id %}
-		<li><a href="">{{product.name}}</li>
+		<li><a href="/product/{{product.product_id}}">{{product.name}}</li>
 		{% endifequal %}
 		{% endfor %}
 	</ul>
@@ -89,21 +89,21 @@ document.oncontextmenu=stop;
 {% endfor %}
 </ul>
 </li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="#">解决方案</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/solution">解决方案</a>
 <UL>
 <div class="blank10"></div>
 {% for solution in solutions %}
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >{{ solution.name }}</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/solutions/{{solution.solution_id}}" >{{ solution.name }}</a>
 </li> 
 {% endfor %}
 </ul>
 </li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="" >关于我们</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/main/aboutus">关于我们</a>
 	<ul>
-	<li><a href="" >公司介绍</a></li>
-	<li><a href="" >企业文化</a></li>
-	<li><a href="" >人才招聘</a></li>
-	<li><a href="" >联系我们</a></li>
+	<li><a href="/introduction" >公司介绍</a></li>
+	<li><a href="/calture" >企业文化</a></li>
+	<li><a href="/carriar" >人才招聘</a></li>
+	<li><a href="/contactus" >联系我们</a></li>
 	</ul>
 </li>
 </div>

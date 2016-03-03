@@ -41,6 +41,9 @@ class ProductCatalog(AbstractProduct):
     '''
     this model is for product catalog, which catalog have some  product
     '''
+    
+    class Meta:
+        verbose_name=_('product_catalog')
 
 class ProductCatalogAdmin(ModelAdmin):
     list_display = ('name', 'show_start', 'show_end', 'is_delete')
@@ -52,7 +55,6 @@ class ProductCatalogAdmin(ModelAdmin):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user
         obj.last_modify_user = request.user
-        #obj.last_modify_date = timezone.now()
         obj.save()
     pass
 
@@ -65,8 +67,8 @@ class Product(AbstractProduct):
     
     price = models.FloatField(default=0.00)
     
-    def __unicode__(self):
-        return self.name
+    class Meta:
+        verbose_name = _('product')
     
 
 class ProductAdmin(ModelAdmin):
@@ -74,10 +76,10 @@ class ProductAdmin(ModelAdmin):
     search_fields = ('name','show_start')
     list_filter =('name', 'create_date')
     date_hierarchy = 'create_date'
+    fields = ('name', 'descriptor', 'show_start', 'show_end', 'is_delete', 'catalog', 'price')
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user
         obj.last_modify_user = request.user
-        #obj.last_modify_date = timezone.now()
         obj.save()
     pass

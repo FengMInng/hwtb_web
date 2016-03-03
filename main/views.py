@@ -30,3 +30,7 @@ def index(request):
 
 def catalog(request):
     web_content = get_base_content()
+    
+def aboutus(request):
+    web_content = get_base_content()
+    return render(request, 'main/aboutus.html', web_content)

@@ -11,6 +11,7 @@ from . import views
 app_name='main'
 
 urlpatterns = [
+    url(r'^aboutus', views.aboutus, name='aboutus'),
     url(r'^$', views.index, name='index'),
-    url(r'^catagory/', views.catalog, name='catalog')
+    url(r'^catalogs/', views.catalog, name='catalog'),
 ]
