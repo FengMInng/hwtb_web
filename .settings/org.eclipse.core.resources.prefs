@@ -3,6 +3,7 @@ encoding//hwtb/settings.py=utf-8
 encoding//hwtb/urls.py=utf-8
 encoding//hwtb/wsgi.py=utf-8
 encoding//main/__init__.py=utf-8
+encoding//main/config.py=utf-8
 encoding//main/models.py=utf-8
 encoding//main/urls.py=utf-8
 encoding//main/views.py=utf-8

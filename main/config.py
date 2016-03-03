@@ -21,7 +21,7 @@ class Online_servers:
     def __init__(self):
         self.serverlistp='left'
         self.template = 'main/servers_metro_color.html'
-        self.qqlist = [QQ(94096251, 'ming'),QQ(87125162, 'feng')]
+        self.qqlist = []
         self.tel = '010-1234567'
         if self.serverlistp =='right':
             self.servers_serverlistpcss='left'
