@@ -22,6 +22,10 @@ class Online_servers:
         self.serverlistp='left'
         self.template = 'main/servers_metro_color.html'
         self.qqlist = [QQ(94096251, 'ming'),QQ(87125162, 'feng')]
+        #self.weixin_pic=""
+        #self.wangwang=""
+        #self.ali=""
+        #self.skype=""
         self.tel = '010-1234567'
         if self.serverlistp =='right':
             self.servers_serverlistpcss='left'
