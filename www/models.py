@@ -5,7 +5,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
-from polls.models import Choice
 # Create your models here.
 
 class AbstractProduct(models.Model):
@@ -13,20 +12,20 @@ class AbstractProduct(models.Model):
     this model is for model base
     '''
     # product catalog name
-    name = models.CharField(_('name'),max_length=100)
+    name = models.CharField(_('name'), max_length=100)
     # product descriptor
     descriptor = models.TextField(_('description'))
     # create date and time
-    create_date = models.DateTimeField(_('createtime'), null=True, blank = True)
+    create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False)
     #create user
     create_user = models.ForeignKey(User, verbose_name=_('createuser'), null=True, blank = True)
     
     last_modify_user = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_modify_user', verbose_name=_('last_modify_user'),null=True, blank = True)
-    last_modify_date = models.DateTimeField(verbose_name=_('laster_modify_time'),null=True, blank = True)
+    last_modify_date = models.DateTimeField(verbose_name=_('laster modify time'), auto_now=True)
     
     #validate date
-    show_start = models.DateField(_('show_start'),null=True, blank = True)
-    show_end = models.DateField(_('show_end'),null=True, blank = True)
+    show_start = models.DateField(verbose_name=_('show start'),null=True, blank = True)
+    show_end = models.DateField(verbose_name=_('show end'),null=True, blank = True)
     
     #if delete, remain
     is_delete = models.BooleanField(False)
@@ -44,7 +43,7 @@ class ProductCatalog(AbstractProduct):
     '''
     
     class Meta:
-        verbose_name=_('product_catalogs')
+        verbose_name=_('product catalog')
 
 class ProductCatalogAdmin(ModelAdmin):
     list_display = ('name', 'show_start', 'show_end', 'is_delete')
@@ -74,7 +73,7 @@ class Product(AbstractProduct):
     price = models.FloatField(default=0.00)
     
     class Meta:
-        verbose_name = _('products')
+        verbose_name = _('product')
     
 
 class ProductAdmin(ModelAdmin):
@@ -96,17 +95,57 @@ class ProductAdmin(ModelAdmin):
         obj.save()
 
 class Description(models.Model):
+    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
     content = models.TextField(_('content'))
     img = models.ImageField(upload_to = 'img')
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = _('description')
 
 class Solution(models.Model):
-    title = models.CharField(verbose_name=_('title'), max_length=100)
-    descriptions = models.ManyToManyField(Description,verbose_name=_('description'),)
+    title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
+    descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
+    page = models.CharField(verbose_name=_('static page'), max_length=100, null=True)
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = _('solution')
 
 class News(models.Model):
-    news_type=((0, _('/dynamics')), (1, _('honor')))
-    title = models.CharField(_('title'), max_length=100)
-    contont = models.TextField(_('content'))
-    type = models.IntegerField(choices=news_type, verbose_name = _('news_type'), default = 0)
+    news_type=((0, _('dynamics')), (1, _('honor')))
+    title = models.CharField(verbose_name = _('title'), max_length=100)
+    contont = models.TextField(verbose_name = _('content'))
+    type = models.IntegerField(choices=news_type, verbose_name = _('news type'), default = 0)
+    page = models.CharField(verbose_name=_('static page'), max_length=100, null=True )
     imgs = models.ManyToManyField(Description)
+    # create date and time
+    create_date = models.DateTimeField(_('createtime'), null=True, blank = True, editable=False, auto_now_add = True)
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = _('new')
+        
+
+class Job(models.Model):
+    LOCATIONS=(('bj', _('beijing')),
+               ('sh', _('shanghai')))
+    position = models.CharField(verbose_name=_('position'), max_length=100)
+    pub_date=models.DateField(verbose_name = _('publish date'))
+    end_date=models.DateField(verbose_name=_('end date'))
+    location = models.CharField(verbose_name=_('location'), choices=LOCATIONS, max_length=100)
+    recruiting_numbers = models.IntegerField(verbose_name=_('recruiting numbers'), default = 1)
+    responsibilitie = models.TextField(verbose_name=_('responsibilitie'))
+    qualification = models.TextField(verbose_name = _('qualification'))
+    
+    class Meta:
+        verbose_name = _('job')
+    
+    
     

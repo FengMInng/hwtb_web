@@ -20,7 +20,7 @@ class QQ:
 class Online_servers:
     def __init__(self):
         self.serverlistp='left'
-        self.template = 'main/servers_metro_color.html'
+        self.template = 'www/servers_metro_color.html'
         self.qqlist = [QQ(94096251, 'ming'),QQ(87125162, 'feng')]
         #self.weixin_pic=""
         #self.wangwang=""
@@ -47,3 +47,4 @@ class BMap:
         self.ditu_maker_left = 116
         self.ditu_maker_right = 40
         
+

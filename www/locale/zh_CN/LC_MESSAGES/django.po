@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 14:27+0800\n"
+"POT-Creation-Date: 2016-03-17 18:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,42 +17,114 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main/models.py:15
+#: www/models.py:15
 msgid "name"
 msgstr "名称"
 
-#: main/models.py:17
+#: www/models.py:17 www/models.py:106 www/models.py:110
 msgid "description"
 msgstr "描述"
 
-#: main/models.py:19
+#: www/models.py:19 www/models.py:127
 msgid "createtime"
 msgstr "创建时间"
 
-#: main/models.py:21
+#: www/models.py:21
 msgid "createuser"
 msgstr "创建人"
 
-#: main/models.py:23
+#: www/models.py:23
 msgid "last_modify_user"
-msgstr "最近修改时间"
-
-#: main/models.py:24
-msgid "laster_modify_time"
 msgstr "最近修改人"
 
-#: main/models.py:27
-msgid "show_start"
+#: www/models.py:24
+msgid "laster modify time"
+msgstr "最近修改时间"
+
+#: www/models.py:27
+msgid "show start"
 msgstr "上架时间"
 
-#: main/models.py:28
-msgid "show_end"
+#: www/models.py:28
+msgid "show end"
 msgstr "下架时间"
 
-#: main/models.py:46
-msgid "product_catalogs"
+#: www/models.py:46
+msgid "product catalog"
 msgstr "产品目录"
 
-#: main/models.py:71
-msgid "products"
+#: www/models.py:76
+msgid "product"
 msgstr "产品"
+
+#: www/models.py:98 www/models.py:109 www/models.py:121
+msgid "title"
+msgstr "标题"
+
+#: www/models.py:99 www/models.py:122
+msgid "content"
+msgstr "内容"
+
+#: www/models.py:111 www/models.py:124
+msgid "static page"
+msgstr "静态页面"
+
+#: www/models.py:117
+msgid "solution"
+msgstr "解决方案"
+
+#: www/models.py:120
+msgid "dynamics"
+msgstr "公司动态"
+
+#: www/models.py:120
+msgid "honor"
+msgstr "行业要闻"
+
+#: www/models.py:123
+msgid "news type"
+msgstr "新闻类型"
+
+#: www/models.py:133
+msgid "new"
+msgstr "新闻"
+
+#: www/models.py:137
+msgid "beijing"
+msgstr "北京"
+
+#: www/models.py:138
+msgid "shanghai"
+msgstr "上海"
+
+#: www/models.py:139
+msgid "position"
+msgstr "职位"
+
+#: www/models.py:140
+msgid "publish date"
+msgstr "发布日期"
+
+#: www/models.py:141
+msgid "end date"
+msgstr "结束日期"
+
+#: www/models.py:142
+msgid "location"
+msgstr "工作地"
+
+#: www/models.py:143
+msgid "recruiting numbers"
+msgstr "招聘人数"
+
+#: www/models.py:144
+msgid "responsibilitie"
+msgstr "职责"
+
+#: www/models.py:145
+msgid "qualification"
+msgstr "要求"
+
+#: www/models.py:148
+msgid "job"
+msgstr "工作"
