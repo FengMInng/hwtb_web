@@ -43,7 +43,7 @@ class ProductCatalog(AbstractProduct):
     '''
     
     class Meta:
-        verbose_name=_('product catalog')
+        verbose_name_plural=_('product catalog')
 
 class ProductCatalogAdmin(ModelAdmin):
     list_display = ('name', 'show_start', 'show_end', 'is_delete')
@@ -70,7 +70,7 @@ class Product(AbstractProduct):
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
-    price = models.FloatField(default=0.00)
+    price = models.DecimalField(verbose_name=_('price'),max_digits=20, decimal_places=2,default=0.00)
     
     class Meta:
         verbose_name = _('product')
@@ -97,31 +97,31 @@ class ProductAdmin(ModelAdmin):
 class Description(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
     content = models.TextField(_('content'))
-    img = models.ImageField(upload_to = 'img')
+    img = models.ImageField(upload_to = 'img/%Y%m%d')
     
     def __unicode__(self):
         return self.title
     
     class Meta:
-        verbose_name = _('description')
+        verbose_name_plural = _('description')
 
 class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
     descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
-    page = models.CharField(verbose_name=_('static page'), max_length=100, null=True)
+    page = models.FileField(verbose_name=_('static page'), upload_to='solution/%Y%m%d', max_length=100, null=True)
     
     def __unicode__(self):
         return self.title
     
     class Meta:
-        verbose_name = _('solution')
+        verbose_name_plural = _('solution')
 
 class News(models.Model):
     news_type=((0, _('dynamics')), (1, _('honor')))
     title = models.CharField(verbose_name = _('title'), max_length=100)
     contont = models.TextField(verbose_name = _('content'))
     type = models.IntegerField(choices=news_type, verbose_name = _('news type'), default = 0)
-    page = models.CharField(verbose_name=_('static page'), max_length=100, null=True )
+    page = models.FileField(verbose_name=_('static page'), upload_to='news/%Y%m%d', max_length=100, null=True)
     imgs = models.ManyToManyField(Description)
     # create date and time
     create_date = models.DateTimeField(_('createtime'), null=True, blank = True, editable=False, auto_now_add = True)
@@ -130,7 +130,7 @@ class News(models.Model):
         return self.title
     
     class Meta:
-        verbose_name = _('new')
+        verbose_name_plural = _('new')
         
 
 class Job(models.Model):
@@ -145,7 +145,7 @@ class Job(models.Model):
     qualification = models.TextField(verbose_name = _('qualification'))
     
     class Meta:
-        verbose_name = _('job')
+        verbose_name_plural = _('job')
     
     
     
