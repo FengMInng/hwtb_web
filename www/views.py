@@ -93,3 +93,8 @@ def news(request):
     news_list = News.objects.order_by('new_type')
     web_content['news']=news_list
     return render(request, 'www/news.html', web_content)
+
+def news_detail(request, news_id):
+    web_content = get_base_content()
+    web_content['news']=get_object_or_404(News,news_id)
+    return render(request, 'www/news.html', web_content)
