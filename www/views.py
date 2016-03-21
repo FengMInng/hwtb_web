@@ -58,7 +58,7 @@ def product(request, product_id):
 def aboutus(request):
     web_content = get_base_content()
     jobs = Job.objects.filter(pub_date__lt=timezone.now(),
-                            end_data__gt=timezone.now())[:5]
+                            end_date__gt=timezone.now())[:5]
     
     web_content['jobs']=jobs
     return render(request, 'www/aboutus.html', web_content)
