@@ -11,6 +11,7 @@ from . import views
 app_name='www'
 
 urlpatterns = [
+    url(r'^news/(?P<news_id>[0-9]+)/$', views.news_detail, name='news_detail'),
     url(r'^news$', views.news, name='news'),
     url(r'^contactus$', views.contactus, name='contactus'),
     url(r'^carriar$', views.carriar, name='carriar'),
