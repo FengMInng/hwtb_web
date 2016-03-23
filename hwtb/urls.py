@@ -18,8 +18,8 @@ from django.conf.urls import url,include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('main.urls')),
-    url(r'^main/', include('main.urls')),
+    url(r'^www/', include('www.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^polls/', include('polls.urls')),
+    url(r'^', include('www.urls')),
 ]
