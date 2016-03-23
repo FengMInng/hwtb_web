@@ -4,7 +4,9 @@ from django.contrib import admin
 # Register your models here.
 
 from .models import ProductCatalog, ProductCatalogAdmin, Product, ProductAdmin
-from .models import News, Solution, Description
+from .models import News, Solution, Description, Roll
+
+admin.site.register(Roll)
 
 admin.site.register(ProductCatalog, ProductCatalogAdmin)
 

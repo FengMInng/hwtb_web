@@ -9,7 +9,7 @@
 	<div class="bd">
 	<ul style="position: relative; width: 975px; height: 750px;">
 	{% for roll in rolls %}
-	    <li style="position: absolute; width: 975px; left: 0px; top: 0px; display: none; background-image: url({{roll.image}}); background-position: 50% 0%;">
+	    <li style="position: absolute; width: 975px; left: 0px; top: 0px; display: none; background-image: url({{roll.photo.url}}); background-position: 50% 0%;">
 	    	<a target="_blank" href="{{roll.url}}"></a>
 	    </li>
 	{% endfor %}
@@ -99,9 +99,9 @@
 			<ul class="tabnav">
 			{% for news in news_summurys %}
 				<li class="#" onmouseover="tab_m(this,'tabbox')" onclick="('tab',1)">
-					<strong>{{news.tpye}}</strong>
+					<strong>{{news.type}}</strong>
 					<span>{{news.pub_date}}</span>
-					<a style="color:;" href="/dynamics/show_9.html" class="hover" title="{{news.title}}">
+					<a style="color:;" href="/www/news/{{news.id}}" class="hover" title="{{news.title}}">
 						<font style="color:;">{{news.title}}</font>
 					</a>
 					<p>{{news.content}}</p>

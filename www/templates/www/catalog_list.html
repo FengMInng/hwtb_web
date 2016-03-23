@@ -1,0 +1,71 @@
+{% extends "www/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="blank30"></div>
+<style type="text/css">
+.fullSlide,.fullSlide .bd,.fullSlide .bd li,.fullSlide .bd li a {height:750px;}
+</style>
+
+<section class="wow bounceIn animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: bounceIn;">
+	<div class="t_1">
+		<div>
+			<h3><a href="/products" title="产品中心">产品中心</a></h3>
+			<p>products</p>
+		</div>
+	</div>
+</section>
+<section class="wow fadeInUp  animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+	<div class="h_300">
+		<!-- cp_info -->
+		<script src="{% static 'www/skin/js/m_img_hover.js' %}" type="text/javascript"></script><!-- 图片悬浮 -->
+		<div class="picScroll">
+		<div class="tempWrap" style="overflow:hidden; position:relative; width:984px">
+			<ul class="list_cp" id="img_sf" style="width: 3444px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -246px;">
+			{% for promotion in promotions %}
+			<li class="clone" style="float: left; width: 240px;">
+				<div class="list_cp_img">
+					<img alt="{{promotion.title}}" src="{{promotion.image}}">
+					<a style="color:;" title="{{promotion.title}}" target="_blank" href="{{promotion.url}}" class="list_cp_info">
+						<h3><font style="color:;">{{promotion.title}}</font></h3>
+						<p>{{promotion.discription}}</p>
+					</a>
+				</div>
+			</li>
+			{% endfor %}
+			</ul>
+		</div>
+		<a class="prev" href="javascript:void(0)"></a>
+		<a class="next" href="javascript:void(0)"></a>
+		<!-- list_cp -->
+		</div>
+		<script type="text/javascript">
+		jQuery(".picScroll").slide({ mainCell:"ul", effect:"leftLoop", vis:4, scroll:4,  autoPage:true, switchLoad:"_src" });
+		</script>
+	</div>
+	<!-- w_set -->
+</section>
+
+
+<div class="w_set pa20">
+	<div class="i_about">
+		<section class=" wow fadeIn" data-wow-delay="0.6s">
+		</section>
+		<div class="i_about_text_pic">
+			<section class="wow fadeInLeft" data-wow-delay="1.0s">
+			</section>
+			<section class="wow bounceIn" data-wow-delay="1.6s">
+			</section>
+			<section class="wow fadeInRight" data-wow-delay="1.0s">
+			</section>
+		</div>
+	</div>
+</div>
+
+<div class="blank30"></div>
+
+<div class="w_set pa20" style="z-index:9999999; position:relative; ">
+</div>
+<!-- w_set -->
+
+
+{% endblock %}
