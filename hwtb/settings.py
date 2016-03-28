@@ -135,6 +135,7 @@ MEDIA_URL = '/media/'
 LOCALE_PATHS = (os.path.join(BASE_DIR, "www/locale"),
                 os.path.join(BASE_DIR, "hwtb/locale"))
 #log
+'''
 LOGGING ={
     'version': 1,
     'disable_existing_loggers': True,
@@ -182,3 +183,4 @@ LOGGING ={
         },
     }
 }
+'''
