@@ -2,10 +2,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from config import Online_servers,PC_STYLE_COLOR, BMap
+from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll
+from www.models import News, Job, Roll, OnlineService
 # Create your views here.
 
 def get_roll():
@@ -16,7 +16,6 @@ def get_base_content():
                  'site_url':SITE_URL,
                  'pc_style_color':PC_STYLE_COLOR,
                  'online_servers':Online_servers(),
-                 'bmap': BMap()
             }
         
     return web_content
@@ -28,7 +27,19 @@ def get_product_catalogs_all():
 def get_product_all():
     return Product.objects.filter(show_start__lte = timezone.now(),
                                     show_end__gte = timezone.now()).order_by('show_start')
-    
+
+def get_online_service_qqlist():
+    return OnlineService.objects.filter(type = 'QQ')
+
+#online servers for view
+class Online_servers:
+    def __init__(self):
+        self.qqlist = get_online_service_qqlist()
+        self.weixin= OnlineService.objects.filter(type = 'weixin')
+        self.wangwang=OnlineService.objects.filter(type = 'wangwang')
+        #self.ali=""
+        self.tel = OnlineService.objects.filter(type = 'tel')
+
 def index(request):
     web_content = get_base_content()
     web_content['rolls'] = get_roll()

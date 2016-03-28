@@ -19,7 +19,7 @@ class Roll(models.Model):
         return self.title
     
     class Meta:
-        verbose_name_plural = _('roll')
+        verbose_name_plural = _('roll photo')
 
 class AbstractProduct(models.Model):
     '''
@@ -151,6 +151,7 @@ class News(models.Model):
 class Job(models.Model):
     LOCATIONS=(('bj', _('beijing')),
                ('sh', _('shanghai')))
+    title = models.CharField(verbose_name=_('title'), max_length=100)
     position = models.CharField(verbose_name=_('position'), max_length=100)
     pub_date=models.DateField(verbose_name = _('publish date'))
     end_date=models.DateField(verbose_name=_('end date'))
@@ -159,8 +160,24 @@ class Job(models.Model):
     responsibilitie = models.TextField(verbose_name=_('responsibilitie'))
     qualification = models.TextField(verbose_name = _('qualification'))
     
+    
     class Meta:
         verbose_name_plural = _('job')
     
     
+    def __unicode__(self):
+        return self.title
+    
+class OnlineService(models.Model):
+    TYPE = (('QQ', 'QQ'), ('weixin', _('weixin')), ('wangwang', _('wangwang')), ('tel', _('tel')))
+    type = models.CharField(verbose_name=_('type'), choices=TYPE, max_length=100)
+    account = models.CharField(verbose_name=_('account'), max_length=100)
+    name = models.CharField(verbose_name=_('name'), max_length=100)
+    qrcode = models.ImageField(upload_to = 'img/qrcode', verbose_name=_('qrcode'), null=True, blank=True)
+    
+    class Meta:
+        verbose_name_plural = _('online service')
+        
+    def __unicode__(self):
+        return self.type +":"+self.name
     
