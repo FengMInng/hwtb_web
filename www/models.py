@@ -7,6 +7,20 @@ from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
 # Create your models here.
 
+class Roll(models.Model):
+    title = models.CharField(verbose_name=_('title'), max_length=100)
+    photo = models.ImageField(verbose_name=_('photo'), upload_to = 'roll/%Y%m%d')
+    page = models.FileField(verbose_name = _('static page'), upload_to='roll/%Y%m%d')
+    
+    # create date and time
+    create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False, null=True)
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = _('roll photo')
+
 class AbstractProduct(models.Model):
     '''
     this model is for model base
@@ -74,7 +88,7 @@ class Product(AbstractProduct):
     price = models.DecimalField(verbose_name=_('price'),max_digits=20, decimal_places=2,default=0.00)
     
     class Meta:
-        verbose_name = _('product')
+        verbose_name_plural = _('product')
     
 
 class ProductAdmin(ModelAdmin):
@@ -110,6 +124,7 @@ class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
     photo = models.ImageField(verbose_name=_('photo'), upload_up='img/%Y%m%d')
     descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
+    photo = models.ImageField(upload_to = 'img/%Y%m%d', null=True)
     page = models.FileField(verbose_name=_('static page'), upload_to='solution/%Y%m%d', max_length=100, null=True)
     
     def __unicode__(self):
@@ -119,11 +134,11 @@ class Solution(models.Model):
         verbose_name_plural = _('solution')
 
 class News(models.Model):
-    news_type=((0, _('dynamics')), (1, _('honor')))
+    NEWS_TYPE=((_('dynamics'), _('dynamics')), (_('honor'), _('honor')))
     title = models.CharField(verbose_name = _('title'), max_length=100)
     contont = models.TextField(verbose_name = _('content'))
-    type = models.IntegerField(choices=news_type, verbose_name = _('news type'), default = 0)
-    page = models.FileField(verbose_name=_('static page'), upload_to='news/%Y%m%d', max_length=100, null=True)
+    type = models.CharField(choices=NEWS_TYPE, verbose_name = _('news type'), max_length=100)
+    page = models.FileField(verbose_name=_('static page'), upload_to='news/%Y%m%d', max_length=100, null=True, blank=True)
     imgs = models.ManyToManyField(Description)
     # create date and time
     create_date = models.DateTimeField(_('createtime'), null=True, blank = True, editable=False, auto_now_add = True)
@@ -138,6 +153,7 @@ class News(models.Model):
 class Job(models.Model):
     LOCATIONS=(('bj', _('beijing')),
                ('sh', _('shanghai')))
+    title = models.CharField(verbose_name=_('title'), max_length=100)
     position = models.CharField(verbose_name=_('position'), max_length=100)
     pub_date=models.DateField(verbose_name = _('publish date'))
     end_date=models.DateField(verbose_name=_('end date'))
@@ -146,8 +162,24 @@ class Job(models.Model):
     responsibilitie = models.TextField(verbose_name=_('responsibilitie'))
     qualification = models.TextField(verbose_name = _('qualification'))
     
+    
     class Meta:
         verbose_name_plural = _('job')
     
     
+    def __unicode__(self):
+        return self.title
+    
+class OnlineService(models.Model):
+    TYPE = (('QQ', 'QQ'), ('weixin', _('weixin')), ('wangwang', _('wangwang')), ('tel', _('tel')))
+    type = models.CharField(verbose_name=_('type'), choices=TYPE, max_length=100)
+    account = models.CharField(verbose_name=_('account'), max_length=100)
+    name = models.CharField(verbose_name=_('name'), max_length=100)
+    qrcode = models.ImageField(upload_to = 'img/qrcode', verbose_name=_('qrcode'), null=True, blank=True)
+    
+    class Meta:
+        verbose_name_plural = _('online service')
+        
+    def __unicode__(self):
+        return self.type +":"+self.name
     

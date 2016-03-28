@@ -1,5 +1,4 @@
 *.pyc
 migrations/*
-static
 www/migrations
 polls/migrations

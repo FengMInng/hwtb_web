@@ -2,18 +2,20 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from config import Online_servers,PC_STYLE_COLOR, BMap
+from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job
+from www.models import News, Job, Roll, OnlineService
 # Create your views here.
+
+def get_roll():
+    return Roll.objects.all().order_by('-create_date')[:3]
 
 def get_base_content():
     web_content= {
                  'site_url':SITE_URL,
                  'pc_style_color':PC_STYLE_COLOR,
                  'online_servers':Online_servers(),
-                 'bmap': BMap()
             }
         
     return web_content
@@ -25,11 +27,25 @@ def get_product_catalogs_all():
 def get_product_all():
     return Product.objects.filter(show_start__lte = timezone.now(),
                                     show_end__gte = timezone.now()).order_by('show_start')
-    
+
+def get_online_service_qqlist():
+    return OnlineService.objects.filter(type = 'QQ')
+
+#online servers for view
+class Online_servers:
+    def __init__(self):
+        self.qqlist = get_online_service_qqlist()
+        self.weixin= OnlineService.objects.filter(type = 'weixin')
+        self.wangwang=OnlineService.objects.filter(type = 'wangwang')
+        #self.ali=""
+        self.tel = OnlineService.objects.filter(type = 'tel')
+
 def index(request):
     web_content = get_base_content()
+    web_content['rolls'] = get_roll()
     web_content['catalogs']=get_product_catalogs_all()
     web_content['products']=get_product_all()
+    web_content['news_summurys']=News.objects.all().order_by('-create_date')[0:3]
     
     return render(request, 'www/index.html', web_content)
 
@@ -90,6 +106,11 @@ def contactus(request):
 
 def news(request):
     web_content = get_base_content()
-    news_list = News.objects.order_by('new_type')
+    news_list = News.objects.order_by('type')
     web_content['news']=news_list
     return render(request, 'www/news.html', web_content)
+
+def news_detail(request, news_id):
+    web_content = get_base_content()
+    web_content['news']=get_object_or_404(News, pk=news_id)
+    return render(request, 'www/news_detail.html', web_content)

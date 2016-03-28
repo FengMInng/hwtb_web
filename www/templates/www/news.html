@@ -1,6 +1,21 @@
 {% extends "www/base.html" %}
 {% load staticfiles %}
 {% block content %}
-
+<div class="blank30"></div>
+<section class="wow bounceIn animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: bounceIn;">
+	<div class="t_1">
+		<div>
+			<p></p>
+			<ul>
+{% for new in news %}
+            <li>
+            <a href = "/news/{{new.id}}" >{{new.title}}</a>
+            </li>
+{% endfor %}
+	</ul>
+		</div>
+	</div>
+</section>
+			
 
 {% endblock %}
