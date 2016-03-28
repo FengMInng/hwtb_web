@@ -3,23 +3,23 @@
 
 
 <style type="text/css">
-.izl-rmenu{position:fixed; {{online_servers.servers_float}} margin-right:20px; bottom:0px; padding-bottom:0px;  z-index:999; }
+.izl-rmenu{position:fixed; left:0; margin-right:20px; bottom:0px; padding-bottom:0px;  z-index:999; }
 .izl-rmenu .sbtn{width:72px; height:73px; margin-bottom:1px; cursor:pointer; position:relative;}
 
 
 
 .izl-rmenu .btn-qq{background:url({% static 'www/skin/images/servers/metro_color/r_qq.png' %}) 0px 0px no-repeat; background-color:#6da9de;color:#FFF;}
 .izl-rmenu .btn-qq:hover{background-color:#488bc7;color:#FFF;}
-.izl-rmenu .btn-qq .qq{background-color:#488bc7; position:absolute; width:160px; {{online_servers.servers_float1}} top:0px; line-height:73px; color:#FFF; font-size:18px; text-align:center; display:none;}
+.izl-rmenu .btn-qq .qq{background-color:#488bc7; position:absolute; width:160px; right:-160px; top:0px; line-height:73px; color:#FFF; font-size:18px; text-align:center; display:none;}
 .izl-rmenu .btn-qq a {color:#FFF;font-size:14px;}
 
 .izl-rmenu .btn-wx{background:url({% static 'www/skin/images/servers/metro_color/r_wx.png' %}) 0px 0px no-repeat; background-color:#78c340;}
 .izl-rmenu .btn-wx:hover{background-color:#58a81c;}
-.izl-rmenu .btn-wx .pic{position:absolute; {{online_servers.servers_float1}} top:0px; display:none;width:160px;height:160px;}
+.izl-rmenu .btn-wx .pic{position:absolute; right:-160px; top:0px; display:none;width:160px;height:160px;}
 
 .izl-rmenu .btn-phone{background:url({% static 'www/skin/images/servers/metro_color/r_phone.png' %}) 0px 0px no-repeat; background-color:#fbb01f;}
 .izl-rmenu .btn-phone:hover{background-color:#ff811b;}
-.izl-rmenu .btn-phone .phone{background-color:#ff811b; position:absolute; width:160px; {{online_servers.servers_float1}} top:0px; line-height:73px; color:#FFF; font-size:18px; text-align:center; display:none;}
+.izl-rmenu .btn-phone .phone{background-color:#ff811b; position:absolute; width:160px; right:-160px; top:0px; line-height:73px; color:#FFF; font-size:18px; text-align:center; display:none;}
 
 .izl-rmenu .btn-ali{background:url({% static 'www/skin/images/servers/metro_color/r_ali.png' %}) 0px 0px no-repeat; background-color:#B8860B;}
 .izl-rmenu .btn-ali:hover{background-color:#808000;}
@@ -49,7 +49,7 @@
 
 <script language="javascript" type="text/javascript">
 $(function(){
-	var tophtml="<div id=\"izl_rmenu\" class=\"izl-rmenu\"><div class=\"sbtn btn-qq\"><div class=\"qq\">{% for qq in online_servers.qqlist %} {% if forloop.first %}{% else %}<br />{% endif %} <a rel=\"nofollow\" target=\"_blank\" href=\"tencent://Message/?Uin={{qq.number}}&websiteName={{site_url}}=&Menu=yes\">{{qq.name}}</a>{% endfor %}</div></div>{% if online_servers.wangwang %}<a rel=\"nofollow\" href=\"http://amos.im.alisoft.com/msg.aw?v=2&uid={{online_servers.wangwang}}&site=cntaobao&s=1&charset=utf-8\" target=\"_blank\" class=\"sbtn btn-wangwang\"></a>{% endif %}{% if online_servers.ali %}<a rel=\"nofollow\" target=\"_blank\" href=\"http://web.im.alisoft.com/msg.aw?v=2&uid={{online_servers.ali}}&site=cnalichn&s=10\" class=\"sbtn btn-ali\"></a>{% endif %}{% if online_servers.skype %}<a rel=\"nofollow\" target=\"_blank\" href=\"skype:{{online_servers.skype}}?call\" target=\"_blank\" class=\"sbtn btn-skype\"></a>{% endif %}<div class=\"sbtn btn-wx\"><img class=\"pic\" src=\"{{online_servers.weixin_pic}}\" onclick=\"window.location.href=\'http://{{site_url}}\'\"/></div>{% ifequal webserver 'open' %}<a rel=\"nofollow\" target=\"_blank\" href=\"{$base_url}/celive/\" class=\"sbtn btn-web\"></a>{% endifequal %}<div class=\"sbtn btn-phone\"><div class=\"phone\">{{online_servers.tel}}</div></div><div class=\"sbtn btn-top\"></div></div>";
+	var tophtml="<div id=\"izl_rmenu\" class=\"izl-rmenu\"><div class=\"sbtn btn-qq\"><div class=\"qq\">{% for qq in online_servers.qqlist %} {% if forloop.first %}{% else %}<br />{% endif %} <a rel=\"nofollow\" target=\"_blank\" href=\"tencent://Message/?Uin={{qq.account}}&websiteName={{site_url}}=&Menu=yes\">{{qq.name}}</a>{% endfor %}</div></div>{% if online_servers.wangwang %}<a rel=\"nofollow\" href=\"http://amos.im.alisoft.com/msg.aw?v=2&uid={{online_servers.wangwang.account}}&site=cntaobao&s=1&charset=utf-8\" target=\"_blank\" class=\"sbtn btn-wangwang\"></a>{% endif %}{% if online_servers.ali %}<a rel=\"nofollow\" target=\"_blank\" href=\"http://web.im.alisoft.com/msg.aw?v=2&uid={{online_servers.ali}}&site=cnalichn&s=10\" class=\"sbtn btn-ali\"></a>{% endif %}{% if online_servers.skype %}<a rel=\"nofollow\" target=\"_blank\" href=\"skype:{{online_servers.skype}}?call\" target=\"_blank\" class=\"sbtn btn-skype\"></a>{% endif %}<div class=\"sbtn btn-wx\"><img class=\"pic\" src=\"{{online_servers.weixin.url}}\" onclick=\"window.location.href=\'http://{{site_url}}\'\"/></div>{% ifequal webserver 'open' %}<a rel=\"nofollow\" target=\"_blank\" href=\"{$base_url}/celive/\" class=\"sbtn btn-web\"></a>{% endifequal %}<div class=\"sbtn btn-phone\"><div class=\"phone\">{{online_servers.tel.account}}</div></div><div class=\"sbtn btn-top\"></div></div>";
 	$("#top").html(tophtml);
 	$("#izl_rmenu").each(function(){
 		$(this).find(".btn-qq").mouseenter(function(){
