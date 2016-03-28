@@ -70,6 +70,7 @@ class Product(AbstractProduct):
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
+    
     price = models.DecimalField(verbose_name=_('price'),max_digits=20, decimal_places=2,default=0.00)
     
     class Meta:
@@ -107,6 +108,7 @@ class Description(models.Model):
 
 class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
+    photo = models.ImageField(verbose_name=_('photo'), upload_up='img/%Y%m%d')
     descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
     page = models.FileField(verbose_name=_('static page'), upload_to='solution/%Y%m%d', max_length=100, null=True)
     
