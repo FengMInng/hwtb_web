@@ -6,6 +6,17 @@ from django.contrib.auth.models import User
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
 # Create your models here.
+class Description(models.Model):
+    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
+    content = models.TextField(_('content'))
+    img = models.ImageField(upload_to = 'img/%Y%m%d')
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = _('description')
+
 
 class Roll(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100)
@@ -29,6 +40,9 @@ class AbstractProduct(models.Model):
     name = models.CharField(_('name'), max_length=100)
     # product descriptor
     descriptor = models.TextField(_('description'))
+    
+    #pic
+    imgs = models.ManyToManyField(Description)
     # create date and time
     create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False)
     #create user
@@ -108,17 +122,6 @@ class ProductAdmin(ModelAdmin):
         obj.last_modify_user = request.user
         obj.save()
 
-class Description(models.Model):
-    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
-    content = models.TextField(_('content'))
-    img = models.ImageField(upload_to = 'img/%Y%m%d')
-    
-    def __unicode__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural = _('description')
-
 class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
     descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
@@ -137,7 +140,7 @@ class News(models.Model):
     contont = models.TextField(verbose_name = _('content'))
     type = models.CharField(choices=NEWS_TYPE, verbose_name = _('news type'), max_length=100)
     page = models.FileField(verbose_name=_('static page'), upload_to='news/%Y%m%d', max_length=100, null=True, blank=True)
-    imgs = models.ManyToManyField(Description)
+    imgs = models.ManyToManyField(Description, verbose_name=_('photo'))
     # create date and time
     create_date = models.DateTimeField(_('createtime'), null=True, blank = True, editable=False, auto_now_add = True)
     
