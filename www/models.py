@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
+from ckeditor.fields  import RichTextField
 # Create your models here.
 class Description(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
@@ -39,10 +40,11 @@ class AbstractProduct(models.Model):
     # product catalog name
     name = models.CharField(_('name'), max_length=100)
     # product descriptor
-    descriptor = models.TextField(_('description'))
+    descriptor = RichTextField(_('description'))
     
     #pic
     imgs = models.ManyToManyField(Description)
+    
     # create date and time
     create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False)
     #create user
@@ -98,6 +100,7 @@ class Product(AbstractProduct):
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
+    
     price = models.DecimalField(verbose_name=_('price'),max_digits=20, decimal_places=2,default=0.00)
     
     class Meta:
@@ -124,6 +127,7 @@ class ProductAdmin(ModelAdmin):
 
 class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
+    photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
     descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
     photo = models.ImageField(upload_to = 'img/%Y%m%d', null=True)
     page = models.FileField(verbose_name=_('static page'), upload_to='solution/%Y%m%d', max_length=100, null=True)
