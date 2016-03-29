@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^catalogs/$', views.catalog, name='catalog'),
     url(r'^catalogs/(?P<catalog_id>[0-9]+)/$', views.catalog_list, name='catalog_list'),
     url(r'^prodcuts/(?P<product_id>[0-9]+)/$', views.product, name='product'),
-    url(r'^job/(?P<job_id>[0-9]+)/$', views.job_detail, name='job_detail')
+    url(r'^job/(?P<job_id>[0-9]+)/$', views.job_detail, name='job_detail'),
+    url(r'^upload/', views.upload, name='upload')
 ]

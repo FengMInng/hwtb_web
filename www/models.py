@@ -5,7 +5,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
-from ckeditor.fields  import RichTextField
+from ckeditor_uploader.fields  import RichTextUploadingField
+from hwtb.settings import CKEDITOR_EXTRAPLUGS_CONFIG,\
+    CKEDITOR_EXTRAPLUGS_RESOURCES_CONFIG
 # Create your models here.
 class Description(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
@@ -40,7 +42,8 @@ class AbstractProduct(models.Model):
     # product catalog name
     name = models.CharField(_('name'), max_length=100)
     # product descriptor
-    descriptor = RichTextField(_('description'))
+    descriptor = RichTextUploadingField(_('description'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     
     #pic
     imgs = models.ManyToManyField(Description)

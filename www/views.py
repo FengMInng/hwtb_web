@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*- 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll, OnlineService
+from www.models import News, Job, Roll, OnlineService, Description
+from django.http.response import HttpResponseRedirect
 # Create your views here.
 
 def get_roll():
@@ -114,3 +116,14 @@ def news_detail(request, news_id):
     web_content = get_base_content()
     web_content['news']=get_object_or_404(News, pk=news_id)
     return render(request, 'www/news_detail.html', web_content)
+
+@csrf_exempt
+def upload(request):
+    print request
+    if request.method == 'POST':
+        img = Description(title=request.FILES['upload'].name,\
+                          img=request.FILES['upload'])
+        img.save()
+        pass
+    
+    return HttpResponseRedirect(img.img.url)
