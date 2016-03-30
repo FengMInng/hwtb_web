@@ -6,8 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll, OnlineService, Description
-from django.http.response import HttpResponseRedirect
+from www.models import News, Job, Roll, OnlineService, ImageStore
+from django.http.response import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 def get_roll():
@@ -24,19 +24,19 @@ def get_base_content():
 
 def get_product_catalogs_all():
     return ProductCatalog.objects.filter(show_start__lte = timezone.now(),
-                                    show_end__gte = timezone.now()).order_by('show_start')
+                                    show_end__gte = timezone.now(),
+                                    is_delete = False).order_by('show_start')
     
 def get_product_all():
     return Product.objects.filter(show_start__lte = timezone.now(),
-                                    show_end__gte = timezone.now()).order_by('show_start')
+                                    show_end__gte = timezone.now(),
+                                    is_delete = False).order_by('show_start')
 
-def get_online_service_qqlist():
-    return OnlineService.objects.filter(type = 'QQ')
 
 #online servers for view
 class Online_servers:
     def __init__(self):
-        self.qqlist = get_online_service_qqlist()
+        self.qqlist = OnlineService.objects.filter(type = 'QQ')
         self.weixin= OnlineService.objects.filter(type = 'weixin')
         self.wangwang=OnlineService.objects.filter(type = 'wangwang')
         #self.ali=""
@@ -121,9 +121,11 @@ def news_detail(request, news_id):
 def upload(request):
     print request
     if request.method == 'POST':
-        img = Description(title=request.FILES['upload'].name,\
+        callback = request.GET.get('CKEditorFuncNum')
+        img = ImageStore(title=request.FILES['upload'].name,\
                           img=request.FILES['upload'])
         img.save()
-        pass
-    
+        
+        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",‘/"+img.img.url+"‘, ‘‘);</script>"
+        return HttpResponse(res)
     return HttpResponseRedirect(img.img.url)
