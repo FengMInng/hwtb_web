@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'www.apps.WwwConfig',
+	'ckeditor',
+    'ckeditor_uploader',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -121,7 +123,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+#APPEND_SLASH=False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -134,6 +136,34 @@ MEDIA_URL = '/media/'
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "www/locale"),
                 os.path.join(BASE_DIR, "hwtb/locale"))
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = "ckeditor_upload"
+CKEDITOR_BROWSER_PATH = "ckeditor_browse"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_CONFIGS={
+    'default':{
+        'skin': 'moono',
+        'toolbar_Basic': [
+                          ['Source', '-', 'Bold', 'Italic']
+                          ],
+        'toolbar_Full': [
+                        ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+                        ['Image', 'Flash', 'Table', 'HorizontalRule'],
+                        ['TextColor', 'BGColor'],
+                        ['Smiley', 'SpecialChar'], ['Source'],
+        ],
+        'toolbar': 'Full',
+        'height': 291,
+        'width': 835,
+        'filebrowserWindowWidth': 940,
+        'filebrowserWindowHeight': 725,
+        'filebrowserUploadUrl':'/www/upload/',
+        'filebrowserBrowseUrl':'/browser/'
+    },
+}
+CKEDITOR_EXTRAPLUGS_CONFIG = ['uploadimage']
+CKEDITOR_EXTRAPLUGS_RESOURCES_CONFIG =[['uploadimage','img_uploads/%Y%m%d','']]
 #log
 '''
 LOGGING ={

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*- 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll, OnlineService
+from www.models import News, Job, Roll, OnlineService, ImageStore, AboutUs
+from django.http.response import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
 def get_roll():
@@ -22,19 +24,19 @@ def get_base_content():
 
 def get_product_catalogs_all():
     return ProductCatalog.objects.filter(show_start__lte = timezone.now(),
-                                    show_end__gte = timezone.now()).order_by('show_start')
+                                    show_end__gte = timezone.now(),
+                                    is_delete = False).order_by('show_start')
     
 def get_product_all():
     return Product.objects.filter(show_start__lte = timezone.now(),
-                                    show_end__gte = timezone.now()).order_by('show_start')
+                                    show_end__gte = timezone.now(),
+                                    is_delete = False).order_by('show_start')
 
-def get_online_service_qqlist():
-    return OnlineService.objects.filter(type = 'QQ')
 
 #online servers for view
 class Online_servers:
     def __init__(self):
-        self.qqlist = get_online_service_qqlist()
+        self.qqlist = OnlineService.objects.filter(type = 'QQ')
         self.weixin= OnlineService.objects.filter(type = 'weixin')
         self.wangwang=OnlineService.objects.filter(type = 'wangwang')
         #self.ali=""
@@ -77,10 +79,14 @@ def aboutus(request):
                             end_date__gt=timezone.now())[:5]
     
     web_content['jobs']=jobs
+    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
+    web_content['calture']=AboutUs.objects.filter(type = 'calture')
+    
     return render(request, 'www/aboutus.html', web_content)
 
 def introduction(request):
     web_content = get_base_content()
+    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
     return render(request, 'www/introduction.html', web_content)
 
 def calture(request):
@@ -114,3 +120,17 @@ def news_detail(request, news_id):
     web_content = get_base_content()
     web_content['news']=get_object_or_404(News, pk=news_id)
     return render(request, 'www/news_detail.html', web_content)
+
+@csrf_exempt
+def upload(request):
+    print request
+    if request.method == 'POST':
+        callback = request.GET.get('CKEditorFuncNum')
+        img = ImageStore(title=request.FILES['upload'].name,\
+                          img=request.FILES['upload'])
+        img.save()
+        print callback, img.img.url
+        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'/"+img.img.url+"', '');</script>"
+        return HttpResponse(res)
+    return HttpResponseRedirect(img.img.url)
+

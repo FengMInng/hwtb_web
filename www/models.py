@@ -5,12 +5,26 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
+from ckeditor_uploader.fields  import RichTextUploadingField
+from hwtb.settings import CKEDITOR_EXTRAPLUGS_CONFIG
+
 # Create your models here.
+class ImageStore(models.Model):
+    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
+    img = models.ImageField(upload_to = 'img/%Y%m%d')
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = _('image')
+
 
 class Roll(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100)
     photo = models.ImageField(verbose_name=_('photo'), upload_to = 'roll/%Y%m%d')
-    page = models.FileField(verbose_name = _('static page'), upload_to='roll/%Y%m%d')
+    descriptor = RichTextUploadingField(_('description'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     
     # create date and time
     create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False, null=True)
@@ -19,7 +33,7 @@ class Roll(models.Model):
         return self.title
     
     class Meta:
-        verbose_name_plural = _('roll photo')
+        verbose_name_plural = _('roll')
 
 class AbstractProduct(models.Model):
     '''
@@ -27,8 +41,13 @@ class AbstractProduct(models.Model):
     '''
     # product catalog name
     name = models.CharField(_('name'), max_length=100)
+    ##photo for index
+    photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
     # product descriptor
-    descriptor = models.TextField(_('description'))
+    descriptor = RichTextUploadingField(_('description'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
+    
+    
     # create date and time
     create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False)
     #create user
@@ -84,6 +103,7 @@ class Product(AbstractProduct):
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
+    
     price = models.DecimalField(verbose_name=_('price'),max_digits=20, decimal_places=2,default=0.00)
     
     class Meta:
@@ -95,7 +115,7 @@ class ProductAdmin(ModelAdmin):
     search_fields = ('name','show_start')
     list_filter =('name', 'create_date')
     date_hierarchy = 'create_date'
-    fields = ('name', 'descriptor', 'show_start', 'show_end', 'is_delete', 'catalog', 'price')
+    fields = ('name', 'photo', 'descriptor', 'show_start', 'show_end', 'is_delete', 'catalog', 'price')
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user
@@ -108,22 +128,11 @@ class ProductAdmin(ModelAdmin):
         obj.last_modify_user = request.user
         obj.save()
 
-class Description(models.Model):
-    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
-    content = models.TextField(_('content'))
-    img = models.ImageField(upload_to = 'img/%Y%m%d')
-    
-    def __unicode__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name_plural = _('description')
-
 class Solution(models.Model):
     title = models.CharField(verbose_name=_('title'), max_length=100, unique = True)
-    descriptions = models.ManyToManyField(Description,verbose_name=_('description'))
-    photo = models.ImageField(upload_to = 'img/%Y%m%d', null=True)
-    page = models.FileField(verbose_name=_('static page'), upload_to='solution/%Y%m%d', max_length=100, null=True)
+    photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
+    descriptions = RichTextUploadingField(_('description'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     
     def __unicode__(self):
         return self.title
@@ -134,10 +143,9 @@ class Solution(models.Model):
 class News(models.Model):
     NEWS_TYPE=((_('dynamics'), _('dynamics')), (_('honor'), _('honor')))
     title = models.CharField(verbose_name = _('title'), max_length=100)
-    contont = models.TextField(verbose_name = _('content'))
+    contont = RichTextUploadingField(_('contont'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     type = models.CharField(choices=NEWS_TYPE, verbose_name = _('news type'), max_length=100)
-    page = models.FileField(verbose_name=_('static page'), upload_to='news/%Y%m%d', max_length=100, null=True, blank=True)
-    imgs = models.ManyToManyField(Description)
     # create date and time
     create_date = models.DateTimeField(_('createtime'), null=True, blank = True, editable=False, auto_now_add = True)
     
@@ -147,15 +155,23 @@ class News(models.Model):
     class Meta:
         verbose_name_plural = _('new')
         
-
+class Location(models.Model):
+    city = models.CharField(verbose_name=_('city'), max_length=100)
+    state = models.CharField(verbose_name=_('state'), max_length=100)
+    country=models.CharField(verbose_name=_('country'), max_length=100)
+    
+    def __unicode__(self):
+        return "%s %s %s" % (self.city, self.state, self.country)
+    
+    class Meta:
+        verbose_name_plural = _('location')
+        
 class Job(models.Model):
-    LOCATIONS=(('bj', _('beijing')),
-               ('sh', _('shanghai')))
-    title = models.CharField(verbose_name=_('title'), max_length=100)
+    #
     position = models.CharField(verbose_name=_('position'), max_length=100)
     pub_date=models.DateField(verbose_name = _('publish date'))
     end_date=models.DateField(verbose_name=_('end date'))
-    location = models.CharField(verbose_name=_('location'), choices=LOCATIONS, max_length=100)
+    location = models.ForeignKey(Location, verbose_name=_('location'),  max_length=100)
     recruiting_numbers = models.IntegerField(verbose_name=_('recruiting numbers'), default = 1)
     responsibilitie = models.TextField(verbose_name=_('responsibilitie'))
     qualification = models.TextField(verbose_name = _('qualification'))
@@ -166,7 +182,7 @@ class Job(models.Model):
     
     
     def __unicode__(self):
-        return self.title
+        return self.position
     
 class OnlineService(models.Model):
     TYPE = (('QQ', 'QQ'), ('weixin', _('weixin')), ('wangwang', _('wangwang')), ('tel', _('tel')))
@@ -179,5 +195,18 @@ class OnlineService(models.Model):
         verbose_name_plural = _('online service')
         
     def __unicode__(self):
-        return self.type +":"+self.name
+        return "%s %s" %(self.type , self.name)
     
+class AboutUs(models.Model):
+    ABOUT_US_TYPE=(('introduction', _('introdution')),
+                   ('calture', _('calture')),
+                   ('address', _('address')))
+    type = models.CharField(verbose_name=_('type'), max_length = 100, unique=True)
+    content = RichTextUploadingField(verbose_name = _('content'),extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
+    
+    def __unicode__(self):
+        return self.type
+    
+    class Meta:
+        verbose_name_plural = _('about us')
+        
