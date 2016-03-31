@@ -210,3 +210,15 @@ class AboutUs(models.Model):
     class Meta:
         verbose_name_plural = _('about us')
         
+
+class FriendLink(models.Model):
+    name = models.CharField(verbose_name=_('name'), max_length = 100)
+    url = models.CharField(verbose_name=_('url'), max_length=100)
+    logo = models.ImageField(verbose_name=_('logo'), upload_to='friendlink')
+    
+    def __unicode__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = _('friend link')
+        
