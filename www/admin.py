@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from .models import ProductCatalog, ProductCatalogAdmin, Product, ProductAdmin
 from .models import News, Solution, ImageStore, Roll
-from .models import OnlineService, Location, Job
+from .models import OnlineService, Location, Job, AboutUs
 
 admin.site.register(Roll)
 
@@ -24,3 +24,5 @@ admin.site.register(OnlineService)
 admin.site.register(Location)
 
 admin.site.register(Job)
+
+admin.site.register(AboutUs)

@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll, OnlineService, ImageStore
+from www.models import News, Job, Roll, OnlineService, ImageStore, AboutUs
 from django.http.response import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
@@ -79,10 +79,14 @@ def aboutus(request):
                             end_date__gt=timezone.now())[:5]
     
     web_content['jobs']=jobs
+    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
+    web_content['calture']=AboutUs.objects.filter(type = 'calture')
+    
     return render(request, 'www/aboutus.html', web_content)
 
 def introduction(request):
     web_content = get_base_content()
+    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
     return render(request, 'www/introduction.html', web_content)
 
 def calture(request):
@@ -125,7 +129,8 @@ def upload(request):
         img = ImageStore(title=request.FILES['upload'].name,\
                           img=request.FILES['upload'])
         img.save()
-        
-        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",‘/"+img.img.url+"‘, ‘‘);</script>"
+        print callback, img.img.url
+        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'/"+img.img.url+"', '');</script>"
         return HttpResponse(res)
     return HttpResponseRedirect(img.img.url)
+

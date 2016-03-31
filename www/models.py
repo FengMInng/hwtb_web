@@ -197,3 +197,16 @@ class OnlineService(models.Model):
     def __unicode__(self):
         return "%s %s" %(self.type , self.name)
     
+class AboutUs(models.Model):
+    ABOUT_US_TYPE=(('introduction', _('introdution')),
+                   ('calture', _('calture')),
+                   ('address', _('address')))
+    type = models.CharField(verbose_name=_('type'), max_length = 100, unique=True)
+    content = RichTextUploadingField(verbose_name = _('content'),extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
+    
+    def __unicode__(self):
+        return self.type
+    
+    class Meta:
+        verbose_name_plural = _('about us')
+        
