@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
-from www.models import News, Job, Roll, OnlineService, ImageStore, AboutUs
+from www.models import News, Job, Roll, OnlineService, ImageStore, AboutUs,\
+    FriendLink
 from django.http.response import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
@@ -19,7 +20,7 @@ def get_base_content():
                  'pc_style_color':PC_STYLE_COLOR,
                  'online_servers':Online_servers(),
             }
-        
+    web_content['rolls'] = Roll.objects.all().order_by('create_date')[:3]    
     return web_content
 
 def get_product_catalogs_all():
@@ -32,7 +33,10 @@ def get_product_all():
                                     show_end__gte = timezone.now(),
                                     is_delete = False).order_by('show_start')
 
-
+def get_promote_product():
+    return Product.objects.filter(show_start__lte = timezone.now(),
+                                    show_end__gte = timezone.now(),
+                                    is_delete = False).order_by('-show_start')[:10]
 #online servers for view
 class Online_servers:
     def __init__(self):
@@ -47,9 +51,17 @@ def index(request):
     web_content['rolls'] = get_roll()
     web_content['catalogs']=get_product_catalogs_all()
     web_content['products']=get_product_all()
+    web_content['promotions'] = get_promote_product()
     web_content['news_summurys']=News.objects.all().order_by('-create_date')[0:3]
+    web_content['friendlink']=FriendLink.objects.all()
     
     return render(request, 'www/index.html', web_content)
+
+def roll_view(request, roll_id):
+    web_content = get_base_content()
+    roll = get_object_or_404(Roll, roll_id)
+    web_content['roll'] = roll
+    return render(request, 'www/roll.html', web_content)
 
 def catalog(request):
     web_content = get_base_content()
@@ -70,6 +82,7 @@ def catalog_list(request, catalog_id):
 
 def product(request, product_id):
     web_content = get_base_content()
+    web_content['product']=get_object_or_404(Product, product_id)
     
     return render(request, 'www/product.html', web_content)
 

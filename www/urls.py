@@ -5,13 +5,14 @@ Created on 2016年1月19日
 @author: fangfang
 '''
 from django.conf.urls import url
-from hwtb import settings
+from django.views.static import serve
 
 from . import views
 
 app_name='www'
 
 urlpatterns = [
+    url(r'^roll/(?P<catalog_id>[0-9]+)/$', views.roll_view, name='roll_view'),
     url(r'^news/(?P<news_id>[0-9]+)/$', views.news_detail, name='news_detail'),
     url(r'^news$', views.news, name='news'),
     url(r'^contactus$', views.contactus, name='contactus'),
@@ -25,5 +26,5 @@ urlpatterns = [
     url(r'^prodcuts/(?P<product_id>[0-9]+)/$', views.product, name='product'),
     url(r'^job/(?P<job_id>[0-9]+)/$', views.job_detail, name='job_detail'),
     url(r'^upload/', views.upload, name='upload'),
-    url(r'^browser/(?P<path>[\w]+)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
+    url(r'^browser/(?P<path>[\w]+)$', serve)
 ]

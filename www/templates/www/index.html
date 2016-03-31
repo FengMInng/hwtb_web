@@ -10,7 +10,7 @@
 	<ul style="position: relative; width: 975px; height: 750px;">
 	{% for roll in rolls %}
 	    <li style="position: absolute; width: 975px; left: 0px; top: 0px; display: none; background-image: url({{roll.photo.url}}); background-position: 50% 0%;">
-	    	<a target="_blank" href="{{roll.url}}"></a>
+	    	<a target="_blank" href="/www/roll/{{roll.id}}"></a>
 	    </li>
 	{% endfor %}
 	</ul>

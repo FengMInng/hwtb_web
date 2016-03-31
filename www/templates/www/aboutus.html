@@ -29,6 +29,20 @@
 	</div>
 </section>
 {% include 'www/_calture.html' %}
+
+<section class="wow fadeInUp  animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+	<div class="bg_1 pa5 mb30">
+		<section class="wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
+			<div class="t_2">
+				<div>
+					<h3><a href="/carriar" title="人才招聘">人才招聘</a></h3>
+				</div>
+			</div>
+		</section>
+		<!-- w_set -->
+	</div>
+</section>
+{% include 'www/_carriar.html' %}
 <div class="w_set pa20">
 	<div class="i_about">
 		<section class=" wow fadeIn" data-wow-delay="0.6s">
@@ -50,29 +64,5 @@
 </div>
 <!-- w_set -->
 
-<section class="wow bounceIn">
-	<div class="t_1">
-		<div>
-			<h3>友情链接</h3>
-			<p>links</p>
-		</div>
-	</div>
-</section>
-
-<section class=" wow fadeIn" data-wow-delay="0.6s">
-	<dl class="w_set">
-	<dd class="f_link">
-		{% for flink in friendlink %}
-		<a href="{{flink.url}}" title="{{flink.name}}"><img src="{{flink.logo}}"  width="88" height="31" /></a>
-		{% endfor %}
-	</dd>
-	<dd class="f_link">
-		{% for flink in friendlink %}
-		<a href="{{flink.url}}" target="_blank">{{flink.name}}</a>
-		{% endfor %}
-	</dd>
-	</dl>
-	<!-- w_set -->
-</section>
 
 {% endblock %}
