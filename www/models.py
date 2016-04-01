@@ -61,7 +61,7 @@ class AbstractProduct(models.Model):
     show_end = models.DateField(verbose_name=_('show end'),null=True, blank = True)
     
     #if delete, remain
-    is_delete = models.BooleanField(False)
+    is_delete = models.BooleanField(verbose_name=_('delete'), default=False)
     
     class Meta:
         abstract = True
@@ -143,7 +143,7 @@ class Solution(models.Model):
 class News(models.Model):
     NEWS_TYPE=((_('dynamics'), _('dynamics')), (_('honor'), _('honor')))
     title = models.CharField(verbose_name = _('title'), max_length=100)
-    contont = RichTextUploadingField(_('contont'), \
+    content = RichTextUploadingField(_('content'), \
                                 extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     type = models.CharField(choices=NEWS_TYPE, verbose_name = _('news type'), max_length=100)
     # create date and time
