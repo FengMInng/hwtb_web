@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.views.static import serve
 
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
@@ -147,3 +148,5 @@ def upload(request):
         return HttpResponse(res)
     return HttpResponseRedirect(img.img.url)
 
+def browser(request, path):
+    return HttpResponseRedirect(path)

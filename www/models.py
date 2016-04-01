@@ -201,7 +201,7 @@ class AboutUs(models.Model):
     ABOUT_US_TYPE=(('introduction', _('introdution')),
                    ('calture', _('calture')),
                    ('address', _('address')))
-    type = models.CharField(verbose_name=_('type'), max_length = 100, unique=True)
+    type = models.CharField(verbose_name=_('type'), max_length = 100, unique=True, choices= ABOUT_US_TYPE)
     content = RichTextUploadingField(verbose_name = _('content'),extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     
     def __unicode__(self):
