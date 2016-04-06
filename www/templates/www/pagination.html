@@ -1,0 +1,17 @@
+<div class="pages">
+    <span>{{ pages.count }}条记录/{{ pages.num_pages }}页</span>
+    {% if pages.has_previous %}
+    <a href="?page={{pages.previous_page_number}}">上一页</a>
+    {% endif %}
+    {% for p in pages.page_range %}
+    {% ifequal p pages.number %}
+    <strong>{{p}}</strong>
+    {% else %}
+    <a href="?page={{p}}">{{p}}</a>
+    {% endifequal %}
+
+    {% endfor %}
+    {% if pages.has_next %}
+    <a href="?page={{pages.next_page_number}}">下一页</a>
+    {% endif %}
+</div>

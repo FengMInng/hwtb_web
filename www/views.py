@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
+from django.core.paginator import Paginator, PageNotAnInteger
+
 from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
@@ -92,25 +94,45 @@ def aboutus(request):
                             end_date__gt=timezone.now())[:5]
     
     web_content['jobs']=jobs
-    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
-    web_content['calture']=AboutUs.objects.filter(type = 'calture')
+    intro=AboutUs.objects.filter(type = 'introduction')
+    if intro:
+        web_content['introduction'] = intro[0]
+    calture = AboutUs.objects.filter(type = 'calture')
+    if calture:
+        web_content['calture']=calture[0]
     
     return render(request, 'www/aboutus.html', web_content)
 
 def introduction(request):
     web_content = get_base_content()
-    web_content['introduction']=AboutUs.objects.filter(type = 'introduction')
+    intro=AboutUs.objects.filter(type = 'introduction')
+    if intro:
+        web_content['introduction'] = intro[0]
     return render(request, 'www/introduction.html', web_content)
 
 def calture(request):
     web_content = get_base_content()
+    calture = AboutUs.objects.filter(type = 'calture')
+    if calture:
+        web_content['calture']=calture[0]
     return render(request, 'www/calture.html', web_content)
 
 def carriar(request):
+    recode_per_page = 10
     web_content = get_base_content()
     jobs = Job.objects.filter(pub_date__lt=timezone.now(),
-                            end_data__gt=timezone.now())
-    web_content['jobs']=jobs
+                            end_date__gt=timezone.now())
+    if request.method == 'GET':
+        curpage=request.GET.get('page')
+        pass
+    else:
+        pass
+    p = Paginator(jobs, recode_per_page)
+    try:
+        web_content['jobs']=p.page(curpage)
+    except PageNotAnInteger:
+        web_content['jobs']=p.page(1)
+    web_content['pages']=p
     return render(request, 'www/carriar.html', web_content)
 
 def job_detail(request, job_id):
@@ -147,3 +169,18 @@ def upload(request):
 
 def browser(request, path):
     return HttpResponseRedirect(SITE_URL + path)
+
+def service(request):
+    web_content = get_base_content()
+    return render(request, 'www/service.html', web_content)
+    pass
+
+def solution(request):
+    web_content = get_base_content()
+    return render(request, 'www/solution.html', web_content)
+    pass
+
+def solution_detail(request, so_id):
+    web_content = get_base_content()
+    return render(request, 'www/solution_detail.html', web_content)
+    pass

@@ -1,14 +1,40 @@
-<section class="wow fadeInUp  animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
-			
-<div class="blank60"></div>
-			   <div id="content_vote" class="w_set">
-			   {% for job in jobs %}
-            <ul>
-            	<span>{{job.position}}</span>
-            </ul>
-            {% endfor %}
- <div class="blank10"></div>
 
-			</div>
-</section>
+<div class="w_set">
+
+<div class="blank30"></div>
+<article class="content" id="print">
+<!-- 内容 -->
+
+<div class="w_set">
+<style type="text/css">
+table,td,tr {border:1px solid #ccc; }
+ </style>
+
+<!-- 内容列表开始 -->
+<table id="table" width="100%" border="1" align="center" cellpadding="8" cellspacing="0" style="border-radius: 3px 3px 3px 3px;"> 
+<tbody><tr> 
+<td height="32" width="44" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>序号</strong></td> 
+<td width="184" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>招聘职位</strong></td> 
+<td width="199" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>工作地</strong></td> 
+<td width="84" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>发布时间</strong></td> 
+<td width="101" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>详细信息</strong></td> 
+</tr> 
+{% for job in jobs %}
+<tr> 
+<td height="32" align="center">{{forloop.counter}}</td> 
+<td height="32" align="center"><a title="{{job.title}}" target="_blank" href="job/{{job.id}}">{{job.position}}</a></td> 
+<td height="32" align="center">{{job.location}}</td> 
+<td height="32" align="center">{{job.pub_date}}</td> 
+<td height="32" align="center"><a title="{{job.title}}" target="_blank" href="job/{{job.id}}" class="table_more">详情</a></td> 
+</tr> 
+{% endfor %}
+</tbody></table>
+<!-- 内容列表结束 -->
+
+
+
+<!-- 列表分页开始 -->
+<div class="blank30"></div><div class="blank30"></div>
+{% include "www/pagination.html" %}
+
 
