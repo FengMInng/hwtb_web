@@ -159,7 +159,7 @@ CKEDITOR_CONFIGS={
         'filebrowserWindowWidth': 940,
         'filebrowserWindowHeight': 725,
         'filebrowserUploadUrl':'/www/upload/',
-        'filebrowserBrowseUrl':'/browser/'
+        'filebrowserBrowseUrl':'/www/browser/'
     },
 }
 CKEDITOR_EXTRAPLUGS_CONFIG = ['uploadimage']

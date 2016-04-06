@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-30 17:54+0800\n"
+"POT-Creation-Date: 2016-04-01 13:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr "创建时间"
 msgid "roll"
 msgstr "滚动图片"
 
-#: www/models.py:43 www/models.py:191
+#: www/models.py:43 www/models.py:191 www/models.py:215
 msgid "name"
 msgstr "名称"
 
@@ -64,6 +64,10 @@ msgstr "上架时间"
 #: www/models.py:61
 msgid "show end"
 msgstr "下架时间"
+
+#: www/models.py:64
+msgid "delete"
+msgstr "删除"
 
 #: www/models.py:79
 msgid "product catalog"
@@ -89,10 +93,9 @@ msgstr "公司动态"
 msgid "honor"
 msgstr "行业要闻"
 
-#: www/models.py:146
+#: www/models.py:146 www/models.py:205
 #, fuzzy
-#| msgid "content"
-msgid "contont"
+msgid "content"
 msgstr "内容"
 
 #: www/models.py:148
@@ -159,11 +162,9 @@ msgstr "旺旺"
 msgid "tel"
 msgstr "电话"
 
-#: www/models.py:189
-#, fuzzy
-#| msgid "news type"
+#: www/models.py:189 www/models.py:204
 msgid "type"
-msgstr "新闻类型"
+msgstr "类型"
 
 #: www/models.py:190
 msgid "account"
@@ -176,3 +177,32 @@ msgstr "二维码"
 #: www/models.py:195
 msgid "online service"
 msgstr "在线客服"
+
+#: www/models.py:201
+msgid "introdution"
+msgstr "介绍"
+
+#: www/models.py:202
+msgid "calture"
+msgstr "文化"
+
+#: www/models.py:203
+msgid "address"
+msgstr "地址"
+
+#: www/models.py:211
+msgid "about us"
+msgstr "关于我们"
+
+#: www/models.py:216
+msgid "url"
+msgstr "网址"
+
+#: www/models.py:217
+msgid "logo"
+msgstr "缩略图"
+
+#: www/models.py:223
+msgid "friend link"
+msgstr "友情链接"
+

@@ -136,14 +136,14 @@ def news_detail(request, news_id):
 
 @csrf_exempt
 def upload(request):
-    print request
     if request.method == 'POST':
         callback = request.GET.get('CKEditorFuncNum')
         img = ImageStore(title=request.FILES['upload'].name,\
                           img=request.FILES['upload'])
         img.save()
-        print callback, img.img.url
-        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'/"+img.img.url+"', '');</script>"
+        res = r"<script>window.parent.CKEDITOR.tools.callFunction("+callback+",'http://"+SITE_URL+img.img.url+"', '');</script>"
         return HttpResponse(res)
     return HttpResponseRedirect(img.img.url)
 
+def browser(request, path):
+    return HttpResponseRedirect(SITE_URL + path)
