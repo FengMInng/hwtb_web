@@ -25,7 +25,9 @@ document.links$[ii].onfocus=function(){this.blur()}
 <!--浏览器图标-->
 <link rel="stylesheet" href="{% static 'www/skin/css/style-reset.css' %}" type="text/css" />
 <link rel="stylesheet" href="{% static 'www/skin/css/style_pc.css' %}" />
-<link href="static/www/skin/css/pc{{pc_style_color}}.css" rel="stylesheet" /> 
+<link href="{% static 'www/skin/css/pc6.css' %}" rel="stylesheet" /> 
+<link href="{% static 'www/skin/css/jiathis_counter.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'www/skin/css/jiathis_share.css' %}" rel="stylesheet" type="text/css">
 </head>
 {% ifequal shield_right_key 1 %}
 <body oncontextmenu="return false" onselectstart="return false">
@@ -73,7 +75,7 @@ document.oncontextmenu=stop;
 </div>
 <ul id="nav"> 
 <li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/">首页</a></li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="catalogs">产品中心</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/www/catalogs">产品中心</a>
 <UL>
 <div class="blank10"></div>
 {% for catalog in catalogs %}
@@ -89,21 +91,22 @@ document.oncontextmenu=stop;
 {% endfor %}
 </ul>
 </li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="solution">解决方案</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/www/solution">解决方案</a>
 <UL>
 <div class="blank10"></div>
 {% for solution in solutions %}
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="solutions/{{solution.solution_id}}" >{{ solution.name }}</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/www/solutions/{{solution.solution_id}}" >{{ solution.name }}</a>
 </li> 
 {% endfor %}
 </ul>
 </li>
-<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="aboutus">关于我们</a>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/www/service">服务与支持</a></li>
+<li class="one{% ifequal topid 0 %} on{% endifequal %}"><a href="/www/aboutus">关于我们</a>
 	<ul>
-	<li><a href="introduction" >公司介绍</a></li>
-	<li><a href="calture" >企业文化</a></li>
-	<li><a href="carriar" >人才招聘</a></li>
-	<li><a href="contactus" >联系我们</a></li>
+	<li><a href="/www/introduction" >公司介绍</a></li>
+	<li><a href="/www/calture" >企业文化</a></li>
+	<li><a href="/www/carriar" >人才招聘</a></li>
+	<li><a href="/www/contactus" >联系我们</a></li>
 	</ul>
 </li>
 </div>

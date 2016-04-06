@@ -25,5 +25,8 @@ urlpatterns = [
     url(r'^prodcuts/(?P<product_id>[0-9]+)/$', views.product, name='product'),
     url(r'^job/(?P<job_id>[0-9]+)/$', views.job_detail, name='job_detail'),
     url(r'^upload/', views.upload, name='upload'),
-    url(r'^browser/(?P<path>[\w]+)$', views.browser, name='browser')
+    url(r'^browser/(?P<path>[\w]+)$', views.browser, name='browser'),
+    url(r'^service/', views.service, name='service'),
+    url(r'^solution/$', views.solution, name='solution'),
+    url(r'^solution/(?P<so_id>[0-9]+)/$', views.solution_detail, name='solution_detail')
 ]

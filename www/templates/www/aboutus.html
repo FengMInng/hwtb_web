@@ -2,15 +2,24 @@
 {% load staticfiles %}
 {% block content %}
 
-<div>
-<br>
+<section>
+<div class="banner" style="height:100px;">
 </div>
-
+</section>
+<div class="clearall"></div>
+<nav class="sub_menu">
+<div>
+<h3>关于我们</h3>
+<a href="introduction" class="sub_menu_on">公司介绍</a>
+<a href="calture">企业文化</a>
+<a href="carriar">人才招聘</a>
+<a href="contactus">联系我们</a>
+</div>
+</nav>
 <section class="wow bounceIn animated" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: bounceIn;">
 	<div class="t_1">
 		<div>
-			<p></p>
-			<h3><a href="/introduction" title="公司介绍">公司介绍</a></h3>
+			<h3>公司介绍</h3>
 		</div>
 	</div>
 </section>
@@ -21,7 +30,7 @@
 		<section class="wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
 			<div class="t_2">
 				<div>
-					<h3><a href="/calture" title="企业文化">企业文化</a></h3>
+					<h3>企业文化</h3>
 				</div>
 			</div>
 		</section>
@@ -35,7 +44,7 @@
 		<section class="wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
 			<div class="t_2">
 				<div>
-					<h3><a href="/carriar" title="人才招聘">人才招聘</a></h3>
+					<h3>人才招聘</h3>
 				</div>
 			</div>
 		</section>
