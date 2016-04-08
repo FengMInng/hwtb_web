@@ -26,7 +26,7 @@ SECRET_KEY = 'gyfm@@ap+#eo859jg67e^ny$+rd&83s+91b8u5v*^y4vsi0r29'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -148,10 +148,18 @@ CKEDITOR_CONFIGS={
                           ['Source', '-', 'Bold', 'Italic']
                           ],
         'toolbar_Full': [
-                        ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-                        ['Image', 'Flash', 'Table', 'HorizontalRule'],
-                        ['TextColor', 'BGColor'],
-                        ['Smiley', 'SpecialChar'], ['Source'],
+                        ['div','Source','-','Save','NewPage','Preview','-','Templates'], 
+            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'], 
+            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'], 
+            ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'], 
+            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'], 
+            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'], 
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], 
+            ['Link','Unlink','Anchor'], 
+            ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'], 
+            ['Styles','Format','Font','FontSize'], 
+            ['TextColor','BGColor'], 
+            ['Maximize','ShowBlocks','-','About', 'pbckcode'],
         ],
         'toolbar': 'Full',
         'height': 291,
