@@ -10,7 +10,7 @@ from hwtb.settings import CKEDITOR_EXTRAPLUGS_CONFIG
 
 # Create your models here.
 class ImageStore(models.Model):
-    title = models.CharField(verbose_name=_('title'), max_length=100, unique=True)
+    title = models.CharField(verbose_name=_('title'), max_length=100)
     img = models.ImageField(upload_to = 'img/%Y%m%d')
     
     def __unicode__(self):
@@ -43,6 +43,8 @@ class AbstractProduct(models.Model):
     name = models.CharField(_('name'), max_length=100)
     ##photo for index
     photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
+    
+    summary = models.TextField(verbose_name=_('summary'))
     # product descriptor
     descriptor = RichTextUploadingField(_('description'), \
                                 extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
@@ -83,7 +85,7 @@ class ProductCatalogAdmin(ModelAdmin):
     search_fields = ('name','show_start')
     list_filter =('name', 'create_date')
     date_hierarchy = 'create_date'
-    fields = ('name', 'descriptor', 'show_start', 'show_end', 'is_delete')
+    fields = ('name', 'photo', 'summary', 'descriptor', 'show_start', 'show_end', 'is_delete')
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user
@@ -115,7 +117,7 @@ class ProductAdmin(ModelAdmin):
     search_fields = ('name','show_start')
     list_filter =('name', 'create_date')
     date_hierarchy = 'create_date'
-    fields = ('name', 'photo', 'descriptor', 'show_start', 'show_end', 'is_delete', 'catalog', 'price')
+    fields = ('name', 'photo', 'summary', 'descriptor', 'show_start', 'show_end', 'is_delete', 'catalog', 'price')
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user

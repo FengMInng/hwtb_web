@@ -22,7 +22,10 @@ def get_base_content():
                  'pc_style_color':PC_STYLE_COLOR,
                  'online_servers':Online_servers(),
             }
+    
     web_content['rolls'] = Roll.objects.all().order_by('create_date')[:3]    
+    web_content['catalogs']=get_product_catalogs_all()
+    web_content['products']=get_product_all()
     return web_content
 
 def get_product_catalogs_all():
@@ -51,8 +54,7 @@ class Online_servers:
 def index(request):
     web_content = get_base_content()
     web_content['rolls'] = get_roll()
-    web_content['catalogs']=get_product_catalogs_all()
-    web_content['products']=get_product_all()
+    
     web_content['promotions'] = get_promote_product()
     web_content['news_summurys']=News.objects.all().order_by('-create_date')[0:3]
     web_content['friendlink']=FriendLink.objects.all()
@@ -67,24 +69,37 @@ def roll_view(request, roll_id):
 
 def catalog(request):
     web_content = get_base_content()
-    web_content['catalogs']=get_product_catalogs_all()
-    web_content['products']=get_product_all()
     
     return render(request, 'www/catalog.html', web_content)
 
 def catalog_list(request, catalog_id):
+    recode_per_page=11
+    curpage = 1
+    if request.method == 'GET':
+        curpage=request.GET.get('page')
+        pass
+    else:
+        pass
     web_content = get_base_content()
     
     catalog= get_object_or_404(ProductCatalog, catalog_id)
     products = Product.objects.filter(catalog_id=catalog.id,
                                     show_start__lte = timezone.now(),
-                                    show_end__gte = timezone.now())
-    web_content['products'] = products
+                                    show_end__gte = timezone.now(),
+                                    is_delete=False)
+    web_content['show_catalog']=catalog
+    
+    p = Paginator(products, recode_per_page)
+    try:
+        web_content['show_products']=p.page(curpage)
+    except PageNotAnInteger:
+        web_content['show_products']=p.page(1)
+    web_content['pages']=p
     return render(request, 'www/catalog_list.html', web_content)
 
 def product(request, product_id):
     web_content = get_base_content()
-    web_content['product']=get_object_or_404(Product, product_id)
+    web_content['show_product']=get_object_or_404(Product, pk=product_id)
     
     return render(request, 'www/product.html', web_content)
 
@@ -146,9 +161,21 @@ def contactus(request):
     return render(request, 'www/contactus.html', web_content)
 
 def news(request):
+    recode_per_page=11
+    curpage = 1
+    if request.method == 'GET':
+        curpage=request.GET.get('page')
+        pass
+    else:
+        pass
     web_content = get_base_content()
     news_list = News.objects.order_by('type')
-    web_content['news']=news_list
+    p = Paginator(news_list, recode_per_page)
+    try:
+        web_content['news']=p.page(curpage)
+    except PageNotAnInteger:
+        web_content['news']=p.page(1)
+    web_content['pages']=p
     return render(request, 'www/news.html', web_content)
 
 def news_detail(request, news_id):

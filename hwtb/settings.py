@@ -33,7 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'www.apps.WwwConfig',
-	'ckeditor',
+    'djcelery',
+    'ckeditor',
     'ckeditor_uploader',
     'polls.apps.PollsConfig',
     'django.contrib.admin',

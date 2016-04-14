@@ -27,18 +27,23 @@
 <div class="w_set">
 
 <!-- 内容列表开始 -->
-{% for new in news %}
-      <li>
-      <a href = "/news/{{new.id}}" >{{new.title}}</a>
-      </li>
-{% endfor %}
+<div class="w_set">
+
+<div class="blank30"></div>
+<article class="content" id="print">
+<!-- 内容 -->
+
+<div id="content_text">
+{{new.content|safe}}
+</div></article>
+
+</div>
+
+
+
 <!-- 内容列表结束 -->
 
 
-
 <!-- 列表分页开始 -->
-<div class="blank30"></div><div class="blank30"></div>
-{% include "www/pagination.html" %}
-			
 
 {% endblock %}

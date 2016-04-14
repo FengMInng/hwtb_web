@@ -83,7 +83,7 @@ document.oncontextmenu=stop;
 	<ul>
 		{% for product in products %}
 		{% ifequal product.catalog_id catalog.id %}
-		<li><a href="product/{{product.product_id}}">{{product.name}}</li>
+		<li><a href="/products/{{product.id}}">{{product.name}}</li>
 		{% endifequal %}
 		{% endfor %}
 	</ul>
