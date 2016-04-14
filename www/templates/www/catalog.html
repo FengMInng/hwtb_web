@@ -12,87 +12,33 @@
 	</div>
 </div>
 <div class="blank30"></div>
-<div class="w_set pc_show" data-wow-delay="0.6s">
+{% for catalog in catalogs %}
+<div class="w_set pc_show" >
 
 
-
+<p>
 <div class="cp_info">
-<p></p>
-<a href="">Learn more</a>
+<p><img alt="" src="{{catalog.photo.url}}"  style="width: 200px; height: 240px; top: 0px; left: 0px;"></p>
+<a href="/www/catalog/{{catalog.id}}" title="了解更多">{{catalog.name}}</a>
 </div>
 <!-- cp_info -->
 
 
 <!-- 内容缩略图列表 -->
-<script src="/template/default_html5/skin/js/m_img_hover.js" type="text/javascript"></script><!-- 图片悬浮 -->
+<script src="{static 'www/skin/js/m_img_hover.js'}" type="text/javascript"></script><!-- 图片悬浮 -->
 <ul class="list_cp">
+	{% for product in products %}
+	{% ifequal product.catalog_id catalog.id %}
 	<li>
-	<img alt="为什么越来越多的社群会死掉?" src="/upload/images/201507/14360847171025.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-	<a title="为什么越来越多的社群会死掉?" target="_blank" href="/operate/show_30.html" class="list_cp_info" style="display: none;"><h3>为什么越来越多的社群会死掉?</h3>
-	<p>你屏蔽过多少微信群和QQ群了?那些社群多数已经死了。今年被誉为社群元年，社群已经成了</p>
+	<img alt="" src="{{product.photo.url}}"  style="width: 240px; height: 300px; top: 0px; left: 0px;">
+	<a title="" target="_blank" href="/www/products/{{product.id}}]" class="list_cp_info" style="display: none;"><h3>{{product.name}}</h3>
+	<p>{{product.summary}}</p>
 	</a>
 	</li>
-	<li>
-	<img alt="下载演示一" src="/upload/images/201507/14360850166878.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-	<a title="下载演示一" target="_blank" href="/download/show_25.html" class="list_cp_info" style="display: none;"><h3>下载演示一</h3>
-	<p>广义上说，凡是在屏幕上看到的不属于本地计算机上的内容，皆是通过“下载”得来。狭义上人</p>
-	</a>
-	</li>
-	<li>
-	<img alt="产品展示一" src="/upload/images/201507/14360807793703.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-	<a title="产品展示一" target="_blank" href="/design/show_18.html" class="list_cp_info" style="display: none;"><h3>产品展示一</h3>
-	<p>产品展示是指对客户的产品进行详细展示，包括规格，产品的款式颜色等所有产品详细的信息。</p>
-	</a>
-	</li>
-<li>
-<img alt="产品展示三" src="/upload/images/201507/14360818253526.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="产品展示三" target="_blank" href="/design/show_10.html" class="list_cp_info" style="display: none;"><h3>产品展示三</h3>
-<p>但是这种对于产品的展示基本上还停留在二维的静止的形式上，无法充分的表现产品的外观和特</p>
-</a>
-</li>
-<li>
-<img alt="市场人员是如何获取流量的？" src="/upload/images/201507/14360826511736.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="市场人员是如何获取流量的？" target="_blank" href="/operate/show_24.html" class="list_cp_info" style="display: none;"><h3>市场人员是如何获取流量的？</h3>
-<p>a...</p>
-</a>
-</li>
-<li>
-<img alt="产品展示四" src="/upload/images/201507/14360850166123.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="产品展示四" target="_blank" href="/design/show_11.html" class="list_cp_info" style="display: none;"><h3>产品展示四</h3>
-<p>利用平面图片和文字介绍做成类似目录形式的方式，来展示产品，是主流展示方式。</p>
-</a>
-</li>
-<li>
-<img alt="产品展示五" src="/upload/images/201507/14360848007276.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="产品展示五" target="_blank" href="/design/show_12.html" class="list_cp_info" style="display: none;"><h3>产品展示五</h3>
-<p>产品展示包括实物展示和虚拟展示两种，实物展示，指通过产品新闻发布会、展览展会及零售端</p>
-</a>
-</li>
-<li>
-<img alt="产品展示六" src="/upload/images/201507/14360817267565.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;">
-<a title="产品展示六" target="_blank" href="/design/show_13.html" class="list_cp_info"><h3>产品展示六</h3>
-<p>产品展示能让顾客更直观的去了解网站上所展示的产品</p>
-</a>
-</li>
-<li>
-<img alt="产品展示七" src="/upload/images/201507/14360825374872.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;">
-<a title="产品展示七" target="_blank" href="/design/show_14.html" class="list_cp_info"><h3>产品展示七</h3>
-<p>创新的方便手指调整的外形让佩戴更轻松、更舒适</p>
-</a>
-</li>
-<li>
-<img alt="产品展示八" src="/upload/images/201507/14360803647919.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="产品展示八" target="_blank" href="/design/show_16.html" class="list_cp_info" style="display: none;"><h3>产品展示八</h3>
-<p>让顾客在看到产品的同时对产品的每一个信息都有一定的了解。</p>
-</a>
-</li>
-<li>
-<img alt="产品展示九" src="/upload/images/201507/14360850166868.jpg" onerror="this.src=&quot;/images/nopic.gif&quot;" style="width: 240px; height: 300px; top: 0px; left: 0px;">
-<a title="产品展示九" target="_blank" href="/design/show_17.html" class="list_cp_info" style="display: none;"><h3>产品展示九</h3>
-<p>产品展示的最直接和最直观的方式就是将产品实体展现在客户的面前。</p>
-</a>
-</li>
+	{% endifequal %}
+	{% endfor %}
 </ul>
+
 <!-- 内容缩略图列表结束 -->
 
 <div class="clear"></div>
@@ -101,5 +47,5 @@
 
 
 </div>
-
+{% endfor %}
 {% endblock %}
