@@ -135,6 +135,9 @@ class Solution(models.Model):
     photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
     descriptions = RichTextUploadingField(_('description'), \
                                 extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
+    #validate date
+    show_start = models.DateField(verbose_name=_('show start'),null=True, blank = True)
+    show_end = models.DateField(verbose_name=_('show end'),null=True, blank = True)
     
     def __unicode__(self):
         return self.title
@@ -223,4 +226,19 @@ class FriendLink(models.Model):
     
     class Meta:
         verbose_name_plural = _('friend link')
+        
+class Driver(models.Model):
+    OS_TYPE=(('Windows', 'Windows'),('Mac', 'Mac'))
+    title=models.CharField(verbose_name=_('title'), max_length=150)
+    os=models.CharField(verbose_name=_('os'),  max_length=100, choices=OS_TYPE)
+    description=models.TextField(verbose_name=_('description'))
+    driver_file = models.FileField(verbose_name=_('driver_file'), upload_to='driver/%Y%m%d')
+    release_date=models.DateField(verbose_name=_('release date'))
+    create_time=models.DateTimeField(verbose_name=_('create time'), editable=False, auto_now_add = True)
+    
+    def __unicode__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name_plural = _('driver')
         

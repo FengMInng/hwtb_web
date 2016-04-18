@@ -5,27 +5,32 @@
 <div class="banner" style="height:100px;">
 </div>
 </section>
+<div class="clearall"></div>
 <nav class="sub_menu">
 <div>
-<h3>产品中心</h3>
+<h3>解决方案</h3>
 </div>
 </nav>
-<div class="t_1 wow bounceIn animated" style="visibility: visible; animation-name: bounceIn;">
-	<div>
-	<h3>产品中心</h3>
-	<p>products</p>
-	</div>
+<div class="t_1">
+<div>
+<h3>解决方案</h3>
+<p>solution</p>
 </div>
+</div>
+<div class="blank30"></div>
+
 
 <div class="w_set">
 
+<div class="blank30"></div>
 <article class="content" id="print">
 <!-- 内容 -->
-<div><h4>{{show_product.name}}</h4></div>
+
 <div id="content_text">
-{{show_product.descriptor|safe}}
+{{show_solution.description|safe}}
 </div></article>
 
 </div>
+
 
 {% endblock %}

@@ -104,7 +104,7 @@
 					<a style="color:;" href="/www/news/{{news.id}}" class="hover" title="{{news.title}}">
 						<font style="color:;">{{news.title}}</font>
 					</a>
-					<p>{{news.content}}</p>
+					<p>{{news.content|safe}}</p>
 				</li>
 			{% endfor %}
 			</ul>

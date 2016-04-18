@@ -9,7 +9,7 @@ from config import PC_STYLE_COLOR
 from models import ProductCatalog, Product
 from www.config import SITE_URL
 from www.models import News, Job, Roll, OnlineService, ImageStore, AboutUs,\
-    FriendLink
+    FriendLink, Solution, Driver
 from django.http.response import HttpResponseRedirect, HttpResponse
 # Create your views here.
 
@@ -26,6 +26,7 @@ def get_base_content():
     web_content['rolls'] = Roll.objects.all().order_by('create_date')[:3]    
     web_content['catalogs']=get_product_catalogs_all()
     web_content['products']=get_product_all()
+    web_content['solutions']=get_solitions_all()
     return web_content
 
 def get_product_catalogs_all():
@@ -42,6 +43,9 @@ def get_promote_product():
     return Product.objects.filter(show_start__lte = timezone.now(),
                                     show_end__gte = timezone.now(),
                                     is_delete = False).order_by('-show_start')[:10]
+def get_solitions_all():
+    return Solution.objects.filter(show_start__lte = timezone.now(),
+                                    show_end__gte = timezone.now()).order_by('-show_start')
 #online servers for view
 class Online_servers:
     def __init__(self):
@@ -199,6 +203,7 @@ def browser(request, path):
 
 def service(request):
     web_content = get_base_content()
+    web_content['drivers']=Driver.objects.all().order_by('create_time')
     return render(request, 'www/service.html', web_content)
     pass
 
@@ -209,5 +214,6 @@ def solution(request):
 
 def solution_detail(request, so_id):
     web_content = get_base_content()
+    web_content['show_solution']=get_object_or_404(Solution, so_id)
     return render(request, 'www/solution_detail.html', web_content)
     pass

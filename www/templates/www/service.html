@@ -1,5 +1,74 @@
 {% extends "www/base.html" %}
 {% load staticfiles %}
 {% block content %}
+<section>
+<div class="banner" style="height:100px;">
+</div>
+</section>
+<div class="clearall"></div>
+<nav class="sub_menu">
+<div>
+<h3>服务支持</h3>
+</div>
+</nav>
+<div class="t_1">
+<div>
+<h3>服务支持</h3>
+<p>service</p>
+<a href="" class="sub_menu_on">驱动下载</a>
+</div>
+</div>
+<div class="blank30"></div>
+<div class="w_set">
 
+<div class="blank30"></div>
+<!-- 内容 -->
+
+
+
+<div class="w_set">
+
+<article class="content" id="print">
+<!-- 内容 -->
+
+<div class="w_set">
+<style type="text/css">
+table,td,tr {border:1px solid #ccc; }
+</style>
+
+<!-- 内容列表开始 -->
+<table id="table" width="100%" border="1" align="center" cellpadding="8" cellspacing="0" style="border-radius: 3px 3px 3px 3px;"> 
+<tbody><tr> 
+<td height="32" width="44" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>序号</strong></td> 
+<td width="84" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>标题</strong></td> 
+<td width="84" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>适用系统</strong></td> 
+<td width="184" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>简介</strong></td> 
+<td width="101" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>发布日期</strong></td> 
+<td width="101" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>下载链接</strong></td> 
+</tr> 
+{% for d in drivers %}
+<tr> 
+<td height="32" align="center">{{forloop.counter}}</td> 
+<td height="32" align="center">{{d.title}}</td> 
+<td height="32" align="center">{{d.os}}</td> 
+<td height="32" align="center">{{d.description}}</td> 
+<td height="32" align="center">{{d.release_date}}</td> 
+<td height="32" align="center"><a title="{{d.title}}" target="_blank" href="{{d.driver_file.url}}" class="table_more">点击下载</a></td> 
+</tr> 
+{% endfor %}
+</tbody></table>
+</div>
+</article>
+</div>
+<!-- 内容列表结束 -->
+
+
+
+<!-- 列表分页开始 -->
+<div class="blank30"></div><div class="blank30"></div>
+{% include "www/pagination.html" %}
+
+
+<!-- 内容列表结束 -->
+</div>
 {% endblock %}

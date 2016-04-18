@@ -8,16 +8,16 @@
 <div class="w_set">
 <style type="text/css">
 table,td,tr {border:1px solid #ccc; }
- </style>
+</style>
 
 <!-- 内容列表开始 -->
 <table id="table" width="100%" border="1" align="center" cellpadding="8" cellspacing="0" style="border-radius: 3px 3px 3px 3px;"> 
 <tbody><tr> 
-<td height="32" width="44" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>序号</strong></td> 
-<td width="184" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>招聘职位</strong></td> 
-<td width="199" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>工作地</strong></td> 
-<td width="84" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>发布时间</strong></td> 
-<td width="101" align="center" background="/template/default_html5/skin/images/th_bg.jpg"><strong>详细信息</strong></td> 
+<td height="32" width="44" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>序号</strong></td> 
+<td width="184" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>招聘职位</strong></td> 
+<td width="199" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>工作地</strong></td> 
+<td width="84" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>发布时间</strong></td> 
+<td width="101" align="center" background="{% static 'www/skin/images/th_bg.jpg' %}"><strong>详细信息</strong></td> 
 </tr> 
 {% for job in jobs %}
 <tr> 
@@ -29,6 +29,9 @@ table,td,tr {border:1px solid #ccc; }
 </tr> 
 {% endfor %}
 </tbody></table>
+</div>
+</article>
+</div>
 <!-- 内容列表结束 -->
 
 

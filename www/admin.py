@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from .models import ProductCatalog, ProductCatalogAdmin, Product, ProductAdmin
 from .models import News, Solution, ImageStore, Roll, FriendLink
-from .models import OnlineService, Location, Job, AboutUs
+from .models import OnlineService, Location, Job, AboutUs, Driver
 
 admin.site.register(Roll)
 
@@ -28,3 +28,5 @@ admin.site.register(Job)
 admin.site.register(AboutUs)
 
 admin.site.register(FriendLink)
+
+admin.site.register(Driver)
