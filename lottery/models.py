@@ -4,12 +4,24 @@ from django.db import models
 
 # Create your models here.
 
-class LotteryGuess(models.Model):
+class Base(models.Model):
     TYPES=(('dlt', 'dlt'), ('dc', 'dc'))
     type=models.CharField(max_length=10, choices=TYPES)
     red=models.CharField(max_length=100)
     blue=models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return self.red +" " + self.blue
+    
+    class Meta:
+        abstract = True
+
+class Guess(Base):
     validno=models.CharField(max_length=100,default="")
     level=models.IntegerField(default=0)
     creat_time=models.DateTimeField(auto_now_add = True)
+    
+class History(Base):
+    no = models.CharField(max_length=100,primary_key=True)
+    pub_date = models.DateTimeField()
     

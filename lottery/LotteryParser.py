@@ -71,8 +71,6 @@ class DltHTMLParser(HTMLParser):
                 if len(data.strip())==5:
                     self.m_step=2
                     
-                
-                    
         if '/'.join(self.m_stack) == 'tr/td' and len(data.strip()) == 10 :
             if self.m_step == 2:
                 self.m_str = self.m_str + " " + data.strip()
@@ -164,7 +162,6 @@ class Lottery:
     
     @staticmethod
     def parse_dlt(s):
-        print s
         lot = Lottery
         lot.no = s[0:5]
         r = re.compile('\d+')
@@ -206,7 +203,7 @@ class Lot:
         self.first={}
         self.second={}
         self.third={}
-        self.new_count=0
+        self.new_hist=[]
         pass    
             
     def run(self):
@@ -224,11 +221,9 @@ class Lot:
                 else:
                     lottery = Lottery.parse_ssq(line)
                 
-                if self.m_hist is None:
-                    self.m_hist[lottery.no]=lottery
                 if lottery.no not in self.m_hist.keys():
                     self.m_hist[lottery.no]=lottery
-                    self.new_count=self.new_count+1
+                    self.new_hist.append(lottery.no)
                 else:
                     conti=0
                     break

@@ -148,8 +148,12 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
 CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'amqp'
 CELERY_IMPORTS =('www.tasks', 'lottery.tasks')
+from kombu import serialization
+serialization.registry._decoders.pop("application/x-python-serialize")
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor_upload"
 CKEDITOR_BROWSER_PATH = "ckeditor_browse"
