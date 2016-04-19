@@ -78,24 +78,24 @@ def collect(type='dlt'):
     lot = Lot(type)
     lot.m_hist = read_history(type)
     lot.run()
-    for n in lot.new_hist:
-        l = lot.m_hist[n]
+    for k, l in lot.m_hist.iteritems():
         LotGsValid(l, type)
         try:
-            hist = History.objects.get(no=l.no) 
+            hist = History.objects.get(no=k) 
+            continue
         except Exception:
             hist = History()
-        hist.no = l.no
+        hist.no = k
         hist.type = type
         hist.red  = ' '.join(l.red)
         hist.blue = ' '.join(l.blue)
-        hist.pub_date = timezone.template_localtime(datetime.strptime(l.pub_date, '%Y-%m-%d'))
+        hist.pub_date = timezone.template_localtime(datetime.strptime(l.pub_date, '%Y-%m-%d'), True)
         try:
             hist.save()
         except Exception as e:
             print e
             print hist.type, hist.red,hist.blue, hist.pub_date
-            return
+            continue
     pass
     
     return 

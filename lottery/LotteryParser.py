@@ -220,7 +220,7 @@ class Lot:
                     lottery = Lottery.parse_dlt(line)
                 else:
                     lottery = Lottery.parse_ssq(line)
-                
+                    
                 if lottery.no not in self.m_hist.keys():
                     self.m_hist[lottery.no]=lottery
                     self.new_hist.append(lottery.no)
