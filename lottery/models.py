@@ -22,6 +22,6 @@ class Guess(Base):
     creat_time=models.DateTimeField(auto_now_add = True)
     
 class History(Base):
-    no = models.CharField(max_length=100,primary_key=True)
+    no = models.CharField(max_length=20)
     pub_date = models.DateTimeField()
     

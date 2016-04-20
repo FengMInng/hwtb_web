@@ -4,7 +4,7 @@ Created on 2015-5-25
 @author: Administrator
 '''
 
-import urllib2
+import urllib2, datetime
 from HTMLParser import HTMLParser
 import re
 
@@ -83,12 +83,12 @@ class DltHTMLParser(HTMLParser):
         pass
 
 class SsqHTMLParser(HTMLParser):
-    def __init__(self,pn,url):
+    def __init__(self,pn):
         HTMLParser.__init__(self)
         self.m_stack=list()
         self.m_hist=list()
         self.m_str=None
-        self.m_url=url
+        self.m_url='http://tubiao.zhcw.com/tubiao/ssqNew/ssqInc/ssq_hq_general_dataTuAsckj_year={0}.html'
         self.m_pn = pn
         self.m_html=self.gethtml(pn)
         if self.m_html:
@@ -129,6 +129,9 @@ class SsqHTMLParser(HTMLParser):
         if tag == 'a':
             if(len(self.m_stack)>0) and (self.m_stack[-1] == 'td'):
                     self.m_stack.append(tag)
+            for (variable, value)  in attrs:
+                if variable == 'title':
+                    self.kjrq = unicode(value, 'utf8')[-10:]
         pass
     
     def handle_data(self, data):
@@ -140,7 +143,7 @@ class SsqHTMLParser(HTMLParser):
             if self.m_str:
                 self.m_str = self.m_str + " " + data.strip()
                 if len(self.m_str)==46:
-                    self.m_hist.append(unicode(self.m_str, 'utf8'))
+                    self.m_hist.append(unicode(self.m_str, 'utf8') + " " + self.kjrq)
                     self.m_str = None
                 
     
@@ -162,7 +165,7 @@ class Lottery:
     
     @staticmethod
     def parse_dlt(s):
-        lot = Lottery
+        lot = Lottery()
         lot.no = s[0:5]
         r = re.compile('\d+')
         l = r.findall(s[6:27])
@@ -173,13 +176,13 @@ class Lottery:
         return lot
     @staticmethod
     def parse_ssq(s):
-        lot = Lottery
+        lot = Lottery()
+        lot.no = s[0:7]
         r = re.compile('\d+')
-        l = r.findall(s)
-        if len(l)==8:
-            lot.no = l[0]
-            lot.red=l[1:7]
-            lot.blue =l[7:8]
+        l = r.findall(s[7:47])
+        lot.red=l[1:7]
+        lot.blue =l[7:8]
+        lot.pub_date = s[47:]
         return lot
     
     def get(self,date):
@@ -210,7 +213,7 @@ class Lot:
         if self.lot_type == 'dlt':
             htmlparser = DltHTMLParser(1)
         else:
-            htmlparser = SsqHTMLParser(1)
+            htmlparser = SsqHTMLParser(datetime.date.today().year)
         conti=1
         
         while(len(htmlparser.m_hist)and conti):
@@ -228,7 +231,6 @@ class Lot:
                     conti=0
                     break
             htmlparser.getnextpage()
-            
         htmlparser.close()
                     
     def save(self):
@@ -254,6 +256,8 @@ class Lot:
             
 if __name__ == '__main__':
     
-    lot =Lot('dlt')       
+    lot =Lot('dc')       
     lot.run() 
+    for k,v in lot.m_hist.iteritems():
+        print k, v.pub_date, v.red
     pass

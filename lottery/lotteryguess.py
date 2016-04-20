@@ -64,7 +64,8 @@ class DC:
 		if prime_list.count(red) > 0:
 			self.prime = self.prime+1
 		
-	
+		self.number *=100
+		self.number +=red
 	
 	#append a blue number
 	def append_blue(self, blue):
@@ -519,7 +520,7 @@ def process_lot( options):
 	rt['e'] = 35
 	return rt	
 
-
+noquiet=0
 	
 if __name__ == "__main__":
 	parser=OptionParser()
