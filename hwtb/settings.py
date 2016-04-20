@@ -154,6 +154,7 @@ CELERY_RESULT_BACKEND = 'amqp'
 CELERY_IMPORTS =('www.tasks', 'lottery.tasks')
 from kombu import serialization
 serialization.registry._decoders.pop("application/x-python-serialize")
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor_upload"
 CKEDITOR_BROWSER_PATH = "ckeditor_browse"
