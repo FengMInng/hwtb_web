@@ -115,3 +115,11 @@ def collect(type='dlt'):
     pass
     
     return 
+
+@celery_app.task
+def collect_dlt():
+    return collect('dlt')
+
+@celery_app.task
+def collect_dc():
+    return collect('dc')
