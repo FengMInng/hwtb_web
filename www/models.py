@@ -45,10 +45,6 @@ class AbstractProduct(models.Model):
     photo = models.ImageField(verbose_name=_('photo'), upload_to='img/%Y%m%d')
     
     summary = models.TextField(verbose_name=_('summary'))
-    # product descriptor
-    descriptor = RichTextUploadingField(_('description'), \
-                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
-    
     
     # create date and time
     create_date = models.DateTimeField(_('createtime'), auto_now_add = True, editable=False)
@@ -102,6 +98,10 @@ class Product(AbstractProduct):
     '''
     this model is for product
     '''
+    # product descriptor
+    descriptor = RichTextUploadingField(_('description'), \
+                                extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
+    
     #parent catalog
     catalog = models.ForeignKey(ProductCatalog,on_delete=models.CASCADE)
     
