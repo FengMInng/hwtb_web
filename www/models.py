@@ -81,7 +81,7 @@ class ProductCatalogAdmin(ModelAdmin):
     search_fields = ('name','show_start')
     list_filter =('name', 'create_date')
     date_hierarchy = 'create_date'
-    fields = ('name', 'photo', 'summary', 'descriptor', 'show_start', 'show_end', 'is_delete')
+    fields = ('name', 'photo', 'summary', 'show_start', 'show_end', 'is_delete')
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'create_user', None) is None:
             obj.create_user = request.user
