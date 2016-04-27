@@ -7,6 +7,7 @@ from django.contrib.admin.options import ModelAdmin
 from django.utils.translation import ugettext as _
 from ckeditor_uploader.fields  import RichTextUploadingField
 from hwtb.settings import CKEDITOR_EXTRAPLUGS_CONFIG
+from datetime import datetime
 
 # Create your models here.
 class ImageStore(models.Model):
@@ -55,8 +56,8 @@ class AbstractProduct(models.Model):
     last_modify_date = models.DateTimeField(verbose_name=_('laster modify time'), auto_now=True)
     
     #validate date
-    show_start = models.DateField(verbose_name=_('show start'),null=True, blank = True)
-    show_end = models.DateField(verbose_name=_('show end'),null=True, blank = True)
+    show_start = models.DateField(verbose_name=_('show start'),null=True, blank = True, default=datetime(2000,1,1))
+    show_end = models.DateField(verbose_name=_('show end'),null=True, blank = True,default=datetime(2222,2,2))
     
     #if delete, remain
     is_delete = models.BooleanField(verbose_name=_('delete'), default=False)
