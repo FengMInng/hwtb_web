@@ -79,7 +79,7 @@ document.oncontextmenu=stop;
 <UL>
 <div class="blank10"></div>
 {% for catalog in catalogs %}
-<li><a href="" >{{ catalog.name }}</a>
+<li><a href="/www/catalogs/{catalog.id}}" >{{ catalog.name }}</a>
 	<ul>
 		{% for product in products %}
 		{% ifequal product.catalog_id catalog.id %}
