@@ -86,7 +86,7 @@ def catalog_list(request, catalog_id):
         pass
     web_content = get_base_content()
     
-    catalog= get_object_or_404(ProductCatalog, catalog_id)
+    catalog= get_object_or_404(ProductCatalog, pk=catalog_id)
     products = Product.objects.filter(catalog_id=catalog.id,
                                     show_start__lte = timezone.now(),
                                     show_end__gte = timezone.now(),
