@@ -212,9 +212,12 @@ def calculate_hist(dc_list):
 
 def open_lottery(filename):
 	dc_list=list()
-	lotfile = open(filename)
+	try:
+		lotfile = open(filename)
+	except Exception:
+		lotfile = None
 	
-	while(1):
+	while(lotfile):
 		s = lotfile.readline()
 		if s == "":
 			break
@@ -230,8 +233,8 @@ def open_lottery(filename):
 		dc.append_blue(int(m.group("b1")))
 		dc.append_blue(int(m.group("b2")))
 		dc_list.append(dc)
-	
-	lotfile.close()
+	if lotfile:
+		lotfile.close()
 	return dc_list
 
 
