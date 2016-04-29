@@ -9,8 +9,7 @@ from . import views
 app_name='lottery'
 
 urlpatterns = [
-    url(r'^$', views.view_dlt, name='view_dlt'),
-    url(r'^dlt/$', views.view_dlt, name='view_dlt'),
-    url(r'^dlt/hist$', views.view_dlt_hist, name='view_dlt_hist'),
-    url(r'^dc/$', None, name='view_dc')
+    url(r'^$', views.view_lot_default, name='view_dlt'),
+    url(r'^(?P<type>[a-z]+)/$', views.view_lot, name='view_dlt'),
+    url(r'^hist/(?P<type>[a-z]+)/$', views.view_lot_hist, name='view_dlt_hist'),
     ]

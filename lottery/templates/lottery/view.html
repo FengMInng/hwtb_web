@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>{{type}}</title>
 </head>
 <body>
 {% for l in lots %}
-{{l.create_time}}:{{l.red}}+{{l.blue}} level {{}}<br>
+<span><font color='red'>{{l.red}}</font></span>+<font color='blue'>{{l.blue}}</font> level {{l.level}} {{l.create_time}}<br>
 {% endfor %}
 </body>
 </html>

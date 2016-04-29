@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from celery.worker.strategy import default
+from datetime import datetime
 
 # Create your models here.
 
@@ -19,7 +21,7 @@ class Base(models.Model):
 class Guess(Base):
     validno=models.CharField(max_length=100,default="")
     level=models.IntegerField(default=0)
-    creat_time=models.DateTimeField(auto_now_add = True)
+    create_time=models.DateTimeField(auto_now_add = True)
     
 class History(Base):
     no = models.CharField(max_length=20)
