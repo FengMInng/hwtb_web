@@ -39,10 +39,10 @@
 			{% for promotion in promotions %}
 			<li class="clone" style="float: left; width: 240px;">
 				<div class="list_cp_img">
-					<img alt="{{promotion.title}}" src="{{promotion.image}}">
-					<a style="color:;" title="{{promotion.title}}" target="_blank" href="{{promotion.url}}" class="list_cp_info">
-						<h3><font style="color:;">{{promotion.title}}</font></h3>
-						<p>{{promotion.discription}}</p>
+					<img alt="{{promotion.name}}" src="{{promotion.photo.url}}">
+					<a style="color:;" title="{{promotion.name}}" target="_blank" href="/www/products/{{promotion.id}}" class="list_cp_info">
+						<h3><font style="color:;">{{promotion.name}}</font></h3>
+						<p>{{promotion.summary}}</p>
 					</a>
 				</div>
 			</li>
