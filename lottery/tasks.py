@@ -35,13 +35,14 @@ def guess(type='dlt', idx=1):
         lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, lotteryguess.Condition(45,145,1,4,1,4,0,4,13), 2,idx)
     else:
         lot = lotteryguess.method1(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2, idx)
+    
+    for n in lot:
         lg = Guess()
         lg.type = type
-        for n in lot:
-            for r in n.red:
-                lg.red +=str(r)+" "
-            for b in n.blue:
-                lg.blue +=str(b)+" "
+        for r in n.red:
+            lg.red +=str(r)+" "
+        for b in n.blue:
+            lg.blue +=str(b)+" "
         lg.save()
         
     pass
