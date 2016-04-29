@@ -28,13 +28,13 @@ def read_history(type):
         hist_list[h.no]=dc
     return hist_list
 @celery_app.task
-def guess(type, idx):
+def guess(type='dlt', idx=1):
     hist_list=read_history(type)
     lotteryguess.calculate_hist(hist_list.values())
     if type=='dlt':
-        lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, lotteryguess.Condition(45,145,1,4,1,4,0,4,13), 1,idx)
+        lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, lotteryguess.Condition(45,145,1,4,1,4,0,4,13), 2,idx)
     else:
-        lot = lotteryguess.method1(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 1, idx)
+        lot = lotteryguess.method1(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2, idx)
         lg = Guess()
         lg.type = type
         for n in lot:
