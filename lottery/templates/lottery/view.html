@@ -5,8 +5,15 @@
 <title>{{type}}</title>
 </head>
 <body>
+<table>
 {% for l in lots %}
-<span><font color='red'>{{l.red}}</font></span>+<font color='blue'>{{l.blue}}</font> level {{l.level}} {{l.create_time}}<br>
+<tr>
+<td><font color='red'>{{l.red}}</font></td>
+<td><font color='blue'>{{l.blue}}</font></td>
+<td>{{l.level}}</td>
+<td>{{l.create_time}}</td>
+</tr>
 {% endfor %}
+</table>
 </body>
 </html>
