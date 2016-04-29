@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gyfm@@ap+#eo859jg67e^ny$+rd&83s+91b8u5v*^y4vsi0r29'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'kombu.transport.django',
     'www.apps.WwwConfig',
+    'djcelery',
     'ckeditor',
     'ckeditor_uploader',
     'lottery.apps.LotteryConfig'
@@ -141,6 +142,8 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "www/locale"),
 
 
 #djcelery
+import djcelery
+djcelery.setup_loader()
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
@@ -208,13 +211,13 @@ LOGGING ={
         'admin_handler': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename':'log/web.admin',
+            'filename':'/var/log/web.admin',
             'formatter':'standard',
         },
         'www_handler': {
             'level':'DEBUG',
                    'class':'logging.handlers.RotatingFileHandler',
-            'filename':'log/web.www',
+            'filename':'/var/log/web.www',
             'formatter':'standard',
         },
     },
