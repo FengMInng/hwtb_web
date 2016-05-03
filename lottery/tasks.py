@@ -25,6 +25,8 @@ def read_history(type):
             dc.append_red(int(r))
         for b in h.blue.split():
             dc.append_blue(int(b))
+        dc.pub_date=h.pub_date
+        dc.type = type
         hist_list[h.no]=dc
     return hist_list
 @celery_app.task
@@ -50,7 +52,7 @@ def guess(type='dlt', idx=1):
 def LotGsValidDlt(lot, l):
     
     td = lot.pub_date - l.create_time
-    if (lot.pub_date.date().isoweekday() in [1,3] and td.day <2) or (lot.pub_date.date().isoweekday() in [6] and td.day <2):
+    if (lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (lot.pub_date.date().isoweekday() in [6] and td.days <3):
         rl = l.red.split(' ')
         for i in rl:
             for j in lot.red:
@@ -62,11 +64,11 @@ def LotGsValidDlt(lot, l):
             for j in lot.blue:
                 if i == j:
                     l.level +=6
-    l.valid = lot.pub_date
+    l.validno = lot.pub_date
 
 def LotGsValidDc(lot, l):
     td = lot.pub_date - l.create_time
-    if (lot.pub_date.date().isoweekday() in [2,4] and td.day <2) or (lot.pub_date.date().isoweekday() in [7] and td.day <2):
+    if (lot.pub_date.date().isoweekday() in [2,4] and td.days <2) or (lot.pub_date.date().isoweekday() in [7] and td.days <3):
         rl = l.red.split(' ')
         for i in rl:
             for j in lot.red:
@@ -80,16 +82,18 @@ def LotGsValidDc(lot, l):
                     l.level +=7
     l.valid = lot.pub_date
 
-def LotGsValid(lot, type):
+def LotGsValid(type):
+    hists=read_history(type)
     lgs=Guess.objects.filter(validno="", type=type)
     for l in lgs:
-        if l.create_time > lot.pub_date:
-            continue
-        if lot.type=='dlt':
-            LotGsValidDlt(lot, l)
-        else:
-            LotGsValidDc(lot, l)
-        l.save()
+        for lot in hists.values():
+            if l.create_time > lot.pub_date:
+                continue
+            if lot.type=='dlt':
+                LotGsValidDlt(lot, l)
+            else:
+                LotGsValidDc(lot, l)
+            l.save()
     pass
 
 @celery_app.task
@@ -99,7 +103,7 @@ def collect(type='dlt'):
     lot.run()
     for n in lot.new_hist:
         l = lot.m_hist[n]
-        LotGsValid(l, type)
+        
         hist = History()
         hist.no = n
         hist.type = type
@@ -114,6 +118,7 @@ def collect(type='dlt'):
             print hist.type, hist.red,hist.blue, hist.pub_date
             continue
     pass
+    LotGsValid(type)
     
     return 
 
@@ -124,3 +129,15 @@ def collect_dlt():
 @celery_app.task
 def collect_dc():
     return collect('dc')
+
+@celery_app.task
+def Collect():
+    ts=['dlt', 'dc']
+    for t in ts:
+        collect(t)
+
+@celery_app.task
+def GuessB():
+    ts=['dlt', 'dc']
+    for t in ts:
+        guess(t)

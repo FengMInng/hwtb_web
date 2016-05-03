@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,6 +156,17 @@ CELERY_IMPORTS =('www.tasks', 'lottery.tasks')
 from kombu import serialization
 serialization.registry._decoders.pop("application/x-python-serialize")
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERYBEAT_SCHEDULE = {
+    'collect-every-1-hour': {
+        'task': 'lottery.tasks.Collect',
+        'schedule': timedelta(hours=1),
+        'args': ()
+    },
+    'guess-every-1-hour':{
+        'task':'lottery.tasks.GuessB',
+        'schedule':timedelta(hours=1),
+    },
+}
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor_upload"
 CKEDITOR_BROWSER_PATH = "ckeditor_browse"

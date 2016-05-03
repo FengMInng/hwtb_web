@@ -15,6 +15,9 @@ class Base(models.Model):
     def __unicode__(self):
         return self.red +" " + self.blue
     
+    def __str__(self):
+        return "{0} {1} {2}".format(self.type, self.red, self.blue)
+    
     class Meta:
         abstract = True
 
@@ -23,7 +26,14 @@ class Guess(Base):
     level=models.IntegerField(default=0)
     create_time=models.DateTimeField(auto_now_add = True)
     
+    def __str__(self):
+        s =  Base.__str__(self)
+        return "{0} {1} {2} {3}".format(s, self.validno, self.level, self.create_time)
+    
 class History(Base):
     no = models.CharField(max_length=20)
     pub_date = models.DateTimeField()
     
+    def __str__(self):
+        s = Base.__str__(self)
+        return "{0} {1} {2}".format(s, self.no, self.pub_date)
