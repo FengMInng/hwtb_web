@@ -67,7 +67,7 @@ def index(request):
 
 def roll_view(request, roll_id):
     web_content = get_base_content()
-    roll = get_object_or_404(Roll, roll_id)
+    roll = get_object_or_404(Roll, pk=roll_id)
     web_content['roll'] = roll
     return render(request, 'www/roll.html', web_content)
 
@@ -156,7 +156,7 @@ def carriar(request):
 
 def job_detail(request, job_id):
     web_content = get_base_content()
-    job = get_object_or_404(Job, job_id)
+    job = get_object_or_404(Job, pk=job_id)
     web_content['job']=job
     return render(request, 'www/job.html', web_content)
 
@@ -214,6 +214,6 @@ def solution(request):
 
 def solution_detail(request, so_id):
     web_content = get_base_content()
-    web_content['show_solution']=get_object_or_404(Solution, so_id)
+    web_content['show_solution']=get_object_or_404(Solution, pk=so_id)
     return render(request, 'www/solution_detail.html', web_content)
     pass
