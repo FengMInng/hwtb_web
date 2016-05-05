@@ -220,7 +220,7 @@ class AboutUs(models.Model):
 class FriendLink(models.Model):
     name = models.CharField(verbose_name=_('name'), max_length = 100)
     url = models.CharField(verbose_name=_('url'), max_length=100)
-    logo = models.ImageField(verbose_name=_('logo'), upload_to='friendlink')
+    logo = models.ImageField(verbose_name=_('logo'), upload_to='media/friendlink')
     
     def __unicode__(self):
         return self.name
