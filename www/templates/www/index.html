@@ -43,7 +43,16 @@
 		<script src="{% static 'www/skin/js/m_img_hover.js' %}" type="text/javascript"></script><!-- 图片悬浮 -->
 		<div class="picScroll">
 		<div class="tempWrap" style="overflow:hidden; position:relative; width:984px">
-			<ul class="list_cp" id="img_sf" style="width: 3444px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -246px;">
+			<ul class="list_cp" id="img_sf" style="width: 3444px; position: relative; overflow: hidden; padding: 0px; margin: 0px left: -246px;">
+			<li style="float: left; width: 240px;">
+				<div class="list_cp_img" style="float: left; width: 240px; height: 300px">
+					<img alt="" src=""  style="width: 240px; height: 300px; top: 0px; left: 0px;">
+					<a style="color:;" title="" target="_blank" href="/www/catalogs" class="list_cp_info">
+						<h3><font style="color:;">了解更多</font></h3>
+						<p>了解更多</p>
+					</a>
+				</div>
+			</li>
 			{% for promotion in promotions %}
 			<li style="float: left; width: 240px;">
 				<div class="list_cp_img" style="float: left; width: 240px; height: 300px">
