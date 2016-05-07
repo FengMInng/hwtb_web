@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 15:12+0800\n"
+"POT-Creation-Date: 2016-05-07 17:58+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,220 +17,237 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: www/models.py:13 www/models.py:24 www/models.py:134 www/models.py:150
-#: www/models.py:232
+#: www/models.py:14 www/models.py:25 www/models.py:135 www/models.py:151
+#: www/models.py:234
 msgid "title"
 msgstr "标题"
 
-#: www/models.py:20
+#: www/models.py:21
 msgid "image"
 msgstr "图片"
 
-#: www/models.py:25 www/models.py:45 www/models.py:135
+#: www/models.py:26 www/models.py:46 www/models.py:136
 msgid "photo"
 msgstr "图片"
 
-#: www/models.py:26 www/models.py:49 www/models.py:136 www/models.py:234
+#: www/models.py:27 www/models.py:103 www/models.py:137 www/models.py:236
 msgid "description"
 msgstr "描述"
 
-#: www/models.py:30 www/models.py:54 www/models.py:155
+#: www/models.py:31 www/models.py:51 www/models.py:156
 msgid "createtime"
 msgstr "创建时间"
 
-#: www/models.py:36
+#: www/models.py:37
 msgid "roll"
 msgstr "滚动图片"
 
-#: www/models.py:43 www/models.py:196 www/models.py:220
+#: www/models.py:44 www/models.py:197 www/models.py:222
 msgid "name"
 msgstr "名称"
 
-#: www/models.py:47
+#: www/models.py:48
 msgid "summary"
 msgstr "摘要"
 
-#: www/models.py:56
+#: www/models.py:53
 msgid "createuser"
 msgstr "创建人"
 
-#: www/models.py:58
+#: www/models.py:55
 msgid "last_modify_user"
 msgstr "最近修改人"
 
-#: www/models.py:59
+#: www/models.py:56
 msgid "laster modify time"
 msgstr "最近修改时间"
 
-#: www/models.py:62 www/models.py:139
+#: www/models.py:59 www/models.py:140
 msgid "show start"
 msgstr "上架时间"
 
-#: www/models.py:63 www/models.py:140
+#: www/models.py:60 www/models.py:141
 msgid "show end"
 msgstr "下架时间"
 
-#: www/models.py:66
+#: www/models.py:63
 msgid "delete"
 msgstr "删除"
 
-#: www/models.py:81
+#: www/models.py:78
 msgid "product catalog"
 msgstr "产品目录"
 
-#: www/models.py:109
+#: www/models.py:110
 msgid "price"
 msgstr "价格"
 
-#: www/models.py:112
+#: www/models.py:113
 msgid "product"
 msgstr "产品"
 
-#: www/models.py:146
+#: www/models.py:147
 msgid "solution"
 msgstr "解决方案"
 
-#: www/models.py:149
+#: www/models.py:150
 msgid "dynamics"
 msgstr "公司动态"
 
-#: www/models.py:149
+#: www/models.py:150
 msgid "honor"
 msgstr "行业要闻"
 
-#: www/models.py:151 www/models.py:210
+#: www/models.py:152 www/models.py:212
 #, fuzzy
 msgid "content"
 msgstr "内容"
 
-#: www/models.py:153
+#: www/models.py:154
 msgid "news type"
 msgstr "新闻类型"
 
-#: www/models.py:161
+#: www/models.py:162
 msgid "new"
 msgstr "新闻"
 
-#: www/models.py:164
+#: www/models.py:165
 msgid "city"
 msgstr "城市"
 
-#: www/models.py:165
+#: www/models.py:166
 msgid "state"
 msgstr "省"
 
-#: www/models.py:166
+#: www/models.py:167
 msgid "country"
 msgstr "国家"
 
-#: www/models.py:172 www/models.py:179
+#: www/models.py:173 www/models.py:180
 msgid "location"
 msgstr "工作地"
 
-#: www/models.py:176
+#: www/models.py:177
 msgid "position"
 msgstr "职位"
 
-#: www/models.py:177
+#: www/models.py:178
 msgid "publish date"
 msgstr "发布日期"
 
-#: www/models.py:178
+#: www/models.py:179
 msgid "end date"
 msgstr "结束日期"
 
-#: www/models.py:180
+#: www/models.py:181
 msgid "recruiting numbers"
 msgstr "招聘人数"
 
-#: www/models.py:181
+#: www/models.py:182
 msgid "responsibilitie"
 msgstr "职责"
 
-#: www/models.py:182
+#: www/models.py:183
 msgid "qualification"
 msgstr "要求"
 
-#: www/models.py:186
+#: www/models.py:187
 msgid "job"
 msgstr "工作"
 
-#: www/models.py:193
+#: www/models.py:194
 msgid "weixin"
 msgstr "微信"
 
-#: www/models.py:193
+#: www/models.py:194
 msgid "wangwang"
 msgstr "旺旺"
 
-#: www/models.py:193
+#: www/models.py:194
 msgid "tel"
 msgstr "电话"
 
-#: www/models.py:194 www/models.py:209
+#: www/models.py:195 www/models.py:211
 msgid "type"
 msgstr "类型"
 
-#: www/models.py:195
+#: www/models.py:196
 msgid "account"
 msgstr "账户"
 
-#: www/models.py:197
+#: www/models.py:198
 msgid "qrcode"
 msgstr "二维码"
 
-#: www/models.py:200
+#: www/models.py:201
 msgid "online service"
 msgstr "在线客服"
 
-#: www/models.py:206
-msgid "introdution"
+#: www/models.py:207
+#, fuzzy
+#| msgid "introdution"
+msgid "introduction"
 msgstr "介绍"
 
-#: www/models.py:207
-msgid "calture"
+#: www/models.py:208
+#, fuzzy
+#| msgid "calture"
+msgid "culture"
 msgstr "文化"
 
-#: www/models.py:208
+#: www/models.py:209
 msgid "address"
 msgstr "地址"
 
-#: www/models.py:216
+#: www/models.py:210
+#, fuzzy
+msgid "contact"
+msgstr "内容"
+
+#: www/models.py:218
 msgid "about us"
 msgstr "关于我们"
 
-#: www/models.py:221
+#: www/models.py:223
 msgid "url"
 msgstr "网址"
 
-#: www/models.py:222
+#: www/models.py:224
 msgid "logo"
 msgstr "缩略图"
 
-#: www/models.py:228
+#: www/models.py:230
 msgid "friend link"
 msgstr "友情链接"
 
-#: www/models.py:233
+#: www/models.py:235
 msgid "os"
 msgstr "操作系统"
 
-#: www/models.py:235
+#: www/models.py:237
 msgid "driver_file"
 msgstr "驱动文件"
 
-#: www/models.py:236
+#: www/models.py:238
 #, fuzzy
 #| msgid "end date"
 msgid "release date"
 msgstr "结束日期"
 
-#: www/models.py:237
+#: www/models.py:239
 #, fuzzy
 #| msgid "createtime"
 msgid "create time"
 msgstr "创建时间"
 
-#: www/models.py:243
+#: www/models.py:245
 msgid "driver"
 msgstr "驱动"
+
+#: www/templates/www/header_i.html:61
+msgid "pleaceinputtext"
+msgstr "搜索内容"
+
+#: www/templates/www/header_i.html:62
+msgid "search"
+msgstr "搜索"

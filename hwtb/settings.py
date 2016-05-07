@@ -162,10 +162,6 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(hours=1),
         'args': ()
     },
-    'guess-every-1-hour':{
-        'task':'lottery.tasks.GuessB',
-        'schedule':timedelta(hours=1),
-    },
 }
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "ckeditor_upload"

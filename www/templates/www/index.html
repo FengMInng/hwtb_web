@@ -1,7 +1,10 @@
 {% extends "www/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div class="blank30"></div>
+<section>
+<div class="banner" style="height:100px;">
+</div>
+</section>
 <style type="text/css">
 .fullSlide,.fullSlide .bd,.fullSlide .bd li,.fullSlide .bd li a {height:750px;}
 </style>
@@ -187,17 +190,16 @@
 
 <section class=" wow fadeIn" data-wow-delay="0.6s">
 	<dl class="w_set">
+	{% for flink in friendlink %}
 	<dd class="f_link">
-		{% for flink in friendlink %}
-		<a href="http://{{flink.url}}" title="{{flink.name}}"><img src="{{flink.logo}}"  width="88" height="31" /></a>
-		{% endfor %}
+		<a href="http://{{flink.url}}" title="{{flink.name}}" target="_blank"><img src="{{flink.logo}}"  width="88" height="31" /></a>
 	</dd>
 	<dd class="f_link">
-		{% for flink in friendlink %}
 		<a href="http://{{flink.url}}" target="_blank">{{flink.name}}</a>
-		{% endfor %}
 	</dd>
+	{% endfor %}
 	</dl>
+
 	<!-- w_set -->
 </section>
 
