@@ -204,9 +204,10 @@ class OnlineService(models.Model):
         return "%s %s" %(self.type , self.name)
     
 class AboutUs(models.Model):
-    ABOUT_US_TYPE=(('introduction', _('introdution')),
-                   ('calture', _('calture')),
-                   ('address', _('address')))
+    ABOUT_US_TYPE=(('introduction', _('introduction')),
+                   ('culture', _('culture')),
+                   ('address', _('address')),
+                   ('contact', _('contact')))
     type = models.CharField(verbose_name=_('type'), max_length = 100, unique=True, choices= ABOUT_US_TYPE)
     content = RichTextUploadingField(verbose_name = _('content'),extra_plugins=CKEDITOR_EXTRAPLUGS_CONFIG)
     
