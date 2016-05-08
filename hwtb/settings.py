@@ -154,6 +154,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'amqp'
 CELERY_IMPORTS =('www.tasks', 'lottery.tasks')
 from kombu import serialization
+from celery.schedules import crontab
 serialization.registry._decoders.pop("application/x-python-serialize")
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERYBEAT_SCHEDULE = {
@@ -161,6 +162,11 @@ CELERYBEAT_SCHEDULE = {
         'task': 'lottery.tasks.Collect',
         'schedule': timedelta(hours=1),
         'args': ()
+    },
+    'guess-every-day': {
+        'task': 'lottery.tasks.GuessB',
+        'schedule': crontab(minute=0,hour='0,3,6,9,12,15,18'),
+        'args': (),
     },
 }
 # ckeditor
