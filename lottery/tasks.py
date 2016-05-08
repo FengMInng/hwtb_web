@@ -53,88 +53,91 @@ def guess(type='dlt', do_test=False):
         
     return lot
 
-def LotGsValidDlt(lot, l):
+def LotGsValidDlt(pub_lot, gs_lot):
     level = 0
-    td = lot.pub_date - l.create_time
-    if (lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (lot.pub_date.date().isoweekday() in [6] and td.days <3):
-        rl = l.red.split(' ')
+    td = pub_lot.pub_date - gs_lot.create_time
+    if (pub_lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [6] and td.days <3):
+        rl = gs_lot.red.split(' ')
         for i in rl:
-            for j in lot.red:
-                if i == j:
+            for j in pub_lot.red:
+                if i == unicode(j):
                     level +=1
         
-        bl = l.blue.split(' ')
+        bl = gs_lot.blue.split(' ')
         for i in bl:
-            for j in lot.blue:
-                if i == j:
+            for j in pub_lot.blue:
+                if i == unicode(j):
                     level +=6
         if level==17:
             #5+2
-            l.level = 1
+            level = 1
         elif level == 11:
             #5+1
-            l.level = 2
+            level = 2
         elif level in [5 ,16]:
             #5+0
             #4+2
-            l.level=3
+            level=3
         elif level in [10,15]:
             #4+1
             #3+2
-            l.level=4
+            level=4
         elif level in [4,9,14]:
             #4+0
             #3+1
             #2+2
-            l.level = 5
+            level = 5
         elif level in [3,8,13,12]:
             #3+0
             #2+1
             #1+2
             #0+2
-            l.level=6
+            level=6
         else:
-            l.level=0
+            level=0
+    return level
 
-def LotGsValidDc(lot, l):
+def LotGsValidDc(pub_lot, gs_lot):
     level=0
-    td = lot.pub_date - l.create_time
-    if (lot.pub_date.date().isoweekday() in [2,4] and td.days <2) or (lot.pub_date.date().isoweekday() in [7] and td.days <3):
-        rl = l.red.split(' ')
+    td = pub_lot.pub_date - gs_lot.create_time
+    if (pub_lot.pub_date.date().isoweekday() in [2,4] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [7] and td.days <3):
+        rl = gs_lot.red.split(' ')
         for i in rl:
-            for j in lot.red:
-                if i == j:
+            for j in pub_lot.red:
+                if i == unicode(j):
                     level +=1
         
-        bl = l.blue.split(' ')
+        bl = gs_lot.blue.split(' ')
         for i in bl:
-            for j in lot.blue:
-                if i == j:
+            for j in pub_lot.blue:
+                if i == unicode(j):
                     level +=7
         if level in [13]:
             #6+1
-            l.level = 1
+            level = 1
         elif level in [ 6]:
             #6+0
-            l.level = 2
+            level = 2
         elif level in [12]:
             #5+1
-            l.level=3
+            level=3
         elif level in [5,11]:
             #5+0
             #4+1
-            l.level=4
+            level=4
         elif level in [4,10]:
             #4+0
             #3+1
-            l.level = 5
+            level = 5
         elif level in [7,8,9]:
             #2+1
             #1+1
             #0+1
-            l.level=6
+            level=6
         else:
-            l.level=0
+            level=0
+    return level
+
 def LotGsValid(type,is_force=False):
     hists=read_history(type)
     lgs=Guess.objects.filter(type=type)
@@ -144,10 +147,11 @@ def LotGsValid(type,is_force=False):
         for lot in hists.values():
             if l.create_time > lot.pub_date:
                 continue
+            
             if lot.type=='dlt':
-                LotGsValidDlt(lot, l)
+                l.level = LotGsValidDlt(lot, l)
             else:
-                LotGsValidDc(lot, l)
+                l.level = LotGsValidDc(lot, l)
             l.validno = lot.no
             l.save()
     pass
