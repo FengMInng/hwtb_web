@@ -229,8 +229,8 @@ class Lot:
                     self.new_hist.append(lottery.no)
                 else:
                     conti=0
-                    break
-            htmlparser.getnextpage()
+            if conti >0:
+                htmlparser.getnextpage()
         htmlparser.close()
                     
     def save(self):
