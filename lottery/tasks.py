@@ -10,7 +10,7 @@ import pytz
 from datetime import datetime, timedelta
 
 from hwtb import celery_app
-
+from django.conf import settings
 
 from .LotteryParser import Lot
 from lottery import lotteryguess
@@ -29,6 +29,8 @@ def read_history(type):
         dc.type = type
         dc.no = h.no
         hist_list[h.no]=dc
+    if getattr(settings, 'DEBUG', False):
+        print len(hist_list)
     return hist_list
 @celery_app.task
 def guess(type='dlt', do_test=False):
