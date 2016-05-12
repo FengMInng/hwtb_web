@@ -8,6 +8,8 @@ import urllib2, datetime
 from HTMLParser import HTMLParser
 import re
 
+from django.conf import settings
+
 class DltHTMLParser(HTMLParser):
     def __init__(self,pn):
         HTMLParser.__init__(self)
@@ -15,6 +17,7 @@ class DltHTMLParser(HTMLParser):
         self.m_hist=list()
         self.m_str=None
         self.m_pn = pn
+        self.m_debug = getattr(settings, 'DEBUG',  False)
         self.m_html=self.gethtml(pn)
         if self.m_html:
             self.feed(self.m_html)
@@ -22,6 +25,8 @@ class DltHTMLParser(HTMLParser):
     
     def gethtml(self,p):
         url = "http://www.lottery.gov.cn/lottery/dlt/History.aspx?p="+str(p)
+        if self.m_debug:
+            print url
         try:
             page = urllib2.urlopen(url)
             return page.read()
@@ -90,6 +95,7 @@ class SsqHTMLParser(HTMLParser):
         self.m_str=None
         self.m_url='http://tubiao.zhcw.com/tubiao/ssqNew/ssqInc/ssq_hq_general_dataTuAsckj_year={0}.html'
         self.m_pn = pn
+        self.m_debug = getattr(settings, 'DEBUG', False)
         self.m_html=self.gethtml(pn)
         if self.m_html:
             self.feed(self.m_html)
@@ -97,7 +103,8 @@ class SsqHTMLParser(HTMLParser):
     
     def gethtml(self,year):
         url = self.m_url.format(str(year))
-        print url
+        if self.m_debug:
+            print url
         try:
             page = urllib2.urlopen(url)
             return page.read()
@@ -153,16 +160,6 @@ class SsqHTMLParser(HTMLParser):
         pass
         
 class Lottery:
-    def __init__(self,):
-        self.no=None
-    def parser(self, s):
-        r = re.compile('\d+')
-        l = r.findall(s)
-        if len(l)==8:
-            self.no = l[0]
-            self.red=l[1:6]
-            self.blue =l[6:8]
-    
     @staticmethod
     def parse_dlt(s):
         lot = Lottery()
@@ -185,9 +182,7 @@ class Lottery:
         lot.pub_date = s[47:]
         return lot
     
-    def get(self,date):
-        pass
-    def tostring(self):
+    def __str__(self):
         s = (self.no)
         for n in self.red:
             s += " "+str(n)

@@ -2,6 +2,7 @@
 import random
 import re
 from optparse import OptionParser
+from django.conf import settings
 
 class CE:
 	def __init__(self, minv, maxv):
@@ -24,6 +25,13 @@ class Condition:
 		
 		pass
 
+	def __str__(self):
+		return "sum<{0} {1}> big<{2} {3}> odd<{4} {5}> prime<{6} {7}> span<{8}>".format(
+					self.sum_min, self.sum_max,
+					self.big_min, self.big_max,
+					self.odd_min, self.odd_max,
+					self.prime_min,self.prime_max,
+					self.span)
 class DC:
 	#init function
 	def __init__(self):
@@ -42,11 +50,13 @@ class DC:
 		self.bch={}
 		pass
 	
+	def __str__(self):
+		return "{0} {1}".format(self.red, self.blue)
 	#append a red number
 	def append_red(self, red):
 		m = 17
 		
-		prime_list=list((1,2,3,5,7,11,13,17,19,23,27,29,31))
+		prime_list=[1,2,3,5,7,11,13,17,19,23,27,29,31]
 		for r in self.red:
 			if r == red:
 				return

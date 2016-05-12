@@ -30,8 +30,9 @@ def read_history(type):
         dc.no = h.no
         hist_list[h.no]=dc
     if getattr(settings, 'DEBUG', False):
-        print len(hist_list)
+        print "history len is ",len(hist_list)
     return hist_list
+        
 @celery_app.task
 def guess(type='dlt', do_test=False):
     hist_list=read_history(type)
@@ -42,6 +43,8 @@ def guess(type='dlt', do_test=False):
         lot = lotteryguess.method1(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2, 1)
     
     if do_test:
+        for l in lot:
+            print l
         return lot
     
     for n in lot:
@@ -59,16 +62,18 @@ def LotGsValidDlt(pub_lot, gs_lot):
     level = 0
     td = pub_lot.pub_date - gs_lot.create_time
     if (pub_lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [6] and td.days <3):
+        if getattr(settings, 'DEBUG', False):
+            print pub_lot,gs_lot
         rl = gs_lot.red.split(' ')
         for i in rl:
             for j in pub_lot.red:
-                if i == unicode(j):
+                if i == j:
                     level +=1
         
         bl = gs_lot.blue.split(' ')
         for i in bl:
             for j in pub_lot.blue:
-                if i == unicode(j):
+                if i == j:
                     level +=6
         if level==17:
             #5+2
@@ -103,16 +108,18 @@ def LotGsValidDc(pub_lot, gs_lot):
     level=0
     td = pub_lot.pub_date - gs_lot.create_time
     if (pub_lot.pub_date.date().isoweekday() in [2,4] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [7] and td.days <3):
+        if getattr(settings, 'DEBUG', False):
+            print pub_lot,gs_lot
         rl = gs_lot.red.split(' ')
         for i in rl:
             for j in pub_lot.red:
-                if i == unicode(j):
+                if i == j:
                     level +=1
         
         bl = gs_lot.blue.split(' ')
         for i in bl:
             for j in pub_lot.blue:
-                if i == unicode(j):
+                if i == j:
                     level +=7
         if level in [13]:
             #6+1
@@ -141,15 +148,14 @@ def LotGsValidDc(pub_lot, gs_lot):
     return level
 
 def LotGsValid(type,is_force=False):
-    hists=read_history(type)
+    hists=History.objects.filter(type=type)
     lgs=Guess.objects.filter(type=type)
     if is_force is False:
         lgs=lgs.filter(validno="")
     for l in lgs:
-        for lot in hists.values():
+        for lot in hists:
             if l.create_time > lot.pub_date:
                 continue
-            
             if lot.type=='dlt':
                 l.level = LotGsValidDlt(lot, l)
             else:
