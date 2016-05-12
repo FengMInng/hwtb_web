@@ -11,7 +11,7 @@ from . import views
 app_name='www'
 
 urlpatterns = [
-    url(r'^roll/(?P<catalog_id>[0-9]+)/$', views.roll_view, name='roll_view'),
+    url(r'^roll/(?P<roll_id>[0-9]+)/$', views.roll_view, name='roll_view'),
     url(r'^news/(?P<news_id>[0-9]+)/$', views.news_detail, name='news_detail'),
     url(r'^news$', views.news, name='news'),
     url(r'^contactus$', views.contactus, name='contactus'),
