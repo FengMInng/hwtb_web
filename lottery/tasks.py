@@ -176,7 +176,10 @@ def collect(type='dlt'):
         hist.no = n
         hist.type = type
         hist.red  = ' '.join(l.red)
-        hist.blue = ' '.join(l.blue)
+        if type in ['dlt']:
+            hist.blue = ' '.join(l.blue)
+        else:
+            hist.blue =l.blue
         pub_date = datetime.strptime(l.pub_date, '%Y-%m-%d')
         hist.pub_date = pub_date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Asia/Shanghai')) + timedelta(hours=20)
         try:

@@ -146,7 +146,6 @@ class SsqHTMLParser(HTMLParser):
         if '/'.join(self.m_stack) == 'table/tr/td/a' and len(data.strip()) == 7:
             self.m_str = data.strip()
         if '/'.join(self.m_stack) == 'table/tr/td':
-            
             if self.m_str:
                 self.m_str = self.m_str + " " + data.strip()
                 if len(self.m_str)==46:
@@ -177,8 +176,8 @@ class Lottery:
         lot.no = s[0:7]
         r = re.compile('\d+')
         l = r.findall(s[7:47])
-        lot.red=l[1:7]
-        lot.blue =l[7:8]
+        lot.red=l[0:6]
+        lot.blue =l[12]
         lot.pub_date = s[47:]
         return lot
     
@@ -214,11 +213,15 @@ class Lot:
         while(len(htmlparser.m_hist)and conti):
             print htmlparser.m_pn, len(htmlparser.m_hist)
             for line in htmlparser.m_hist:
+                if getattr(settings, 'DEBUG', False):
+                    print line
                 if self.lot_type == 'dlt':
                     lottery = Lottery.parse_dlt(line)
                 else:
                     lottery = Lottery.parse_ssq(line)
-                    
+                
+                if getattr(settings, 'DEBUG', False):
+                    print lottery
                 if lottery.no not in self.m_hist.keys():
                     self.m_hist[lottery.no]=lottery
                     self.new_hist.append(lottery.no)
