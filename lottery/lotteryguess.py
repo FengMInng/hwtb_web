@@ -533,7 +533,7 @@ def process_lot( options):
 	rt['e'] = 35
 	return rt	
 
-noquiet=0
+noquiet=1
 	
 if __name__ == "__main__":
 	parser=OptionParser()

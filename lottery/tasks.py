@@ -33,14 +33,13 @@ def read_history(type):
         print "history len is ",len(hist_list)
     return hist_list
         
-@celery_app.task
 def guess(type='dlt', do_test=False):
     hist_list=read_history(type)
     lotteryguess.calculate_hist(hist_list.values())
     if type=='dlt':
         lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, lotteryguess.Condition(45,145,1,4,1,4,0,4,13), 2,2)
     else:
-        lot = lotteryguess.method1(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2, 1)
+        lot = lotteryguess.method(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2)
     
     if do_test:
         for l in lot:
@@ -64,17 +63,7 @@ def LotGsValidDlt(pub_lot, gs_lot):
     if (pub_lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [6] and td.days <3):
         if getattr(settings, 'DEBUG', False):
             print pub_lot,gs_lot
-        rl = gs_lot.red.split(' ')
-        for i in rl:
-            for j in pub_lot.red:
-                if i == j:
-                    level +=1
-        
-        bl = gs_lot.blue.split(' ')
-        for i in bl:
-            for j in pub_lot.blue:
-                if i == j:
-                    level +=6
+        level = pub_lot.compare_red(gs_lot)
         if level==17:
             #5+2
             level = 1
@@ -164,7 +153,6 @@ def LotGsValid(type,is_force=False):
             l.save()
     pass
 
-@celery_app.task
 def collect(type='dlt'):
     lot = Lot(type)
     lot.m_hist = read_history(type)
@@ -181,7 +169,10 @@ def collect(type='dlt'):
         else:
             hist.blue =l.blue
         pub_date = datetime.strptime(l.pub_date, '%Y-%m-%d')
-        hist.pub_date = pub_date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Asia/Shanghai')) + timedelta(hours=20)
+        if getattr(settings, 'USE_TZ', False):
+            hist.pub_date = pub_date.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('Asia/Shanghai')) + timedelta(hours=20)
+        else:
+            hist.pub_date = pub_date+timedelta(hours=20)
         try:
             hist.save()
         except Exception as e:
@@ -193,13 +184,6 @@ def collect(type='dlt'):
     
     return 
 
-@celery_app.task
-def collect_dlt():
-    return collect('dlt')
-
-@celery_app.task
-def collect_dc():
-    return collect('dc')
 
 @celery_app.task
 def Collect():
