@@ -63,7 +63,7 @@ def LotGsValidDlt(pub_lot, gs_lot):
     if (pub_lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [6] and td.days <3):
         if getattr(settings, 'DEBUG', False):
             print pub_lot,gs_lot
-        level = pub_lot.compare_red(gs_lot)
+        level = pub_lot.toDC().cmp_red(gs_lot.toDC().red)
         if level==17:
             #5+2
             level = 1
