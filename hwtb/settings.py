@@ -126,7 +126,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 #APPEND_SLASH=False
 
 # Static files (CSS, JavaScript, Images)
@@ -162,11 +162,6 @@ CELERYBEAT_SCHEDULE = {
         'task': 'lottery.tasks.Collect',
         'schedule': timedelta(hours=1),
         'args': ()
-    },
-    'guess-every-day': {
-        'task': 'lottery.tasks.GuessB',
-        'schedule': crontab(minute=0,hour='0,3,6,9,12,15,18'),
-        'args': (),
     },
 }
 # ckeditor
