@@ -27,6 +27,7 @@ class Base(models.Model):
             dc.append_red(int(r))
         for b in bl:
             dc.append_blue(int(b))
+        return dc
         pass
     class Meta:
         abstract = True
