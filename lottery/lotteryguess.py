@@ -3,6 +3,7 @@ import random
 import re
 from optparse import OptionParser
 from django.conf import settings
+from lottery import lotmath
 
 class CE:
 	def __init__(self, minv, maxv):
@@ -22,16 +23,18 @@ class Condition:
 		self.prime_min = prime_min
 		self.prime_max = prime_max
 		self.span = span
+		self.std_var_min = 100
+		self.std_var_max = 0
 		
 		pass
 
 	def __str__(self):
-		return "sum<{0} {1}> big<{2} {3}> odd<{4} {5}> prime<{6} {7}> span<{8}>".format(
+		return "sum<{0} {1}> big<{2} {3}> odd<{4} {5}> prime<{6} {7}> span<{8}> std_var<{9} {10}>".format(
 					self.sum_min, self.sum_max,
 					self.big_min, self.big_max,
 					self.odd_min, self.odd_max,
 					self.prime_min,self.prime_max,
-					self.span)
+					self.span, self.std_var_max, self.std_var_min)
 class DC:
 	#init function
 	def __init__(self):
@@ -48,6 +51,7 @@ class DC:
 		self.bfct={}
 		self.ch={}
 		self.bch={}
+		self.std_var=0
 		pass
 	
 	def __str__(self):
@@ -76,6 +80,7 @@ class DC:
 		
 		self.number *=100
 		self.number +=red
+		self.std_var = lotmath.std_var(self.red)
 	
 	#append a blue number
 	def append_blue(self, blue):
@@ -110,6 +115,14 @@ class DC:
 			for r2 in red:
 				if r1==r2:
 					count=count+1
+		
+		return count
+	def cmp_blue(self,blue):
+		count = 0
+		for b1 in self.blue:
+			for b2 in blue:
+				if b1 == b2:
+					count +=1
 		
 		return count
 	def cmp_hist_red(self, hist, loop, counter):
@@ -167,6 +180,11 @@ class DC:
 		
 		if self.span() < condition.span:
 			return False
+		if self.sum in condition.sum.exlist:
+			return False
+		
+		if self.std_var < condition.std_var_min or self.std_var > condition.std_var_max:
+			return False
 		return True
 	
 	def list_suitable(self, condition):
@@ -178,7 +196,12 @@ class DC:
 				return False
 		
 		return True
-
+	
+	def cmp(self, other):
+		c = self.cmp_red(other.red);
+		c += self.cmp_blue(other.blue)*len(self.red + 1)
+		
+		return c
 	
 def calculate_hist(dc_list):
 	rt={}
@@ -248,22 +271,22 @@ def open_lottery(filename):
 	return dc_list
 
 
-def generate_dc(t,rl, r, bl, b):
+def generate_dc(t,rl, rn, bl, bn):
 	
 	dc = DC()
 	
 	random.seed()
 	
-	rs = random.sample(rl, r)
+	rs = random.sample(rl, rn)
 	
-	for r1 in rs:
-		dc.append_red(r1)
+	for r in rs:
+		dc.append_red(r)
 				
 	random.seed()
-	bs = random.sample(bl, b)
+	bs = random.sample(bl, bn)
 	
-	for b1 in bs:
-		dc.append_blue(b1)
+	for b in bs:
+		dc.append_blue(b)
 		
 	return dc
 
@@ -371,6 +394,14 @@ def method( dc_list, rl,r,bl,b, condition,c):
 	global noquiet
 	total_loop = 0
 	result = list()
+	for i in range(0,r):
+		condition.sum.exlist.append(dc_list[i].sum)
+	for i in dc_list:
+		if i.std_var < condition.std_var_min:
+			condition.std_var_min = i.std_var
+		if i.std_var > condition.std_var_max:
+			condition.std_var_max = i.std_var
+	print "std {0}".format(condition)
 	while c > 0:
 		total_loop = total_loop+1
 		if(total_loop > 618):
@@ -443,7 +474,14 @@ def method1( dc_list, rl,r,bl,b, condition,c, idx):
 	bpi=0
 	total_loop = 0
 	result = list()
-	
+	for i in range(0,r):
+		condition.sum.exlist.append(dc_list[i].sum)
+	for i in dc_list:
+		if i.std_var < condition.std_var_min:
+			condition.std_var_min = i.std_var
+		if i.std_var > condition.std_var_max:
+			condition.std_var_max = i.std_var
+	print "std {0}".format(condition)
 	while(c>0):
 		total_loop = total_loop+1
 		if(total_loop > 61800):
