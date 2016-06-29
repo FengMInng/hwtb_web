@@ -199,7 +199,7 @@ class DC:
 	
 	def cmp(self, other):
 		c = self.cmp_red(other.red);
-		c += self.cmp_blue(other.blue)*len(self.red + 1)
+		c += self.cmp_blue(other.blue)*(len(self.red)+1)
 		
 		return c
 	
