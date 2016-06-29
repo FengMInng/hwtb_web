@@ -37,9 +37,11 @@ def guess(type='dlt', do_test=False):
     hist_list=read_history(type)
     lotteryguess.calculate_hist(hist_list.values())
     if type=='dlt':
-        lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, lotteryguess.Condition(45,145,1,4,1,4,0,4,13), 2,2)
+        condition = lotteryguess.Condition(45,145,1,4,1,4,0,4,13)
+        lot = lotteryguess.method1(hist_list.values(), range(1,36), 5, range(1,13), 2, condition, 2,2)
     else:
-        lot = lotteryguess.method(hist_list.values(), range(1,34), 6, range(1,17), 1, lotteryguess.Condition(45,145,1,5,1,5,0,4,13), 2)
+        condition = lotteryguess.Condition(45,145,1,5,1,5,0,4,13)
+        lot = lotteryguess.method(hist_list.values(), range(1,34), 6, range(1,17), 1, condition, 2)
     
     if do_test:
         for l in lot:
@@ -63,7 +65,7 @@ def LotGsValidDlt(pub_lot, gs_lot):
     if (pub_lot.pub_date.date().isoweekday() in [1,3] and td.days <2) or (pub_lot.pub_date.date().isoweekday() in [6] and td.days <3):
         if getattr(settings, 'DEBUG', False):
             print pub_lot,gs_lot
-        level = pub_lot.toDC().cmp_red(gs_lot.toDC().red)
+        level = pub_lot.toDC().cmp(gs_lot.toDC())
         if level==17:
             #5+2
             level = 1
