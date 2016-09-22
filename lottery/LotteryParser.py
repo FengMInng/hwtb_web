@@ -8,7 +8,6 @@ import urllib2, datetime
 from HTMLParser import HTMLParser
 import re
 
-from django.conf import settings
 
 class DltHTMLParser(HTMLParser):
     def __init__(self,pn):
@@ -17,14 +16,14 @@ class DltHTMLParser(HTMLParser):
         self.m_hist=list()
         self.m_str=None
         self.m_pn = pn
-        self.m_debug = getattr(settings, 'DEBUG',  False)
+        self.m_debug =  False
         self.m_html=self.gethtml(pn)
         if self.m_html:
             self.feed(self.m_html)
         pass
     
     def gethtml(self,p):
-        url = "http://www.lottery.gov.cn/lottery/dlt/History.aspx?p="+str(p)
+        url = "http://chart.lottery.gov.cn/dltBasicZongHeTongJi.do?typ=1&issueTop=100"
         if self.m_debug:
             print url
         try:
@@ -43,44 +42,29 @@ class DltHTMLParser(HTMLParser):
         pass
         
     def handle_starttag(self, tag, attrs):
-        if len(self.m_hist) >= 50:
-            return
-        if tag=='tr':
+        if tag == 'tr':
             for (variable, value)  in attrs:
-                if variable == 'bgcolor':
-                    if (value=='#ffffff' or value=='#f4f4f4'):
+                if variable=='class' and value =='r1':
+                    self.m_stack.append(tag)
+        elif tag == 'td':
+            if(len(self.m_stack)>0) and (self.m_stack[-1] == 'tr'):
+                for (variable, value)  in attrs:
+                    if variable=='class' and (value in ['EndTime','Issue']):
                         self.m_stack.append(tag)
-        if tag == 'td':
-            if(len(self.m_stack)>0):
-                if(self.m_stack[-1] == 'tr'):
-                    self.m_stack.append(tag)
-        if tag == 'b':
-            if(len(self.m_stack)>0):
-                if(self.m_stack[-1] == 'td'):
-                    self.m_stack.append(tag)
-        if tag == 'font':
-            if(len(self.m_stack)>0):
-                if(self.m_stack[-1] == 'b'):
-                    self.m_stack.append(tag)
         pass
     
     def handle_data(self, data):
-        if '/'.join(self.m_stack) == 'tr/td' and len(data.strip()) == 5 :
-            if self.m_str is None:
+        if '/'.join(self.m_stack) == 'tr/td':
+            if len(data.strip()) == 10 :
                 self.m_str = data.strip()
                 self.m_step=0
-        if '/'.join(self.m_stack) == 'tr/td/b/font':
-            if self.m_str:
-                self.m_step=1
-                self.m_str = self.m_str + " " + data.strip()
-                if len(data.strip())==5:
-                    self.m_step=2
-                    
-        if '/'.join(self.m_stack) == 'tr/td' and len(data.strip()) == 10 :
+            else:
+                self.m_str += " " + data
+                self.m_step +=1
+                
             if self.m_step == 2:
-                self.m_str = self.m_str + " " + data.strip()
                 self.m_hist.append(unicode(self.m_str, 'utf8'))
-            self.m_str = None
+                self.m_str = None
     
     def handle_endtag(self,tag):
         if len(self.m_stack) > 0 and self.m_stack[-1] == tag:
@@ -95,7 +79,7 @@ class SsqHTMLParser(HTMLParser):
         self.m_str=None
         self.m_url='http://tubiao.zhcw.com/tubiao/ssqNew/ssqInc/ssq_hq_general_dataTuAsckj_year={0}.html'
         self.m_pn = pn
-        self.m_debug = getattr(settings, 'DEBUG', False)
+        self.m_debug = False
         self.m_html=self.gethtml(pn)
         if self.m_html:
             self.feed(self.m_html)
@@ -162,13 +146,13 @@ class Lottery:
     @staticmethod
     def parse_dlt(s):
         lot = Lottery()
-        lot.no = s[0:5]
+        lot.pub_date = s[:10]
+        lot.no = s[11:18]
         r = re.compile('\d+')
-        l = r.findall(s[6:27])
+        l = r.findall(s[19:])
         if len(l)==7:
             lot.red=l[0:5]
             lot.blue =l[5:7]
-        lot.pub_date=s[27:]
         return lot
     @staticmethod
     def parse_ssq(s):
@@ -213,15 +197,13 @@ class Lot:
         while(len(htmlparser.m_hist)and conti):
             print htmlparser.m_pn, len(htmlparser.m_hist)
             for line in htmlparser.m_hist:
-                if getattr(settings, 'DEBUG', False):
-                    print line
+                print line
                 if self.lot_type == 'dlt':
                     lottery = Lottery.parse_dlt(line)
                 else:
                     lottery = Lottery.parse_ssq(line)
                 
-                if getattr(settings, 'DEBUG', False):
-                    print lottery
+                print lottery
                 if lottery.no not in self.m_hist.keys():
                     self.m_hist[lottery.no]=lottery
                     self.new_hist.append(lottery.no)
@@ -254,7 +236,7 @@ class Lot:
             
 if __name__ == '__main__':
     
-    lot =Lot('dc')       
+    lot =Lot('dlt')       
     lot.run() 
     for k,v in lot.m_hist.iteritems():
         print k, v.pub_date, v.red
